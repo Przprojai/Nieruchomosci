@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+
+<h:form id="rejestracja">
+    <p:growl id="growl" sticky="true" showDetail="true"/>
+ 
+    <p:wizard flowListener="#{lokatorController.onFlowProcess}" style="width: 40%;margin-left: 35%;" backLabel="Cofnij" nextLabel="Dalej"  widgetVar="wiz">
+        <p:tab id="personal" title="Dane logowania" >
+            <p:panel header="Dane logowania" style="background: silver">
+                <p:messages />
+                <h:panelGrid columns="2" columnClasses="label, value" style="margin-left: 20%;background: silver" >
+                    <h:outputText value="Login: *" style="font-weight: bold"/>
+                    <p:inputText id="logowanie" value="#{lokatorController.selected.login}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_login}"/>
+
+                   
+                    <h:outputText value="Imię: *" style="font-weight: bold"/>
+                    <p:inputText value="#{lokatorController.selected.imie}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_imie}"/>
+ 
+                    <h:outputText value="Nazwisko: *" style="font-weight: bold"/>
+                    <p:inputText value="#{lokatorController.selected.nazwisko}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_nazwisko}" />
+ 
+                    <h:outputText value="Kontakt: *" style="font-weight: bold"/>
+                    <p:inputMask value="#{lokatorController.selected.kontakt}" required="true" mask="999999999" requiredMessage="#{bundle.CreateLokatorRequiredMessage_kontakt}"/>
+                </h:panelGrid>
+                
+            </p:panel>
+        </p:tab>
+ 
+        <p:tab id="mieszkanie" title="Mieszkanie">
+            <p:panel header="Mieszkanie" style="background: silver" >
+                <p:messages />
+                <p:dataTable id="datalist" value="#{lokatorController.lista_mieszkan()}" var="item" 
+                                 selectionMode="single" selection="#{lokatorController.selected.idMieszkania}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 tableStyle="table-layout: auto"
+                                 style="text-align: center"
+                                 >
+                        <p:column  style="width: 30px">
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.nrMieszkania}" filterBy="#{item.nrMieszkania}" style="width: 120px">
+                            <f:facet name="header">
+                                <h:outputText value="Numer"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nrMieszkania}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.ulica}" filterBy="#{item.ulica}" style="width: 120px">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_ulica}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ulica}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.nrBloku}" filterBy="#{item.nrBloku}" style="width: 120px">
+                            <f:facet name="header">
+                                <h:outputText value="Blok"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nrBloku}"/>
+                        </p:column>
+                        <p:column style="width: 40px">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_klatka}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.klatka}"/>
+                        </p:column>
+                        <p:column style="width: 30px">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_powierzchnia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.powierzchnia}"/>
+                        </p:column>
+                        <p:column style="width: 40px">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_pietro}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pietro}"/>
+                        </p:column>
+                        <f:facet name="footer">     
+                        </f:facet>
+                    </p:dataTable>                
+            </p:panel>
+        </p:tab>
+                <p:tab id="address" title="Dane mieszkania" >
+            <p:panel header="Dane osobiste" style="background: silver">
+                <p:messages />
+                <h:panelGrid columns="2" columnClasses="label, value" style="margin-left: 20%;background: silver">
+                    
+                <h:outputText value="Liczba osób: " style="font-weight: bold"/>
+                <p:inputText id="lo" value="#{lokatorController.selected.idMieszkania.liczbaOsob}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_login}"/>   
+                
+                <h:outputText value="Adres korespondencyjny: *" style="font-weight: bold"/>
+                <p:inputText id="ak" value="#{lokatorController.selected.idMieszkania.adresKorespondencyjny}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_login}"/> 
+                </h:panelGrid>
+                
+            </p:panel>
+        </p:tab>
+
+ 
+        <p:tab id="confirm" title="Potwierdzenie">
+
+            <p:panel header="Potwierdzenie" style="background: silver">
+                <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid" style="margin-left: 20%;background: silver">
+                    <h:panelGrid columns="2" columnClasses="label, value">
+                    <h:outputText value="Login: " />
+                        <h:outputText value="#{lokatorController.selected.login}" style="font-weight: bold" styleClass="outputLabel"/>
+ 
+                        <h:outputText value="Hasło: " />
+                        <h:outputText value="#{lokatorController.selected.login}" styleClass="outputLabel" style="font-weight: bold"/>
+                        <h:outputText value="Imię: " />
+                        <h:outputText value="#{lokatorController.selected.imie}" style="font-weight: bold" styleClass="outputLabel"/>
+                        <h:outputText value="Nazwisko: " />
+                        <h:outputText value="#{lokatorController.selected.nazwisko}" style="font-weight: bold" styleClass="outputLabel"/>
+                    </h:panelGrid>
+ 
+                    <h:panelGrid columns="2" columnClasses="label, value">
+                    <h:outputText value="Liczba osób: " />
+                    <h:outputText  value="#{lokatorController.selected.idMieszkania.liczbaOsob}" style="font-weight: bold"/>   
+                    <h:outputText value="Adres korespondencyjny: " />
+                    <h:outputText  value="#{lokatorController.selected.idMieszkania.adresKorespondencyjny}" style="font-weight: bold"/> 
+                         <h:outputText value="Kontakt: " />
+                         <h:outputText value="#{lokatorController.selected.kontakt}" style="font-weight: bold" />
+                         <h:outputText value="Mieszkanie: " />
+                         <h:outputText value="Ul. #{lokatorController.selected.idMieszkania.ulica}, nr bloku #{lokatorController.selected.idMieszkania.nrBloku}, mieszkania #{lokatorController.selected.idMieszkania.nrMieszkania}" style="font-weight: bold" />
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" columnClasses="label, value">
+
+                         
+                    </h:panelGrid>
+                </h:panelGrid>
+               
+                <p:commandButton value="Rejestracja" action="#{mieszkanieController.utworz_lokatora(lokatorController.create3(lokatorController.selected.idMieszkania))}" update=":rejestracja" process="@this" style="margin-left: 40%"/>
+            </p:panel>
+        </p:tab>
+    </p:wizard>
+   <p:commandButton value="Powrót"  action="/Login.xhtml" immediate="true" style="margin-left: 35%"/>
+</h:form>
+
+ 
+
+    </h:body>
+
+
+</html>

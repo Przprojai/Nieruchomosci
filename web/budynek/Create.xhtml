@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudynekCreateDlg" widgetVar="BudynekCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateBudynekTitle}">
+            <h:form id="BudynekCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{budynekController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateBudynekLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{budynekController.selected.id}" title="#{bundle.CreateBudynekTitle_id}" required="true" requiredMessage="#{bundle.CreateBudynekRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateBudynekLabel_adres}" for="adres" />
+                        <p:inputText id="adres" value="#{budynekController.selected.adres}" title="#{bundle.CreateBudynekTitle_adres}" required="true" requiredMessage="#{bundle.CreateBudynekRequiredMessage_adres}"/>
+                        <p:outputLabel value="#{bundle.CreateBudynekLabel_liczbaMieszkan}" for="liczbaMieszkan" />
+                        <p:inputText id="liczbaMieszkan" value="#{budynekController.selected.liczbaMieszkan}" title="#{bundle.CreateBudynekTitle_liczbaMieszkan}" required="true" requiredMessage="#{bundle.CreateBudynekRequiredMessage_liczbaMieszkan}"/>
+                        <p:outputLabel value="#{bundle.CreateBudynekLabel_liczbaKlatek}" for="liczbaKlatek" />
+                        <p:inputText id="liczbaKlatek" value="#{budynekController.selected.liczbaKlatek}" title="#{bundle.CreateBudynekTitle_liczbaKlatek}" required="true" requiredMessage="#{bundle.CreateBudynekRequiredMessage_liczbaKlatek}"/>
+                        <p:outputLabel value="#{bundle.CreateBudynekLabel_kontakt}" for="kontakt" />
+                        <p:inputText id="kontakt" value="#{budynekController.selected.kontakt}" title="#{bundle.CreateBudynekTitle_kontakt}" required="true" requiredMessage="#{bundle.CreateBudynekRequiredMessage_kontakt}"/>
+                        <p:outputLabel value="#{bundle.CreateBudynekLabel_idWspolnota}" for="idWspolnota" />
+                        <p:selectOneMenu id="idWspolnota" value="#{budynekController.selected.idWspolnota}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_idWspolnota}">
+                            <f:selectItems value="#{wspolnotaController.itemsAvailableSelectOne}"
+                                           var="idWspolnotaItem"
+                                           itemValue="#{idWspolnotaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{budynekController.create}" value="#{bundle.Save}" update="display,:BudynekListForm:datalist,:growl" oncomplete="handleSubmit(args,'BudynekCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BudynekCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

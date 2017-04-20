@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InformacjaViewDlg" widgetVar="InformacjaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewInformacjaTitle}">
+            <h:form id="InformacjaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{informacjaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewInformacjaLabel_id}"/>
+                        <h:outputText value="#{informacjaController.selected.id}" title="#{bundle.ViewInformacjaTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewInformacjaLabel_opis}"/>
+                        <h:outputText value="#{informacjaController.selected.opis}" title="#{bundle.ViewInformacjaTitle_opis}"/>
+                        <h:outputText value="#{bundle.ViewInformacjaLabel_numer}"/>
+                        <h:outputText value="#{informacjaController.selected.numer}" title="#{bundle.ViewInformacjaTitle_numer}"/>
+                        <h:outputText value="#{bundle.ViewInformacjaLabel_potwierdzenie}"/>
+                        <p:selectBooleanCheckbox value="#{informacjaController.selected.potwierdzenie}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewInformacjaLabel_idMieszkania}"/>
+                        <h:outputText value="#{informacjaController.selected.idMieszkania}" title="#{bundle.ViewInformacjaTitle_idMieszkania}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="InformacjaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

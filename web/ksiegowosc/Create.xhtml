@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="KsiegowoscCreateDlg" widgetVar="KsiegowoscCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateKsiegowoscTitle}">
+            <h:form id="KsiegowoscCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ksiegowoscController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateKsiegowoscLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{ksiegowoscController.selected.id}" title="#{bundle.CreateKsiegowoscTitle_id}" required="true" requiredMessage="#{bundle.CreateKsiegowoscRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateKsiegowoscLabel_login}" for="login" />
+                        <p:inputText id="login" value="#{ksiegowoscController.selected.login}" title="#{bundle.CreateKsiegowoscTitle_login}" required="true" requiredMessage="#{bundle.CreateKsiegowoscRequiredMessage_login}"/>
+                        <p:outputLabel value="#{bundle.CreateKsiegowoscLabel_haslo}" for="haslo" />
+                        <p:inputText id="haslo" value="#{ksiegowoscController.selected.haslo}" title="#{bundle.CreateKsiegowoscTitle_haslo}" required="true" requiredMessage="#{bundle.CreateKsiegowoscRequiredMessage_haslo}"/>
+                        <p:outputLabel value="#{bundle.CreateKsiegowoscLabel_imie}" for="imie" />
+                        <p:inputText id="imie" value="#{ksiegowoscController.selected.imie}" title="#{bundle.CreateKsiegowoscTitle_imie}" required="true" requiredMessage="#{bundle.CreateKsiegowoscRequiredMessage_imie}"/>
+                        <p:outputLabel value="#{bundle.CreateKsiegowoscLabel_nazwisko}" for="nazwisko" />
+                        <p:inputText id="nazwisko" value="#{ksiegowoscController.selected.nazwisko}" title="#{bundle.CreateKsiegowoscTitle_nazwisko}" required="true" requiredMessage="#{bundle.CreateKsiegowoscRequiredMessage_nazwisko}"/>
+                        <p:outputLabel value="#{bundle.CreateKsiegowoscLabel_kontakt}" for="kontakt" />
+                        <p:inputText id="kontakt" value="#{ksiegowoscController.selected.kontakt}" title="#{bundle.CreateKsiegowoscTitle_kontakt}" required="true" requiredMessage="#{bundle.CreateKsiegowoscRequiredMessage_kontakt}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ksiegowoscController.create}" value="#{bundle.Save}" update="display,:KsiegowoscListForm:datalist,:growl" oncomplete="handleSubmit(args,'KsiegowoscCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="KsiegowoscCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

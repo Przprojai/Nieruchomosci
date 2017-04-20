@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:form id="index">
+        <p:messages id="messages"  autoUpdate="true" closable="true"  />
+        <h:body>
+            <h:form>
+                <h:commandButton actionListener="#{lokatorController.prepareCreate3()}" action="/lokator/rejestracja.xhtml"  value="Utwórz konto lokatora"/>
+
+                <br />
+                <h:commandButton action="/mieszkanie/List_1" value="Aktualizuj stany kont"/>
+                <br />
+            </h:form>
+            <h:link outcome="/liczniki/List_1" value="Aktualizuj stany liczników"/>
+            <br />
+            <h:link outcome="/admin/List" value="Show All Admin Items"/>
+            <br />
+            <h:link outcome="/podsumowanieBudynku/List" value="Show All PodsumowanieBudynku Items"/>
+            <br />
+            <h:link outcome="/awaria/List" value="Show All Awaria Items"/>
+            <br />
+            <h:link outcome="/budynek/List" value="Show All Budynek Items"/>
+            <br />
+            <h:link outcome="/dodatkoweOplaty/List" value="Show All DodatkoweOplaty Items"/>
+            <br />
+            <h:link outcome="/informacja/List" value="Show All Informacja Items"/>
+            <br />
+            <h:link outcome="/ksiegowosc/List" value="Show All Ksiegowosc Items"/>
+            <br />
+            <h:link outcome="/lokator/List" value="Show All Lokator Items"/>
+            <br />
+            <h:link outcome="/mieszkanie/List" value="Show All Mieszkanie Items"/>
+            <br />
+            <h:link outcome="/oplaty/List" value="Show All Oplaty Items"/>
+            <br />
+            <h:link outcome="/wspolnota/List" value="Show All Wspolnota Items"/>
+            <br />
+            <h:link outcome="/stawki/List" value="Show All Stawki Items"/>
+
+            <br />
+
+
+        </h:body>
+
+
+
+    </h:form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
+

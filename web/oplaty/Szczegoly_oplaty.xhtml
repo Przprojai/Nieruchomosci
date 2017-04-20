@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SzczegolyViewDlg" widgetVar="SzczegolyViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSzczegolyTitle}">
+            <h:form id="SzczegolyViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="1" >
+                        
+                        <h:outputText value="#{szczegolyController.selected.id}" title="#{bundle.ViewSzczegolyTitle_id}"/>
+                        
+                        <h:outputText value="#{szczegolyController.selected.eksploatacjaPodstawowa}" title="#{bundle.ViewSzczegolyTitle_eksploatacjaPodstawowa}"/>
+                  
+                        <h:outputText value="#{szczegolyController.selected.funduszRemontowy}" title="#{bundle.ViewSzczegolyTitle_funduszRemontowy}"/>
+         
+                        <h:outputText value="#{szczegolyController.selected.legalizacjaWodomierza}" title="#{bundle.ViewSzczegolyTitle_legalizacjaWodomierza}"/>
+      
+                        <h:outputText value="#{szczegolyController.selected.konserwacjaDomofonu}" title="#{bundle.ViewSzczegolyTitle_konserwacjaDomofonu}"/>
+ 
+                        <h:outputText value="#{szczegolyController.selected.eksploatacjaDzwigow}" title="#{bundle.ViewSzczegolyTitle_eksploatacjaDzwigow}"/>
+
+                        <h:outputText value="#{szczegolyController.selected.co}" title="#{bundle.ViewSzczegolyTitle_co}"/>
+
+                        <h:outputText value="#{szczegolyController.selected.cw}" title="#{bundle.ViewSzczegolyTitle_cw}"/>
+
+                        <h:outputText value="#{szczegolyController.selected.zwis}" title="#{bundle.ViewSzczegolyTitle_zwis}"/>
+ 
+                        <h:outputText value="#{szczegolyController.selected.gaz}" title="Gaz"/>
+
+                        <h:outputText value="#{szczegolyController.selected.pradWPomWspolnych}" title="#{bundle.ViewSzczegolyTitle_pradWPomWspolnych}"/>
+
+                        <h:outputText value="#{szczegolyController.selected.smieci}" title="#{bundle.ViewSzczegolyTitle_smieci}"/>
+
+                        <h:outputText value="#{szczegolyController.selected.ubezpieczenie}" title="#{bundle.ViewSzczegolyTitle_ubezpieczenie}"/>
+
+                        <h:outputText value="Dodatkowe opłaty #{szczegolyController.selected.dodatkowe_oplaty}" title="Dodatkowe opłaty"/>
+                         
+                        <h:outputText value="Suma #{szczegolyController.selected.suma}" title="Suma"/>
+
+                       
+
+                        <h:outputText value="#{szczegolyController.selected.idOplaty}" title="#{bundle.ViewSzczegolyTitle_idOplaty}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SzczegolyViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

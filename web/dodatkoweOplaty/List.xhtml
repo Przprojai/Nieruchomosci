@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDodatkoweOplatyTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="DodatkoweOplatyListForm">
+                <p:panel header="#{bundle.ListDodatkoweOplatyTitle}">
+                    <p:dataTable id="datalist" value="#{dodatkoweOplatyController.items}" var="item"
+                                 selectionMode="single" selection="#{dodatkoweOplatyController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="Nic tu nie ma!"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDodatkoweOplatyTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDodatkoweOplatyTitle_rodzaj}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rodzaj}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDodatkoweOplatyTitle_koszt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.koszt}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDodatkoweOplatyTitle_idOplaty}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idOplaty}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{dodatkoweOplatyController.prepareCreate}" update=":DodatkoweOplatyCreateForm" oncomplete="PF('DodatkoweOplatyCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DodatkoweOplatyViewForm" oncomplete="PF('DodatkoweOplatyViewDialog').show()" disabled="#{empty dodatkoweOplatyController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DodatkoweOplatyEditForm" oncomplete="PF('DodatkoweOplatyEditDialog').show()" disabled="#{empty dodatkoweOplatyController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{dodatkoweOplatyController.destroy}" update=":growl,datalist" disabled="#{empty dodatkoweOplatyController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

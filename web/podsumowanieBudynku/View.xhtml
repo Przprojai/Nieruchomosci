@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PodsumowanieBudynkuViewDlg" widgetVar="PodsumowanieBudynkuViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPodsumowanieBudynkuTitle}">
+            <h:form id="PodsumowanieBudynkuViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{podsumowanieBudynkuController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_id}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.id}" title="#{bundle.ViewPodsumowanieBudynkuTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_miesiac}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.miesiac}" title="#{bundle.ViewPodsumowanieBudynkuTitle_miesiac}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_rok}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.rok}" title="#{bundle.ViewPodsumowanieBudynkuTitle_rok}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_eksploatacjaPodstawowa}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.eksploatacjaPodstawowa}" title="#{bundle.ViewPodsumowanieBudynkuTitle_eksploatacjaPodstawowa}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_funduszRemontowy}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.funduszRemontowy}" title="#{bundle.ViewPodsumowanieBudynkuTitle_funduszRemontowy}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_legalizacjaWodomierza}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.legalizacjaWodomierza}" title="#{bundle.ViewPodsumowanieBudynkuTitle_legalizacjaWodomierza}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_konserwacjaDomofonu}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.konserwacjaDomofonu}" title="#{bundle.ViewPodsumowanieBudynkuTitle_konserwacjaDomofonu}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_eksploatacjaDzwigow}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.eksploatacjaDzwigow}" title="#{bundle.ViewPodsumowanieBudynkuTitle_eksploatacjaDzwigow}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_co}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.co}" title="#{bundle.ViewPodsumowanieBudynkuTitle_co}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_cw}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.cw}" title="#{bundle.ViewPodsumowanieBudynkuTitle_cw}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_zwis}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.zwis}" title="#{bundle.ViewPodsumowanieBudynkuTitle_zwis}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_gaz}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.gaz}" title="#{bundle.ViewPodsumowanieBudynkuTitle_gaz}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_pradWPomWspolnych}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.pradWPomWspolnych}" title="#{bundle.ViewPodsumowanieBudynkuTitle_pradWPomWspolnych}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_smieci}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.smieci}" title="#{bundle.ViewPodsumowanieBudynkuTitle_smieci}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_ubezpieczenie}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.ubezpieczenie}" title="#{bundle.ViewPodsumowanieBudynkuTitle_ubezpieczenie}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_dodatkowe_oplaty}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.dodatkowe_oplaty}" title="#{bundle.ViewPodsumowanieBudynkuTitle_dodatkowe_oplaty}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_suma}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.suma}" title="#{bundle.ViewPodsumowanieBudynkuTitle_suma}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_zaplacono}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.zaplacono}" title="#{bundle.ViewPodsumowanieBudynkuTitle_zaplacono}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_wynik}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.wynik}" title="#{bundle.ViewPodsumowanieBudynkuTitle_wynik}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_zajetychMieszkan}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.zajetychMieszkan}" title="#{bundle.ViewPodsumowanieBudynkuTitle_zajetychMieszkan}"/>
+                        <h:outputText value="#{bundle.ViewPodsumowanieBudynkuLabel_idBudynku}"/>
+                        <h:outputText value="#{podsumowanieBudynkuController.selected.idBudynku}" title="#{bundle.ViewPodsumowanieBudynkuTitle_idBudynku}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PodsumowanieBudynkuViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

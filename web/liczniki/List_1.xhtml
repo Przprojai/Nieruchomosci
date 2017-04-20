@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListLicznikiTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="LicznikiListForm">
+                <p:panel header="#{bundle.ListLicznikiTitle}">
+                    <p:dataTable id="datalist" value="#{licznikiController.items}" var="item"
+                                 selectionMode="single" selection="#{licznikiController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 tableStyle="table-layout: auto"
+                                 style="text-align: center"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLicznikiTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLicznikiTitle_miesiac}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.miesiac}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLicznikiTitle_rok}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rok}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLicznikiTitle_licznikWodyCieplej}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.licznikWodyCieplej}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLicznikiTitle_licznikWodyZimnej}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.licznikWodyZimnej}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLicznikiTitle_licznikCiepla}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.licznikCiepla}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLicznikiTitle_idMieszkania}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMieszkania}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{licznikiController.prepareCreate}" update=":LicznikiCreateForm" oncomplete="PF('LicznikiCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LicznikiViewForm" oncomplete="PF('LicznikiViewDialog').show()" disabled="#{empty licznikiController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LicznikiEditForm" oncomplete="PF('LicznikiEditDialog').show()" disabled="#{empty licznikiController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{licznikiController.destroy}" update=":growl,datalist" disabled="#{empty licznikiController.selected}"/>
+                            <p:commandButton value="Wczytaj" oncomplete="PF('LicznikiUploadDialog').show()"/>
+                            <p:commandButton value="Aktualizuj" action="#{licznikiController.liczniki()}" disabled="#{licznikiController.wyswietlsciezke2()==null}" update=":growl,datalist"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            <ui:include src="Liczniki_1.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

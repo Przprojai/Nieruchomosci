@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    
+    
+    <c:if test="false" > </c:if>    
+    <h:body>
+        <c:if test="true" > </c:if>       
+ <h:form id="logowanie">
+     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"  />
+                
+                      <p:fieldset legend="Logowanie" style="width:20%;margin-left: 40%;background: silver" >
+            <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundleadmin.CreateAdminLabel_login}" for="login" style="font-weight: bold; margin-left: 30%" />
+                    <h:inputText id="login" value="#{adminController.wybierz.login}" style="margin-left: 30%"/>
+                    <h:outputLabel value="#{bundleadmin.CreateAdminLabel_haslo}" for="haslo" style="font-weight: bold; margin-left: 30%" />
+                    <h:inputSecret id="haslo" value="#{adminController.wybierz.haslo}" style="margin-left: 30%" />
+                   
+                </h:panelGrid>
+                <br />
+                <p:commandButton action="#{adminController.find}" value="Zaloguj" style="margin-left: 20%"/>
+                   
+                <p:commandButton value="Powrót"  action="/index.xhtml" ajax="false" immediate="true" style="margin-left:15px"/>
+                                 
+                     <p:watermark for="login" value="Login"/>     
+                          <p:watermark for="haslo" value="Haslo"/>               
+
+
+   </p:fieldset>            
+
+     </h:form>
+              
+
+
+    </h:body>
+
+    
+ 
+</html>

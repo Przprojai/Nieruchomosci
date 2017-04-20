@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PodsumowanieBudynkuCreateDlg" widgetVar="PodsumowanieBudynkuCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePodsumowanieBudynkuTitle}">
+            <h:form id="PodsumowanieBudynkuCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{podsumowanieBudynkuController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{podsumowanieBudynkuController.selected.id}" title="#{bundle.CreatePodsumowanieBudynkuTitle_id}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_miesiac}" for="miesiac" />
+                        <p:inputText id="miesiac" value="#{podsumowanieBudynkuController.selected.miesiac}" title="#{bundle.CreatePodsumowanieBudynkuTitle_miesiac}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_miesiac}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_rok}" for="rok" />
+                        <p:inputText id="rok" value="#{podsumowanieBudynkuController.selected.rok}" title="#{bundle.CreatePodsumowanieBudynkuTitle_rok}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_rok}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_eksploatacjaPodstawowa}" for="eksploatacjaPodstawowa" />
+                        <p:inputText id="eksploatacjaPodstawowa" value="#{podsumowanieBudynkuController.selected.eksploatacjaPodstawowa}" title="#{bundle.CreatePodsumowanieBudynkuTitle_eksploatacjaPodstawowa}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_eksploatacjaPodstawowa}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_funduszRemontowy}" for="funduszRemontowy" />
+                        <p:inputText id="funduszRemontowy" value="#{podsumowanieBudynkuController.selected.funduszRemontowy}" title="#{bundle.CreatePodsumowanieBudynkuTitle_funduszRemontowy}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_funduszRemontowy}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_legalizacjaWodomierza}" for="legalizacjaWodomierza" />
+                        <p:inputText id="legalizacjaWodomierza" value="#{podsumowanieBudynkuController.selected.legalizacjaWodomierza}" title="#{bundle.CreatePodsumowanieBudynkuTitle_legalizacjaWodomierza}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_legalizacjaWodomierza}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_konserwacjaDomofonu}" for="konserwacjaDomofonu" />
+                        <p:inputText id="konserwacjaDomofonu" value="#{podsumowanieBudynkuController.selected.konserwacjaDomofonu}" title="#{bundle.CreatePodsumowanieBudynkuTitle_konserwacjaDomofonu}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_konserwacjaDomofonu}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_eksploatacjaDzwigow}" for="eksploatacjaDzwigow" />
+                        <p:inputText id="eksploatacjaDzwigow" value="#{podsumowanieBudynkuController.selected.eksploatacjaDzwigow}" title="#{bundle.CreatePodsumowanieBudynkuTitle_eksploatacjaDzwigow}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_eksploatacjaDzwigow}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_co}" for="co" />
+                        <p:inputText id="co" value="#{podsumowanieBudynkuController.selected.co}" title="#{bundle.CreatePodsumowanieBudynkuTitle_co}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_co}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_cw}" for="cw" />
+                        <p:inputText id="cw" value="#{podsumowanieBudynkuController.selected.cw}" title="#{bundle.CreatePodsumowanieBudynkuTitle_cw}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_cw}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_zwis}" for="zwis" />
+                        <p:inputText id="zwis" value="#{podsumowanieBudynkuController.selected.zwis}" title="#{bundle.CreatePodsumowanieBudynkuTitle_zwis}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_zwis}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_gaz}" for="gaz" />
+                        <p:inputText id="gaz" value="#{podsumowanieBudynkuController.selected.gaz}" title="#{bundle.CreatePodsumowanieBudynkuTitle_gaz}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_gaz}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_pradWPomWspolnych}" for="pradWPomWspolnych" />
+                        <p:inputText id="pradWPomWspolnych" value="#{podsumowanieBudynkuController.selected.pradWPomWspolnych}" title="#{bundle.CreatePodsumowanieBudynkuTitle_pradWPomWspolnych}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_pradWPomWspolnych}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_smieci}" for="smieci" />
+                        <p:inputText id="smieci" value="#{podsumowanieBudynkuController.selected.smieci}" title="#{bundle.CreatePodsumowanieBudynkuTitle_smieci}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_smieci}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_ubezpieczenie}" for="ubezpieczenie" />
+                        <p:inputText id="ubezpieczenie" value="#{podsumowanieBudynkuController.selected.ubezpieczenie}" title="#{bundle.CreatePodsumowanieBudynkuTitle_ubezpieczenie}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_ubezpieczenie}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_dodatkowe_oplaty}" for="dodatkowe_oplaty" />
+                        <p:inputText id="dodatkowe_oplaty" value="#{podsumowanieBudynkuController.selected.dodatkowe_oplaty}" title="#{bundle.CreatePodsumowanieBudynkuTitle_dodatkowe_oplaty}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_dodatkowe_oplaty}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_suma}" for="suma" />
+                        <p:inputText id="suma" value="#{podsumowanieBudynkuController.selected.suma}" title="#{bundle.CreatePodsumowanieBudynkuTitle_suma}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_suma}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_zaplacono}" for="zaplacono" />
+                        <p:inputText id="zaplacono" value="#{podsumowanieBudynkuController.selected.zaplacono}" title="#{bundle.CreatePodsumowanieBudynkuTitle_zaplacono}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_zaplacono}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_wynik}" for="wynik" />
+                        <p:inputText id="wynik" value="#{podsumowanieBudynkuController.selected.wynik}" title="#{bundle.CreatePodsumowanieBudynkuTitle_wynik}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_wynik}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_zajetychMieszkan}" for="zajetychMieszkan" />
+                        <p:inputText id="zajetychMieszkan" value="#{podsumowanieBudynkuController.selected.zajetychMieszkan}" title="#{bundle.CreatePodsumowanieBudynkuTitle_zajetychMieszkan}" required="true" requiredMessage="#{bundle.CreatePodsumowanieBudynkuRequiredMessage_zajetychMieszkan}"/>
+                        <p:outputLabel value="#{bundle.CreatePodsumowanieBudynkuLabel_idBudynku}" for="idBudynku" />
+                        <p:selectOneMenu id="idBudynku" value="#{podsumowanieBudynkuController.selected.idBudynku}" required="true" requiredMessage="#{bundle.EditPodsumowanieBudynkuRequiredMessage_idBudynku}">
+                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
+                                           var="idBudynkuItem"
+                                           itemValue="#{idBudynkuItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{podsumowanieBudynkuController.create}" value="#{bundle.Save}" update="display,:PodsumowanieBudynkuListForm:datalist,:growl" oncomplete="handleSubmit(args,'PodsumowanieBudynkuCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PodsumowanieBudynkuCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

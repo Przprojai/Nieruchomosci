@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        
+        <p:dialog id="OplatySzczegolyDlg" widgetVar="OplatySzczegolyDialog" modal="true" resizable="false" appendTo="@(body)" header="Szczegóły">
+            <h:form id="OplatySzczegolyForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{oplatyController.selected != null}">
+                       
+                        <h:outputText value="Eksploatacja podstawowa #{stawkiController.selected.eksploatacjaPodstawowa} zł/m2 * #{oplatyController.selected.idMieszkania.powierzchnia} m2" />
+                       <h:outputLabel value="#{stawkiController.eksploatacja_podstawowa} zł"/>
+                       <h:outputText value="Fundusz remontowy #{stawkiController.selected.funduszRemontowy} zł/m2 * #{oplatyController.selected.idMieszkania.powierzchnia} m2"/>
+                       <h:outputLabel value="#{stawkiController.fundusz_remontowy} zł"/>
+                       <h:outputText value="Legalizacja wodomierza #{stawkiController.legalizacja_wodomierza} zł/wod * 2"/>
+                       <h:outputLabel value="#{stawkiController.legalizacja_wodomierza} zł"/>
+                       <h:outputText value="Konserwacja domofonu #{stawkiController.konserwacja_domofonu} zł/lokal"/>
+                       <h:outputLabel value="#{stawkiController.konserwacja_domofonu} zł" />
+                       <h:outputText value="Eksploatacja dźwigów #{stawkiController.eksploatacja_dzwigow} zł/os * #{oplatyController.selected.idMieszkania.liczbaOsob} os * piętro #{oplatyController.selected.idMieszkania.pietro}"/>
+                       <h:outputLabel value="#{stawkiController.eksploatacja_dzwigow} zł"/>
+                       <h:outputText value="Centralne ogrzewanie #{stawkiController.selected.co} zł*licznik ciepła * #{oplatyController.selected.idMieszkania.licznikCiepla}"/>
+                       <h:outputLabel value="#{stawkiController.co} zł"/>
+                       <h:outputText value="Ciepła woda #{oplatyController.selected.idMieszkania.licznikWodyCieplej} m3 * #{stawkiController.selected.cw} zł/m3"/>
+                       <h:outputLabel value="#{stawkiController.cw} zł"/>
+                       <h:outputText value="Zimna woda i ścieki #{oplatyController.selected.idMieszkania.licznikWodyZimnej} m3 * #{stawkiController.selected.zwis} zł/m3"/>
+                       <h:outputLabel value="#{stawkiController.zwis} zł"/>
+                       <h:outputText value="Gaz #{stawkiController.gaz} zł/os * #{oplatyController.selected.idMieszkania.liczbaOsob} os"/>
+                       <h:outputLabel value="#{stawkiController.gaz} zł"/>
+                       <h:outputText value="Prąd w pomieszczeniach wspólnych #{stawkiController.prad_w_pom_wspolnych} zł/os  #{oplatyController.selected.idMieszkania.liczbaOsob} os"/>
+                       <h:outputLabel value="#{stawkiController.prad_w_pom_wspolnych} zł"/>
+                       <h:outputText value="Wywóz odpadów komunalnych #{stawkiController.smieci} zł/gosp.dom."/>
+                       <h:outputLabel value="#{stawkiController.smieci} zł"/>
+                       <h:outputText value="Ubezpieczenie"/>
+                       <h:outputLabel value="#{stawkiController.ubezpieczenie} zł"/>
+                       <h:outputText value="Suma"/>
+                       <h:outputLabel value="#{oplatyController.selected.sumaOplat} zł"/>
+                    </p:panelGrid>
+                    <h:commandLink>
+                    <p:graphicImage name="asd" width="24"/>
+                    <p:dataExporter type="pdf" target="display" fileName="cars"/>
+                    </h:commandLink>
+                    <p:commandButton value="#{bundle.Close}" onclick="OplatySzczegolyDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

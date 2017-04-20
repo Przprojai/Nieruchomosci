@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SzczegolyCreateDlg" widgetVar="SzczegolyCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSzczegolyTitle}">
+            <h:form id="SzczegolyCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{szczegolyController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{szczegolyController.selected.id}" title="#{bundle.CreateSzczegolyTitle_id}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_eksploatacjaPodstawowa}" for="eksploatacjaPodstawowa" />
+                        <p:inputText id="eksploatacjaPodstawowa" value="#{szczegolyController.selected.eksploatacjaPodstawowa}" title="#{bundle.CreateSzczegolyTitle_eksploatacjaPodstawowa}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_eksploatacjaPodstawowa}"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_funduszRemontowy}" for="funduszRemontowy" />
+                        <p:inputText id="funduszRemontowy" value="#{szczegolyController.selected.funduszRemontowy}" title="#{bundle.CreateSzczegolyTitle_funduszRemontowy}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_funduszRemontowy}"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_legalizacjaWodomierza}" for="legalizacjaWodomierza" />
+                        <p:inputText id="legalizacjaWodomierza" value="#{szczegolyController.selected.legalizacjaWodomierza}" title="#{bundle.CreateSzczegolyTitle_legalizacjaWodomierza}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_legalizacjaWodomierza}"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_konserwacjaDomofonu}" for="konserwacjaDomofonu" />
+                        <p:inputText id="konserwacjaDomofonu" value="#{szczegolyController.selected.konserwacjaDomofonu}" title="#{bundle.CreateSzczegolyTitle_konserwacjaDomofonu}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_konserwacjaDomofonu}"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_eksploatacjaDzwigow}" for="eksploatacjaDzwigow" />
+                        <p:inputText id="eksploatacjaDzwigow" value="#{szczegolyController.selected.eksploatacjaDzwigow}" title="#{bundle.CreateSzczegolyTitle_eksploatacjaDzwigow}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_eksploatacjaDzwigow}"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_co}" for="co" />
+                        <p:inputText id="co" value="#{szczegolyController.selected.co}" title="#{bundle.CreateSzczegolyTitle_co}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_co}"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_cw}" for="cw" />
+                        <p:inputText id="cw" value="#{szczegolyController.selected.cw}" title="#{bundle.CreateSzczegolyTitle_cw}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_cw}"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_zwis}" for="zwis" />
+                        <p:inputText id="zwis" value="#{szczegolyController.selected.zwis}" title="#{bundle.CreateSzczegolyTitle_zwis}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_zwis}"/>
+                        <p:outputLabel value="Gaz" for="gaz" />
+                        <p:inputText id="gaz" value="#{szczegolyController.selected.gaz}" title="Gaz" required="true" requiredMessage="Pole Gaz wymagane"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_pradWPomWspolnych}" for="pradWPomWspolnych" />
+                        <p:inputText id="pradWPomWspolnych" value="#{szczegolyController.selected.pradWPomWspolnych}" title="#{bundle.CreateSzczegolyTitle_pradWPomWspolnych}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_pradWPomWspolnych}"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_smieci}" for="smieci" />
+                        <p:inputText id="smieci" value="#{szczegolyController.selected.smieci}" title="#{bundle.CreateSzczegolyTitle_smieci}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_smieci}"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_ubezpieczenie}" for="ubezpieczenie" />
+                        <p:inputText id="ubezpieczenie" value="#{szczegolyController.selected.ubezpieczenie}" title="#{bundle.CreateSzczegolyTitle_ubezpieczenie}" required="true" requiredMessage="#{bundle.CreateSzczegolyRequiredMessage_ubezpieczenie}"/>
+                        <p:outputLabel value="Suma" for="suma" />
+                        <p:inputText id="suma" value="#{szczegolyController.selected.suma}" title="Suma" required="true" requiredMessage="Pole Suma wymagane"/>
+                        <p:outputLabel value="Dodatkowe opłaty" for="dodatkowe_oplaty" />
+                        <p:inputText id="dodatkowe_oplaty" value="#{szczegolyController.selected.dodatkowe_oplaty}" title="Dodatkowe opłaty" required="false"/>
+                        <p:outputLabel value="#{bundle.CreateSzczegolyLabel_idOplaty}" for="idOplaty" />
+                        <p:selectOneMenu id="idOplaty" value="#{szczegolyController.selected.idOplaty}" required="true" requiredMessage="#{bundle.EditSzczegolyRequiredMessage_idOplaty}">
+                            <f:selectItems value="#{oplatyController.itemsAvailableSelectOne}"
+                                           var="idOplatyItem"
+                                           itemValue="#{idOplatyItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{szczegolyController.create}" value="#{bundle.Save}" update="display,:SzczegolyListForm:datalist,:growl" oncomplete="handleSubmit(args,'SzczegolyCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SzczegolyCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

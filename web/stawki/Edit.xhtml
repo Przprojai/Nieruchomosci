@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StawkiEditDlg" widgetVar="StawkiEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditStawkiTitle}">
+            <h:form id="StawkiEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{stawkiController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{stawkiController.selected.id}" title="#{bundle.EditStawkiTitle_id}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_eksploatacjaPodstawowa}" for="eksploatacjaPodstawowa" />
+                        <p:inputText id="eksploatacjaPodstawowa" value="#{stawkiController.selected.eksploatacjaPodstawowa}" title="#{bundle.EditStawkiTitle_eksploatacjaPodstawowa}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_eksploatacjaPodstawowa}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_funduszRemontowy}" for="funduszRemontowy" />
+                        <p:inputText id="funduszRemontowy" value="#{stawkiController.selected.funduszRemontowy}" title="#{bundle.EditStawkiTitle_funduszRemontowy}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_funduszRemontowy}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_legalizacjaWodomierza}" for="legalizacjaWodomierza" />
+                        <p:inputText id="legalizacjaWodomierza" value="#{stawkiController.selected.legalizacjaWodomierza}" title="#{bundle.EditStawkiTitle_legalizacjaWodomierza}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_legalizacjaWodomierza}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_konserwacjaDomofonu}" for="konserwacjaDomofonu" />
+                        <p:inputText id="konserwacjaDomofonu" value="#{stawkiController.selected.konserwacjaDomofonu}" title="#{bundle.EditStawkiTitle_konserwacjaDomofonu}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_konserwacjaDomofonu}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_eksploatacjaDzwigow}" for="eksploatacjaDzwigow" />
+                        <p:inputText id="eksploatacjaDzwigow" value="#{stawkiController.selected.eksploatacjaDzwigow}" title="#{bundle.EditStawkiTitle_eksploatacjaDzwigow}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_eksploatacjaDzwigow}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_co}" for="co" />
+                        <p:inputText id="co" value="#{stawkiController.selected.co}" title="#{bundle.EditStawkiTitle_co}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_co}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_cw}" for="cw" />
+                        <p:inputText id="cw" value="#{stawkiController.selected.cw}" title="#{bundle.EditStawkiTitle_cw}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_cw}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_zwis}" for="zwis" />
+                        <p:inputText id="zwis" value="#{stawkiController.selected.zwis}" title="#{bundle.EditStawkiTitle_zwis}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_zwis}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_gaz}" for="gaz" />
+                        <p:inputText id="gaz" value="#{stawkiController.selected.gaz}" title="#{bundle.EditStawkiTitle_gaz}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_gaz}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_pradWPomWspolnych}" for="pradWPomWspolnych" />
+                        <p:inputText id="pradWPomWspolnych" value="#{stawkiController.selected.pradWPomWspolnych}" title="#{bundle.EditStawkiTitle_pradWPomWspolnych}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_pradWPomWspolnych}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_smieci}" for="smieci" />
+                        <p:inputText id="smieci" value="#{stawkiController.selected.smieci}" title="#{bundle.EditStawkiTitle_smieci}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_smieci}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_ubezpieczenie}" for="ubezpieczenie" />
+                        <p:inputText id="ubezpieczenie" value="#{stawkiController.selected.ubezpieczenie}" title="#{bundle.EditStawkiTitle_ubezpieczenie}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_ubezpieczenie}"/>
+                        <p:outputLabel value="#{bundle.EditStawkiLabel_idBudynku}" for="idBudynku" />
+                        <p:selectOneMenu id="idBudynku" value="#{stawkiController.selected.idBudynku}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_idBudynku}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
+                                           var="idBudynkuItem"
+                                           itemValue="#{idBudynkuItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{stawkiController.update}" value="#{bundle.Save}" update="display,:StawkiListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StawkiEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="StawkiEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

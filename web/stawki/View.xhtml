@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StawkiViewDlg" widgetVar="StawkiViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewStawkiTitle}">
+            <h:form id="StawkiViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{stawkiController.selected != null}">
+                        <h:outputText value="#{bundle.ViewStawkiLabel_id}"/>
+                        <h:outputText value="#{stawkiController.selected.id}" title="#{bundle.ViewStawkiTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_eksploatacjaPodstawowa}"/>
+                        <h:outputText value="#{stawkiController.selected.eksploatacjaPodstawowa}" title="#{bundle.ViewStawkiTitle_eksploatacjaPodstawowa}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_funduszRemontowy}"/>
+                        <h:outputText value="#{stawkiController.selected.funduszRemontowy}" title="#{bundle.ViewStawkiTitle_funduszRemontowy}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_legalizacjaWodomierza}"/>
+                        <h:outputText value="#{stawkiController.selected.legalizacjaWodomierza}" title="#{bundle.ViewStawkiTitle_legalizacjaWodomierza}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_konserwacjaDomofonu}"/>
+                        <h:outputText value="#{stawkiController.selected.konserwacjaDomofonu}" title="#{bundle.ViewStawkiTitle_konserwacjaDomofonu}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_eksploatacjaDzwigow}"/>
+                        <h:outputText value="#{stawkiController.selected.eksploatacjaDzwigow}" title="#{bundle.ViewStawkiTitle_eksploatacjaDzwigow}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_co}"/>
+                        <h:outputText value="#{stawkiController.selected.co}" title="#{bundle.ViewStawkiTitle_co}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_cw}"/>
+                        <h:outputText value="#{stawkiController.selected.cw}" title="#{bundle.ViewStawkiTitle_cw}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_zwis}"/>
+                        <h:outputText value="#{stawkiController.selected.zwis}" title="#{bundle.ViewStawkiTitle_zwis}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_gaz}"/>
+                        <h:outputText value="#{stawkiController.selected.gaz}" title="#{bundle.ViewStawkiTitle_gaz}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_pradWPomWspolnych}"/>
+                        <h:outputText value="#{stawkiController.selected.pradWPomWspolnych}" title="#{bundle.ViewStawkiTitle_pradWPomWspolnych}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_smieci}"/>
+                        <h:outputText value="#{stawkiController.selected.smieci}" title="#{bundle.ViewStawkiTitle_smieci}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_ubezpieczenie}"/>
+                        <h:outputText value="#{stawkiController.selected.ubezpieczenie}" title="#{bundle.ViewStawkiTitle_ubezpieczenie}"/>
+                        <h:outputText value="#{bundle.ViewStawkiLabel_idBudynku}"/>
+                        <h:outputText value="#{stawkiController.selected.idBudynku}" title="#{bundle.ViewStawkiTitle_idBudynku}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="StawkiViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

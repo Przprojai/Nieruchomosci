@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMieszkanieTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="MieszkanieListForm">
+                <p:panel header="#{bundle.ListMieszkanieTitle}">
+                    <p:dataTable id="datalist" value="#{mieszkanieController.items}" var="item"
+                                 selectionMode="single" selection="#{mieszkanieController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_nrMieszkania}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nrMieszkania}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_ulica}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ulica}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_nrBloku}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nrBloku}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_klatka}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.klatka}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_nrKonta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nrKonta}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_nadplata}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nadplata}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_stanKonta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.stanKonta}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_podsumowanie}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.podsumowanie}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{mieszkanieController.prepareCreate}" update=":MieszkanieCreateForm" oncomplete="PF('MieszkanieCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MieszkanieViewForm" oncomplete="PF('MieszkanieViewDialog').show()" disabled="#{empty mieszkanieController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MieszkanieEditForm" oncomplete="PF('MieszkanieEditDialog').show()" disabled="#{empty mieszkanieController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{mieszkanieController.destroy}" update=":growl,datalist" disabled="#{empty mieszkanieController.selected}"/>
+                            <p:commandButton value="Wczytaj" action="#{mieszkanieController.wyswietl()}" disabled="#{mieszkanieController.wyswietlsciezke()==null}" update=":growl,datalist"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+<form action="UploadServlet" method="POST"
+                        enctype="multipart/form-data">
+<input type="file" accept=".csv"  name="file" size="50" />
+<br />
+<input type="submit" value="Upload File" />
+</form>
+            <ui:include src="mieszkanie/Create.xhtml"/>
+            <ui:include src="mieszkanie/Edit.xhtml"/>
+            <ui:include src="mieszkanie/View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

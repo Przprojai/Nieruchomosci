@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="KsiegowoscViewDlg" widgetVar="KsiegowoscViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewKsiegowoscTitle}">
+            <h:form id="KsiegowoscViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ksiegowoscController.selected != null}">
+                        <h:outputText value="#{bundle.ViewKsiegowoscLabel_id}"/>
+                        <h:outputText value="#{ksiegowoscController.selected.id}" title="#{bundle.ViewKsiegowoscTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewKsiegowoscLabel_login}"/>
+                        <h:outputText value="#{ksiegowoscController.selected.login}" title="#{bundle.ViewKsiegowoscTitle_login}"/>
+                        <h:outputText value="#{bundle.ViewKsiegowoscLabel_haslo}"/>
+                        <h:outputText value="#{ksiegowoscController.selected.haslo}" title="#{bundle.ViewKsiegowoscTitle_haslo}"/>
+                        <h:outputText value="#{bundle.ViewKsiegowoscLabel_imie}"/>
+                        <h:outputText value="#{ksiegowoscController.selected.imie}" title="#{bundle.ViewKsiegowoscTitle_imie}"/>
+                        <h:outputText value="#{bundle.ViewKsiegowoscLabel_nazwisko}"/>
+                        <h:outputText value="#{ksiegowoscController.selected.nazwisko}" title="#{bundle.ViewKsiegowoscTitle_nazwisko}"/>
+                        <h:outputText value="#{bundle.ViewKsiegowoscLabel_kontakt}"/>
+                        <h:outputText value="#{ksiegowoscController.selected.kontakt}" title="#{bundle.ViewKsiegowoscTitle_kontakt}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="KsiegowoscViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AwariaEditDlg" widgetVar="AwariaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAwariaTitle}">
+            <h:form id="AwariaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{awariaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{awariaController.selected.id}" title="#{bundle.EditAwariaTitle_id}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_data}" for="data" />
+                        <p:calendar id="data" pattern="MM/dd/yyyy" value="#{awariaController.selected.data}" title="#{bundle.EditAwariaTitle_data}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_data}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_godzina}" for="godzina" />
+                        <p:calendar id="godzina" pattern="HH:mm:ss" value="#{awariaController.selected.godzina}" title="#{bundle.EditAwariaTitle_godzina}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_godzina}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{awariaController.selected.status}" title="#{bundle.EditAwariaTitle_status}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_koszt}" for="koszt" />
+                        <p:inputText id="koszt" value="#{awariaController.selected.koszt}" title="#{bundle.EditAwariaTitle_koszt}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_koszt}"/>
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_idBudynku}" for="idBudynku" />
+                        <p:selectOneMenu id="idBudynku" value="#{awariaController.selected.idBudynku}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_idBudynku}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
+                                           var="idBudynkuItem"
+                                           itemValue="#{idBudynkuItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_idLokatora}" for="idLokatora" />
+                        <p:selectOneMenu id="idLokatora" value="#{awariaController.selected.idLokatora}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_idLokatora}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{lokatorController.itemsAvailableSelectOne}"
+                                           var="idLokatoraItem"
+                                           itemValue="#{idLokatoraItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{awariaController.update}" value="#{bundle.Save}" update="display,:AwariaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AwariaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AwariaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

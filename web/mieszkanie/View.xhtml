@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MieszkanieViewDlg" widgetVar="MieszkanieViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMieszkanieTitle}">
+            <h:form id="MieszkanieViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{mieszkanieController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_id}"/>
+                        <h:outputText value="#{mieszkanieController.selected.id}" title="#{bundle.ViewMieszkanieTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_nrMieszkania}"/>
+                        <h:outputText value="#{mieszkanieController.selected.nrMieszkania}" title="#{bundle.ViewMieszkanieTitle_nrMieszkania}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_ulica}"/>
+                        <h:outputText value="#{mieszkanieController.selected.ulica}" title="#{bundle.ViewMieszkanieTitle_ulica}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_nrBloku}"/>
+                        <h:outputText value="#{mieszkanieController.selected.nrBloku}" title="#{bundle.ViewMieszkanieTitle_nrBloku}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_klatka}"/>
+                        <h:outputText value="#{mieszkanieController.selected.klatka}" title="#{bundle.ViewMieszkanieTitle_klatka}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_liczbaOsob}"/>
+                        <h:outputText value="#{mieszkanieController.selected.liczbaOsob}" title="#{bundle.ViewMieszkanieTitle_liczbaOsob}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_powierzchnia}"/>
+                        <h:outputText value="#{mieszkanieController.selected.powierzchnia}" title="#{bundle.ViewMieszkanieTitle_powierzchnia}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_pietro}"/>
+                        <h:outputText value="#{mieszkanieController.selected.pietro}" title="#{bundle.ViewMieszkanieTitle_pietro}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_zajetosc}"/>
+                        <p:selectBooleanCheckbox value="#{mieszkanieController.selected.zajetosc}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_nrKonta}"/>
+                        <h:outputText value="#{mieszkanieController.selected.nrKonta}" title="#{bundle.ViewMieszkanieTitle_nrKonta}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_nadplata}"/>
+                        <h:outputText value="#{mieszkanieController.selected.nadplata}" title="#{bundle.ViewMieszkanieTitle_nadplata}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_adresKorespondencyjny}"/>
+                        <h:outputText value="#{mieszkanieController.selected.adresKorespondencyjny}" title="#{bundle.ViewMieszkanieTitle_adresKorespondencyjny}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_stanKonta}"/>
+                        <h:outputText value="#{mieszkanieController.selected.stanKonta}" title="#{bundle.ViewMieszkanieTitle_stanKonta}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_podsumowanie}"/>
+                        <h:outputText value="#{mieszkanieController.selected.podsumowanie}" title="#{bundle.ViewMieszkanieTitle_podsumowanie}"/>
+                        <h:outputText value="#{bundle.ViewMieszkanieLabel_idBudynku}"/>
+                        <h:outputText value="#{mieszkanieController.selected.idBudynku}" title="#{bundle.ViewMieszkanieTitle_idBudynku}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MieszkanieViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

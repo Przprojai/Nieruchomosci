@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MieszkanieCreateDlg" widgetVar="MieszkanieCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMieszkanieTitle}">
+            <h:form id="MieszkanieCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{mieszkanieController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{mieszkanieController.selected.id}" title="#{bundle.CreateMieszkanieTitle_id}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_nrMieszkania}" for="nrMieszkania" />
+                        <p:inputText id="nrMieszkania" value="#{mieszkanieController.selected.nrMieszkania}" title="#{bundle.CreateMieszkanieTitle_nrMieszkania}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_nrMieszkania}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_ulica}" for="ulica" />
+                        <p:inputText id="ulica" value="#{mieszkanieController.selected.ulica}" title="#{bundle.CreateMieszkanieTitle_ulica}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_ulica}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_nrBloku}" for="nrBloku" />
+                        <p:inputText id="nrBloku" value="#{mieszkanieController.selected.nrBloku}" title="#{bundle.CreateMieszkanieTitle_nrBloku}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_nrBloku}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_klatka}" for="klatka" />
+                        <p:inputText id="klatka" value="#{mieszkanieController.selected.klatka}" title="#{bundle.CreateMieszkanieTitle_klatka}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_klatka}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_liczbaOsob}" for="liczbaOsob" />
+                        <p:inputText id="liczbaOsob" value="#{mieszkanieController.selected.liczbaOsob}" title="#{bundle.CreateMieszkanieTitle_liczbaOsob}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_liczbaOsob}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_powierzchnia}" for="powierzchnia" />
+                        <p:inputText id="powierzchnia" value="#{mieszkanieController.selected.powierzchnia}" title="#{bundle.CreateMieszkanieTitle_powierzchnia}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_powierzchnia}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_pietro}" for="pietro" />
+                        <p:inputText id="pietro" value="#{mieszkanieController.selected.pietro}" title="#{bundle.CreateMieszkanieTitle_pietro}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_pietro}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_zajetosc}" for="zajetosc" />
+                        <p:selectBooleanCheckbox id="zajetosc" value="#{mieszkanieController.selected.zajetosc}" required="true" requiredMessage="#{bundle.EditMieszkanieRequiredMessage_zajetosc}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_nrKonta}" for="nrKonta" />
+                        <p:inputText id="nrKonta" value="#{mieszkanieController.selected.nrKonta}" title="#{bundle.CreateMieszkanieTitle_nrKonta}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_nrKonta}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_nadplata}" for="nadplata" />
+                        <p:inputText id="nadplata" value="#{mieszkanieController.selected.nadplata}" title="#{bundle.CreateMieszkanieTitle_nadplata}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_nadplata}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_adresKorespondencyjny}" for="adresKorespondencyjny" />
+                        <p:inputText id="adresKorespondencyjny" value="#{mieszkanieController.selected.adresKorespondencyjny}" title="#{bundle.CreateMieszkanieTitle_adresKorespondencyjny}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_adresKorespondencyjny}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_stanKonta}" for="stanKonta" />
+                        <p:inputText id="stanKonta" value="#{mieszkanieController.selected.stanKonta}" title="#{bundle.CreateMieszkanieTitle_stanKonta}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_stanKonta}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_podsumowanie}" for="podsumowanie" />
+                        <p:inputText id="podsumowanie" value="#{mieszkanieController.selected.podsumowanie}" title="#{bundle.CreateMieszkanieTitle_podsumowanie}" required="true" requiredMessage="#{bundle.CreateMieszkanieRequiredMessage_podsumowanie}"/>
+                        <p:outputLabel value="#{bundle.CreateMieszkanieLabel_idBudynku}" for="idBudynku" />
+                        <p:selectOneMenu id="idBudynku" value="#{mieszkanieController.selected.idBudynku}" required="true" requiredMessage="#{bundle.EditMieszkanieRequiredMessage_idBudynku}">
+                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
+                                           var="idBudynkuItem"
+                                           itemValue="#{idBudynkuItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{mieszkanieController.create}" value="#{bundle.Save}" update="display,:MieszkanieListForm:datalist,:growl" oncomplete="handleSubmit(args,'MieszkanieCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MieszkanieCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

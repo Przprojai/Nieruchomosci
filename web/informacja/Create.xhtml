@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InformacjaCreateDlg" widgetVar="InformacjaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInformacjaTitle}">
+            <h:form id="InformacjaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{informacjaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{informacjaController.selected.id}" title="#{bundle.CreateInformacjaTitle_id}" required="true" requiredMessage="#{bundle.CreateInformacjaRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_opis}" for="opis" />
+                        <p:inputText id="opis" value="#{informacjaController.selected.opis}" title="#{bundle.CreateInformacjaTitle_opis}" required="true" requiredMessage="#{bundle.CreateInformacjaRequiredMessage_opis}"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_numer}" for="numer" />
+                        <p:inputText id="numer" value="#{informacjaController.selected.numer}" title="#{bundle.CreateInformacjaTitle_numer}" required="true" requiredMessage="#{bundle.CreateInformacjaRequiredMessage_numer}"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_potwierdzenie}" for="potwierdzenie" />
+                        <p:selectBooleanCheckbox id="potwierdzenie" value="#{informacjaController.selected.potwierdzenie}" required="true" requiredMessage="#{bundle.EditInformacjaRequiredMessage_potwierdzenie}"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_idMieszkania}" for="idMieszkania" />
+                        <p:selectOneMenu id="idMieszkania" value="#{informacjaController.selected.idMieszkania}" required="true" requiredMessage="#{bundle.EditInformacjaRequiredMessage_idMieszkania}">
+                            <f:selectItems value="#{mieszkanieController.itemsAvailableSelectOne}"
+                                           var="idMieszkaniaItem"
+                                           itemValue="#{idMieszkaniaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{informacjaController.create}" value="#{bundle.Save}" update="display,:InformacjaListForm:datalist,:growl" oncomplete="handleSubmit(args,'InformacjaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InformacjaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

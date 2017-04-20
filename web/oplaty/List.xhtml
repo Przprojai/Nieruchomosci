@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOplatyTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="OplatyListForm">
+                <p:panel header="#{bundle.ListOplatyTitle}">
+                    <p:dataTable id="datalist" value="#{oplatyController.items}" var="item"
+                                 selectionMode="single" selection="#{oplatyController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 sortMode="multipe"
+                                 tableStyle="table-layout: auto"
+                                 style="text-align: center"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton szczegolyButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton szczegolyButton"/>
+
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                            <f:facet name="header">
+                                
+                                <h:outputText value="#{bundle.ListOplatyTitle_id}"/>
+                            </f:facet>
+                            
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.miesiac}" filterBy="#{item.miesiac}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOplatyTitle_miesiac}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.miesiac}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.rok}" filterBy="#{item.rok}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOplatyTitle_rok}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rok}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOplatyTitle_sumaOplat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sumaOplat}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOplatyTitle_zaplacono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.zaplacono}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOplatyTitle_zaleglosci}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.zaleglosci}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOplatyTitle_podsumowanie}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.podsumowanie}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOplatyTitle_idMieszkania}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMieszkania}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOplatyTitle_idStawki}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idStawki}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{oplatyController.prepareCreate}" update=":OplatyCreateForm" oncomplete="PF('OplatyCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":OplatyViewForm" oncomplete="PF('OplatyViewDialog').show()" disabled="#{empty oplatyController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":OplatyEditForm" oncomplete="PF('OplatyEditDialog').show()" disabled="#{empty oplatyController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{oplatyController.destroy}" update=":growl,datalist" disabled="#{empty oplatyController.selected}"/>
+                            <p:commandButton icon="ui-icon-plus"   value="Automat" actionListener="#{oplatyController.prepareCreate}" update=":OplatyCreateForm2" oncomplete="PF('OplatyCreateDialog2').show()"/>
+                            <p:commandButton icon="ui-icon-plus"   value="Aktualizuj"   action="#{podsumowanieBudynkuController.podsumowanie(oplatyController.zaplacono())}" update=":growl,datalist"/>
+                            <p:commandButton id="szczegolyButton" icon="ui-icon-plus"   value="Szczegoly" action="#{szczegolyController.pokaz_szczegoly(oplatyController.selected)}"  oncomplete="PF('SzczegolyViewDialog').show()" update=":SzczegolyViewForm"/>
+
+            <h:commandLink>
+                <p:graphicImage name="icon/pdf.png" height="20" width="24"/>
+                <p:dataExporter type="pdf" target="datalist" fileName="#{oplatyController.items.get(oplatyController.items.size()-1).id.toString()}"/>
+            </h:commandLink>
+
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            <ui:include src="Szczegoly_oplaty.xhtml"/>
+            <ui:include src="Create_1.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

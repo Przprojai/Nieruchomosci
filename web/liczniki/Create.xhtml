@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LicznikiCreateDlg" widgetVar="LicznikiCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLicznikiTitle}">
+            <h:form id="LicznikiCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{licznikiController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateLicznikiLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{licznikiController.selected.id}" title="#{bundle.CreateLicznikiTitle_id}" required="true" requiredMessage="#{bundle.CreateLicznikiRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiLabel_miesiac}" for="miesiac" />
+                        <p:inputText id="miesiac" value="#{licznikiController.selected.miesiac}" title="#{bundle.CreateLicznikiTitle_miesiac}" required="true" requiredMessage="#{bundle.CreateLicznikiRequiredMessage_miesiac}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiLabel_rok}" for="rok" />
+                        <p:inputText id="rok" value="#{licznikiController.selected.rok}" title="#{bundle.CreateLicznikiTitle_rok}" required="true" requiredMessage="#{bundle.CreateLicznikiRequiredMessage_rok}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiLabel_licznikWodyCieplej}" for="licznikWodyCieplej" />
+                        <p:inputText id="licznikWodyCieplej" value="#{licznikiController.selected.licznikWodyCieplej}" title="#{bundle.CreateLicznikiTitle_licznikWodyCieplej}" required="true" requiredMessage="#{bundle.CreateLicznikiRequiredMessage_licznikWodyCieplej}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiLabel_licznikWodyZimnej}" for="licznikWodyZimnej" />
+                        <p:inputText id="licznikWodyZimnej" value="#{licznikiController.selected.licznikWodyZimnej}" title="#{bundle.CreateLicznikiTitle_licznikWodyZimnej}" required="true" requiredMessage="#{bundle.CreateLicznikiRequiredMessage_licznikWodyZimnej}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiLabel_licznikCiepla}" for="licznikCiepla" />
+                        <p:inputText id="licznikCiepla" value="#{licznikiController.selected.licznikCiepla}" title="#{bundle.CreateLicznikiTitle_licznikCiepla}" required="true" requiredMessage="#{bundle.CreateLicznikiRequiredMessage_licznikCiepla}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiLabel_idMieszkania}" for="idMieszkania" />
+                        <p:selectOneMenu id="idMieszkania" value="#{licznikiController.selected.idMieszkania}" required="true" requiredMessage="#{bundle.EditLicznikiRequiredMessage_idMieszkania}">
+                            <f:selectItems value="#{mieszkanieController.itemsAvailableSelectOne}"
+                                           var="idMieszkaniaItem"
+                                           itemValue="#{idMieszkaniaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{licznikiController.create}" value="#{bundle.Save}" update="display,:LicznikiListForm:datalist,:growl" oncomplete="handleSubmit(args,'LicznikiCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LicznikiCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
