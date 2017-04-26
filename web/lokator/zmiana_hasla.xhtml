@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LokatorEditDlg" widgetVar="LokatorEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Pierwsze logowanie - zmiana hasła" closable="false">
+            <h:form id="LokatorEditForm">
+                <h:panelGroup id="display">
+                    <p:messages id="messages"  autoUpdate="true" closable="true"  />
+                    <h:outputLabel value="Przy pierwszym logowaniu zależy zmienić hasło!"/>
+                    <p:panelGrid columns="2" rendered="#{lokatorController.selected != null}">
+
+                        <p:outputLabel value="Hasło: "  />
+                        <h:inputSecret id="haslo" value="#{String1}" title="#{bundle.EditLokatorTitle_haslo}" required="true" requiredMessage="Pole hasło wymagane!"/>
+                        <p:outputLabel value="Powtórz hasło: "  />
+                        <h:inputSecret id="haslo2" value="#{String2}" title="#{bundle.EditLokatorTitle_haslo}" required="true" requiredMessage="Pole powtórz hasło wymagane!"/>
+                       
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{lokatorController.zmiana_hasla(lokatorController.selected, String1, String2)}" value="#{bundle.Save}" update="display,:Zalogowany_lokator"  />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

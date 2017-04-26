@@ -6,15 +6,16 @@
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
-    <h:body>
+    <h:body style="background: url(resources/icon/background.jpg); background-size: 100%; background-repeat:no-repeat;">
+
         <h:form>
             <div style="margin-left: 30%">
-                <h:commandButton value="Lokator" action="Login.xhtml" style="width: 20%;height: 150px"/>
-                <h:commandButton value="Księgowość" action="Login_1.xhtml" style="width: 20%;height: 150px"/>
-                <h:commandButton value="Admin" action="Login_2.xhtml" style="width: 20%;height: 150px"/>
+                <h:commandButton value="Lokator" action="Login.xhtml?faces-redirect=true" style="width: 20%;height: 150px"/>
+                <h:commandButton value="Księgowość" action="Login_1.xhtml?faces-redirect=true" style="width: 20%;height: 150px"/>
+                <h:commandButton value="Admin" action="Login_2.xhtml?faces-redirect=true" style="width: 20%;height: 150px"/>
             </div>
         </h:form>
-
+        
 
 
 

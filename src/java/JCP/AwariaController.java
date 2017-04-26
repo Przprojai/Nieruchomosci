@@ -1,11 +1,15 @@
 package JCP;
 
 import Entity.Awaria;
+import Entity.Budynek;
+import Entity.Lokator;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
 import SBP.AwariaFacade;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -54,7 +58,55 @@ public class AwariaController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    public List<Awaria> budynek(Budynek budynekId){
+        items=null;
+        if (items == null) {
+            items = getFacade().findbybudynekid(budynekId);
+        }
+        return items;
+    
+    }
+    public void create(Lokator lokator, Budynek budynek) {
+        Date data = new Date();
+        selected.setData(data);
+        selected.setGodzina(data);
+        selected.setKoszt(new BigDecimal(0));
+        selected.setIdLokatora(lokator);
+        selected.setIdBudynku(budynek);
+        selected.setStatus("Zgłoszono");
+        selected.setId(getFacade().id());
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AwariaCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+        public Boolean status(Awaria awaria,Boolean a){
+            if(!a){
+            if(awaria!=null){
+            if (awaria.getStatus().equals("Zgłoszono"))
+                    return true;
+                            else
+                return false;}
+            else
+                return false;
+            }
+            else
+            return false;
+        }
+        public List<Awaria> budynek2(Lokator lokator){
 
+        items=null;
+        if (items == null) {
+            items = getFacade().findbylokatorid(lokator);
+        }
+        return items;
+    
+    }
+    public Date data(){
+        Date data = new Date();
+       return data;
+        
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AwariaCreated"));
         if (!JsfUtil.isValidationFailed()) {

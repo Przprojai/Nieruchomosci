@@ -9,6 +9,7 @@ import Entity.Budynek;
 import Entity.Oplaty;
 import Entity.PodsumowanieBudynku;
 import Entity.Szczegoly;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -106,5 +107,20 @@ public class PodsumowanieBudynkuFacade extends AbstractFacade<PodsumowanieBudynk
             nowy =null;
     }
         return nowy;
+}
+    public BigDecimal poprzedni(Integer id,Integer miesiac,Integer rok){
+        BigDecimal wynik = new BigDecimal(0);
+        try {
+       // TypedQuery<Stawki> q2 = em.createNamedQuery("Stawki.findByBudynek",Stawki.class).setParameter("budynek", budynek);
+       TypedQuery<PodsumowanieBudynku> q2
+                = em.createQuery("SELECT c FROM PodsumowanieBudynku c WHERE c.idBudynku.id=:id AND C.miesiac < :miesiac AND C.rok <= :rok ORDER BY C.id ", PodsumowanieBudynku.class).setParameter("id", id).setParameter("miesiac", miesiac).setParameter("rok", rok);
+        if (!q2.getResultList().isEmpty()) {
+                wynik =  q2.getResultList().get(q2.getResultList().size()-1).getWynik();
+            }
+        } catch (NoResultException e) {
+
+            wynik =null;
+    }
+        return wynik;
 }
 }

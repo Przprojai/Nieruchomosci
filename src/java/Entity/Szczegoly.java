@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.math.BigDecimal;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -121,55 +122,55 @@ public class Szczegoly implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "epf")
-    private float epf;
+    private BigDecimal epf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "frf")
-    private float frf;
+    private BigDecimal frf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "lwf")
-    private float lwf;
+    private BigDecimal lwf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "kdf")
-    private float kdf;
+    private BigDecimal kdf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "edf")
-    private float edf;
+    private BigDecimal edf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "cof")
-    private float cof;
+    private BigDecimal cof;
     @Basic(optional = false)
     @NotNull
     @Column(name = "cwf")
-    private float cwf;
+    private BigDecimal cwf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "zwisf")
-    private float zwisf;
+    private BigDecimal zwisf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "pwpwf")
-    private float pwpwf;
+    private BigDecimal pwpwf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "smf")
-    private float smf;
+    private BigDecimal smf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ubf")
-    private float ubf;
+    private BigDecimal ubf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "gazf")
-    private float gazf;
+    private BigDecimal gazf;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dof")
-    private float dof;
+    private BigDecimal dof;
     @Basic(optional = true)
     @NotNull
     @Size(min = 1, max = 300)
@@ -183,7 +184,7 @@ public class Szczegoly implements Serializable {
         this.id = id;
     }
 
-    public Szczegoly(Integer id, String eksploatacjaPodstawowa, String funduszRemontowy, String legalizacjaWodomierza, String konserwacjaDomofonu, String eksploatacjaDzwigow, String co, String cw, String zwis, String pradWPomWspolnych, String smieci, String ubezpieczenie, String gaz, String suma, float epf, float frf, float lwf, float kdf, float edf, float cof, float cwf, float zwisf, float pwpwf, float smf, float ubf, float gazf, float dof) {
+    public Szczegoly(Integer id, String eksploatacjaPodstawowa, String funduszRemontowy, String legalizacjaWodomierza, String konserwacjaDomofonu, String eksploatacjaDzwigow, String co, String cw, String zwis, String pradWPomWspolnych, String smieci, String ubezpieczenie, String gaz, String suma, BigDecimal epf, BigDecimal frf, BigDecimal lwf, BigDecimal kdf, BigDecimal edf, BigDecimal cof, BigDecimal cwf, BigDecimal zwisf, BigDecimal pwpwf, BigDecimal smf, BigDecimal ubf, BigDecimal gazf, BigDecimal dof) {
         this.id = id;
         this.eksploatacjaPodstawowa = eksploatacjaPodstawowa;
         this.funduszRemontowy = funduszRemontowy;
@@ -334,106 +335,106 @@ public class Szczegoly implements Serializable {
         this.suma = suma;
     }
     
-    public float getEpf() {
+    public BigDecimal getEpf() {
         return epf;
     }
 
-    public void setEpf(float epf) {
+    public void setEpf(BigDecimal epf) {
         this.epf = epf;
     }
 
-    public float getFrf() {
+    public BigDecimal getFrf() {
         return frf;
     }
 
-    public void setFrf(float frf) {
+    public void setFrf(BigDecimal frf) {
         this.frf = frf;
     }
 
-    public float getLwf() {
+    public BigDecimal getLwf() {
         return lwf;
     }
 
-    public void setLwf(float lwf) {
+    public void setLwf(BigDecimal lwf) {
         this.lwf = lwf;
     }
 
-    public float getKdf() {
+    public BigDecimal getKdf() {
         return kdf;
     }
 
-    public void setKdf(float kdf) {
+    public void setKdf(BigDecimal kdf) {
         this.kdf = kdf;
     }
 
-    public float getEdf() {
+    public BigDecimal getEdf() {
         return edf;
     }
 
-    public void setEdf(float edf) {
+    public void setEdf(BigDecimal edf) {
         this.edf = edf;
     }
 
-    public float getCof() {
+    public BigDecimal getCof() {
         return cof;
     }
 
-    public void setCof(float cof) {
+    public void setCof(BigDecimal cof) {
         this.cof = cof;
     }
 
-    public float getCwf() {
+    public BigDecimal getCwf() {
         return cwf;
     }
 
-    public float getDof() {
+    public BigDecimal getDof() {
         return dof;
     }
 
-    public void setDof(float dof) {
+    public void setDof(BigDecimal dof) {
         this.dof = dof;
     }
-    public void setCwf(float cwf) {
+    public void setCwf(BigDecimal cwf) {
         this.cwf = cwf;
     }
 
-    public float getZwisf() {
+    public BigDecimal getZwisf() {
         return zwisf;
     }
 
-    public void setZwisf(float zwisf) {
+    public void setZwisf(BigDecimal zwisf) {
         this.zwisf = zwisf;
     }
 
-    public float getPwpwf() {
+    public BigDecimal getPwpwf() {
         return pwpwf;
     }
 
-    public void setPwpwf(float pwpwf) {
+    public void setPwpwf(BigDecimal pwpwf) {
         this.pwpwf = pwpwf;
     }
 
-    public float getSmf() {
+    public BigDecimal getSmf() {
         return smf;
     }
 
-    public void setSmf(float smf) {
+    public void setSmf(BigDecimal smf) {
         this.smf = smf;
     }
 
-    public float getUbf() {
+    public BigDecimal getUbf() {
         return ubf;
     }
 
-    public void setUbf(float ubf) {
+    public void setUbf(BigDecimal ubf) {
         this.ubf = ubf;
     }
 
-    public float getGazf() {
+    public BigDecimal getGazf() {
         return gazf;
     }
 
-    public void setGazf(float gazf) {
+    public void setGazf(BigDecimal gazf) {
         this.gazf = gazf;
     }
     public String getDodatkowe_oplaty() {

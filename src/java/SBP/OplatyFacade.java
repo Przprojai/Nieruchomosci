@@ -7,12 +7,14 @@ package SBP;
 
 import Entity.Budynek;
 import Entity.Liczniki;
+import Entity.Lokator;
 import Entity.Mieszkanie;
 import Entity.Oplaty;
 import Entity.Stawki;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.math.BigDecimal;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -90,17 +92,17 @@ public Stawki zwroc(Budynek budynek){
     }
         return wynik;
 }
-public double roczne_oplaty(Mieszkanie mieszkanie,Integer rok, Integer miesiac){
-        double wynik = 0;
+public BigDecimal roczne_oplaty(Mieszkanie mieszkanie,Integer rok, Integer miesiac){
+        BigDecimal wynik = new BigDecimal(0);
         try {
        TypedQuery<Oplaty> q2
                 = em.createQuery("SELECT c FROM Oplaty c WHERE c.idMieszkania = :mieszkanie AND c.rok=:rok AND c.miesiac<:miesiac", Oplaty.class).setParameter("mieszkanie", mieszkanie).setParameter("rok", rok).setParameter("miesiac", miesiac);
         if (q2.getResultList() != null) {
-                for (int i=0;i<q2.getResultList().size();i++){wynik+=q2.getResultList().get(i).getSumaOplat();}
+                for (int i=0;i<q2.getResultList().size();i++){wynik.add(q2.getResultList().get(i).getSumaOplat());}
             }
         } catch (NoResultException e) {
 
-            wynik =0.0;
+            wynik =new BigDecimal(0);
     }
         return wynik;
 }
@@ -134,8 +136,8 @@ public Liczniki poprzedni(Mieszkanie mieszkanie,Integer miesiac,Integer rok){
     }
         return wynik;
 }
-public double poprzedna_oplata(Mieszkanie mieszkanie,Integer miesiac,Integer rok){
-  Float wynik=0.0f;
+public BigDecimal poprzedna_oplata(Mieszkanie mieszkanie,Integer miesiac,Integer rok){
+  BigDecimal wynik=new BigDecimal(0);
   List<Oplaty> lista = new ArrayList<Oplaty>();
   try{
       TypedQuery<Oplaty> q = em.createQuery("SELECT C FROM Oplaty C WHERE C.idMieszkania=:mieszkanie AND C.miesiac < :miesiac AND C.rok <= :rok ORDER BY C.id", Oplaty.class).setParameter("mieszkanie", mieszkanie).setParameter("miesiac", miesiac).setParameter("rok", rok);
@@ -145,8 +147,35 @@ public double poprzedna_oplata(Mieszkanie mieszkanie,Integer miesiac,Integer rok
   }
   }
   catch(NoResultException e){
-       wynik=0.0f;
+     wynik=  new BigDecimal(0);
   }
   return wynik;
+}
+public List<Oplaty> upomnienie(Integer miesiac,Integer rok){
+    List<Oplaty> lista = new ArrayList<Oplaty>();
+      try{
+      TypedQuery<Oplaty> q = em.createQuery("SELECT C FROM Oplaty C WHERE C.podsumowanie < 0 AND  C.miesiac = :miesiac AND C.rok = :rok ORDER BY C.id", Oplaty.class).setParameter("miesiac", miesiac).setParameter("rok", rok);
+      if(!q.getResultList().isEmpty()){
+          lista=q.getResultList();
+          
+  }
+  }
+  catch(NoResultException e){
+       new BigDecimal(0);
+  }
+  return lista;
+}
+public List<Oplaty> oplaty_lokatora(Lokator lokator){
+    List<Oplaty> lista = new ArrayList<Oplaty>();
+    try{
+            TypedQuery<Oplaty> q = em.createQuery ("SELECT X FROM Oplaty X WHERE X.idMieszkania=:idMieszkania",Oplaty.class).setParameter("idMieszkania", lokator.getIdMieszkania());
+            if(q.getResultList()!=null)
+            lista = q.getResultList();
+            }
+            catch (NoResultException e){
+                lista=null;
+            }
+    
+    return lista;
 }
 }

@@ -29,19 +29,19 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLicznikiTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.miesiac}" filterBy="#{item.miesiac}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLicznikiTitle_miesiac}"/>
                             </f:facet>
                             <h:outputText value="#{item.miesiac}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.rok}" filterBy="#{item.rok}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLicznikiTitle_rok}"/>
                             </f:facet>

@@ -1,6 +1,7 @@
 package JCP;
 
 import Entity.Liczniki;
+import Entity.Lokator;
 import Entity.Mieszkanie;
 import Entity.Oplaty;
 import Entity.Stawki;
@@ -8,6 +9,7 @@ import Entity.Szczegoly;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
 import SBP.OplatyFacade;
+import java.math.BigDecimal;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -100,9 +102,10 @@ public List<String> miesiac(){
     }
     public List<Szczegoly> automat(List<Mieszkanie> mieszkania,Integer miesiac,Integer rok){
     //double sumaoplat= 0.0;
-    double sumaoplat=0.0;
-    String sumaoplat2;
+    BigDecimal sumaoplat;
+    Double sumaoplat2;
     Integer pomoc =0;
+    BigDecimal temp = new BigDecimal(0);
     Oplaty oplata2 = new Oplaty();
     Liczniki licznik1=new Liczniki();
     Liczniki licznik2=new Liczniki();
@@ -117,75 +120,79 @@ public List<String> miesiac(){
             mieszkanie=mieszkania.get(i);
             stawki=getFacade().zwroc(mieszkanie.getIdBudynku());
             oplata2=getFacade().sprawdz(miesiac, rok,mieszkanie);
-            sumaoplat=stawki.getEksploatacjaPodstawowa()*mieszkanie.getPowierzchnia();
-            szczegoly.setEpf(stawki.getEksploatacjaPodstawowa()*mieszkanie.getPowierzchnia());
-            szczegoly.setEksploatacjaPodstawowa("Eksploatacja podstawowa "+stawki.getEksploatacjaPodstawowa() + " zł/m2 * "+mieszkanie.getPowierzchnia()+ " m2  - " +(stawki.getEksploatacjaPodstawowa()*mieszkanie.getPowierzchnia())+ " zł");
+            
+            sumaoplat=stawki.getEksploatacjaPodstawowa().multiply(mieszkanie.getPowierzchnia());
+            szczegoly.setEpf(stawki.getEksploatacjaPodstawowa().multiply(mieszkanie.getPowierzchnia()));
+            szczegoly.setEksploatacjaPodstawowa("Eksploatacja podstawowa "+stawki.getEksploatacjaPodstawowa() + " zł/m2 * "+mieszkanie.getPowierzchnia()+ " m2  - " +(stawki.getEksploatacjaPodstawowa().multiply(mieszkanie.getPowierzchnia()))+ " zł");
             
             
-            sumaoplat+= stawki.getFunduszRemontowy()*mieszkanie.getPowierzchnia()+stawki.getLegalizacjaWodomierza()*2;
-            szczegoly.setFrf(stawki.getFunduszRemontowy()*mieszkanie.getPowierzchnia());
-            szczegoly.setLwf(stawki.getLegalizacjaWodomierza()*2);
-            szczegoly.setFunduszRemontowy("Fundusz Remontowy "+stawki.getFunduszRemontowy()+" zł/m2 * "+ mieszkanie.getPowierzchnia()+" m2  - " +stawki.getFunduszRemontowy()*mieszkanie.getPowierzchnia()+ " zł");
-            szczegoly.setLegalizacjaWodomierza("Legalizacja Wodomierza "+stawki.getLegalizacjaWodomierza()+" zł/wod * 2  -"+stawki.getLegalizacjaWodomierza()*2+" zł ");
+            sumaoplat= sumaoplat.add(stawki.getFunduszRemontowy().multiply(mieszkanie.getPowierzchnia()));
+            sumaoplat= sumaoplat.add(stawki.getLegalizacjaWodomierza().multiply(new BigDecimal (2)));
+            szczegoly.setFrf(stawki.getFunduszRemontowy().multiply(mieszkanie.getPowierzchnia()));
+            szczegoly.setLwf(stawki.getLegalizacjaWodomierza().multiply(new BigDecimal (2)));
+            szczegoly.setFunduszRemontowy("Fundusz Remontowy "+stawki.getFunduszRemontowy()+" zł/m2 * "+ mieszkanie.getPowierzchnia()+" m2  - " +stawki.getFunduszRemontowy().multiply(mieszkanie.getPowierzchnia())+ " zł");
+            szczegoly.setLegalizacjaWodomierza("Legalizacja Wodomierza "+stawki.getLegalizacjaWodomierza()+" zł/wod * 2  -"+stawki.getLegalizacjaWodomierza().multiply(new BigDecimal (2))+" zł ");
             
-            sumaoplat+= stawki.getKonserwacjaDomofonu();
+            sumaoplat= sumaoplat.add(stawki.getKonserwacjaDomofonu());
             szczegoly.setKdf(stawki.getKonserwacjaDomofonu());
             szczegoly.setKonserwacjaDomofonu("Konserwacja domofonu "+stawki.getKonserwacjaDomofonu()+" zł/lokal - "+stawki.getKonserwacjaDomofonu()+" zł");
             
-            sumaoplat+= stawki.getEksploatacjaDzwigow()*mieszkanie.getLiczbaOsob()*(mieszkanie.getPietro());
-            szczegoly.setEdf(stawki.getEksploatacjaDzwigow()*mieszkanie.getLiczbaOsob()*(mieszkanie.getPietro()));
-            szczegoly.setEksploatacjaDzwigow("Eksploatacja Dzwigow " +stawki.getEksploatacjaDzwigow() +" zł/os * "+ mieszkanie.getLiczbaOsob()*mieszkanie.getPietro()+" os * piętro - "+stawki.getEksploatacjaDzwigow()*mieszkanie.getLiczbaOsob()*(mieszkanie.getPietro())+" zł");
+            sumaoplat=sumaoplat.add(stawki.getEksploatacjaDzwigow().multiply(new BigDecimal(mieszkanie.getLiczbaOsob()).multiply(((new BigDecimal (mieszkanie.getPietro()))))));
+            szczegoly.setEdf(stawki.getEksploatacjaDzwigow().multiply(new BigDecimal(mieszkanie.getLiczbaOsob()).multiply(((new BigDecimal (mieszkanie.getPietro()))))));
+            szczegoly.setEksploatacjaDzwigow("Eksploatacja Dzwigow " +stawki.getEksploatacjaDzwigow() +" zł/os * "+ mieszkanie.getLiczbaOsob()*mieszkanie.getPietro()+" os * piętro - "+stawki.getEksploatacjaDzwigow().multiply(new BigDecimal(mieszkanie.getLiczbaOsob()).multiply(((new BigDecimal (mieszkanie.getPietro())))))+" zł");
             
             licznik1=getFacade().poprzedni(mieszkanie, miesiac, rok);
             licznik2=getFacade().liczniki(mieszkanie, miesiac, rok);
                 if(licznik1==null){
-                sumaoplat+= stawki.getCo()*licznik2.getLicznikCiepla();
-                szczegoly.setCof(stawki.getCo()*licznik2.getLicznikCiepla());
-                szczegoly.setCo("Centralne ogrzewanie "+stawki.getCo()+" zł*licznik ciepła * "+licznik2.getLicznikCiepla()+ " - "+stawki.getCo()*licznik2.getLicznikCiepla()+" zł");
+                sumaoplat=sumaoplat.add(stawki.getCo().multiply(new BigDecimal(licznik2.getLicznikCiepla())));
+                szczegoly.setCof(stawki.getCo().multiply(new BigDecimal(licznik2.getLicznikCiepla())));
+                szczegoly.setCo("Centralne ogrzewanie "+stawki.getCo()+" zł*licznik ciepła * "+licznik2.getLicznikCiepla()+ " - "+stawki.getCo().multiply(new BigDecimal(licznik2.getLicznikCiepla()))+" zł");
                 
-                sumaoplat+= stawki.getCw()*licznik2.getLicznikWodyCieplej();
-                szczegoly.setCwf(stawki.getCw()*licznik2.getLicznikWodyCieplej());
-                szczegoly.setCw("Ciepła woda "+stawki.getCw()+" zł/m3 * "+licznik2.getLicznikWodyCieplej()+" m3 - " +stawki.getCw()*licznik2.getLicznikWodyCieplej()+" m3");
+                sumaoplat=sumaoplat.add(stawki.getCw().multiply(new BigDecimal(licznik2.getLicznikWodyCieplej())));
+                szczegoly.setCwf(stawki.getCw().multiply(new BigDecimal(licznik2.getLicznikWodyCieplej())));
+                szczegoly.setCw("Ciepła woda "+stawki.getCw()+" zł/m3 * "+licznik2.getLicznikWodyCieplej()+" m3 - " +stawki.getCw().multiply(new BigDecimal(licznik2.getLicznikWodyCieplej()))+" m3");
                 
-                sumaoplat+= stawki.getZwis()*licznik2.getLicznikWodyZimnej();
-                szczegoly.setZwisf(stawki.getZwis()*licznik2.getLicznikWodyZimnej());
-                szczegoly.setZwis("Zimna woda i ścieki "+stawki.getZwis()+" zł/m3 * "+licznik2.getLicznikWodyZimnej()+" m3 - "+stawki.getZwis()*licznik2.getLicznikWodyZimnej()+" zł");
+                sumaoplat=sumaoplat.add(stawki.getZwis().multiply(new BigDecimal(licznik2.getLicznikWodyZimnej())));
+                szczegoly.setZwisf(stawki.getZwis().multiply(new BigDecimal(licznik2.getLicznikWodyZimnej())));
+                szczegoly.setZwis("Zimna woda i ścieki "+stawki.getZwis()+" zł/m3 * "+licznik2.getLicznikWodyZimnej()+" m3 - "+stawki.getZwis().multiply(new BigDecimal(licznik2.getLicznikWodyZimnej()))+" zł");
                 }else
                 {
-                sumaoplat+= stawki.getCo()*(licznik2.getLicznikCiepla()-licznik1.getLicznikCiepla());
-                szczegoly.setCof(stawki.getCo()*(licznik2.getLicznikCiepla()-licznik1.getLicznikCiepla()));
-                szczegoly.setCo("Centralne ogrzewanie "+stawki.getCo()+" zł*licznik ciepła * "+(licznik2.getLicznikCiepla()-licznik1.getLicznikCiepla()) +" - "+stawki.getCo()*(licznik2.getLicznikCiepla()-licznik1.getLicznikCiepla())+" zł");
+                sumaoplat=sumaoplat.add(stawki.getCo().multiply(new BigDecimal((licznik2.getLicznikCiepla()-licznik1.getLicznikCiepla()))));
+                szczegoly.setCof(stawki.getCo().multiply(new BigDecimal((licznik2.getLicznikCiepla()-licznik1.getLicznikCiepla()))));
+                szczegoly.setCo("Centralne ogrzewanie "+stawki.getCo()+" zł*licznik ciepła * "+(licznik2.getLicznikCiepla()-licznik1.getLicznikCiepla()) +" - "+stawki.getCo().multiply(new BigDecimal((licznik2.getLicznikCiepla()-licznik1.getLicznikCiepla())))+" zł");
                 
-                sumaoplat+= stawki.getCw()*(licznik2.getLicznikWodyCieplej()-licznik1.getLicznikWodyCieplej());
-                szczegoly.setCwf(stawki.getCw()*(licznik2.getLicznikWodyCieplej()-licznik1.getLicznikWodyCieplej()));
-                szczegoly.setCw("Ciepła woda "+stawki.getCw()+" zł/m3 * "+(licznik2.getLicznikWodyCieplej()-licznik1.getLicznikWodyCieplej())+" m3 - " +stawki.getCw()*(licznik2.getLicznikWodyCieplej()-licznik1.getLicznikWodyCieplej())+" zł");
+                sumaoplat=sumaoplat.add(stawki.getCw().multiply(new BigDecimal((licznik2.getLicznikWodyCieplej()-licznik1.getLicznikWodyCieplej()))));
+                szczegoly.setCwf(stawki.getCw().multiply(new BigDecimal((licznik2.getLicznikWodyCieplej()-licznik1.getLicznikWodyCieplej()))));
+                szczegoly.setCw("Ciepła woda "+stawki.getCw()+" zł/m3 * "+(licznik2.getLicznikWodyCieplej()-licznik1.getLicznikWodyCieplej())+" m3 - " +stawki.getCw().multiply(new BigDecimal((licznik2.getLicznikWodyCieplej()-licznik1.getLicznikWodyCieplej())))+" zł");
                 
-                sumaoplat+= stawki.getZwis()*(licznik2.getLicznikWodyZimnej()-licznik1.getLicznikWodyZimnej());
-                szczegoly.setZwisf(stawki.getZwis()*(licznik2.getLicznikWodyZimnej()-licznik1.getLicznikWodyZimnej()));
-                szczegoly.setZwis("Zimna woda i ścieki "+stawki.getZwis()+" zł*licznik ciepła * "+(licznik2.getLicznikWodyZimnej()-licznik1.getLicznikWodyZimnej())+" m3"+stawki.getZwis()*(licznik2.getLicznikWodyZimnej()-licznik1.getLicznikWodyZimnej())+" zł");
+                sumaoplat=sumaoplat.add(stawki.getZwis().multiply(new BigDecimal(licznik2.getLicznikWodyZimnej()-licznik1.getLicznikWodyZimnej())));
+                szczegoly.setZwisf(stawki.getZwis().multiply(new BigDecimal(licznik2.getLicznikWodyZimnej()-licznik1.getLicznikWodyZimnej())));
+                szczegoly.setZwis("Zimna woda i ścieki "+stawki.getZwis()+" zł*licznik ciepła * "+(licznik2.getLicznikWodyZimnej()-licznik1.getLicznikWodyZimnej())+" m3"+stawki.getZwis().multiply(new BigDecimal(licznik2.getLicznikWodyZimnej()-licznik1.getLicznikWodyZimnej()))+" zł");
                 }
 
-            sumaoplat+= stawki.getGaz()*mieszkanie.getLiczbaOsob();
-            szczegoly.setGazf(stawki.getGaz()*mieszkanie.getLiczbaOsob());
-            szczegoly.setGaz("Gaz "+stawki.getGaz()+" zł/os * "+mieszkanie.getLiczbaOsob()+" os - "+stawki.getGaz()*mieszkanie.getLiczbaOsob()+" zł");
+            sumaoplat=sumaoplat.add(stawki.getGaz().multiply(new BigDecimal(mieszkanie.getLiczbaOsob())));
+            szczegoly.setGazf(stawki.getGaz().multiply(new BigDecimal(mieszkanie.getLiczbaOsob())));
+            szczegoly.setGaz("Gaz "+stawki.getGaz()+" zł/os * "+mieszkanie.getLiczbaOsob()+" os - "+stawki.getGaz().multiply(new BigDecimal(mieszkanie.getLiczbaOsob()))+" zł");
             
-            sumaoplat+= stawki.getPradWPomWspolnych()*mieszkanie.getLiczbaOsob();
-            szczegoly.setPwpwf(stawki.getPradWPomWspolnych()*mieszkanie.getLiczbaOsob());
-            szczegoly.setPradWPomWspolnych("Prąd w pomieszczeniach wspólnych "+stawki.getPradWPomWspolnych()+" zł/os * "+mieszkanie.getLiczbaOsob()+" os -"+stawki.getPradWPomWspolnych()*mieszkanie.getLiczbaOsob()+" zł");
+            sumaoplat=sumaoplat.add(stawki.getPradWPomWspolnych().multiply(new BigDecimal(mieszkanie.getLiczbaOsob())));
+            szczegoly.setPwpwf(stawki.getPradWPomWspolnych().multiply(new BigDecimal(mieszkanie.getLiczbaOsob())));
+            szczegoly.setPradWPomWspolnych("Prąd w pomieszczeniach wspólnych "+stawki.getPradWPomWspolnych()+" zł/os * "+mieszkanie.getLiczbaOsob()+" os -"+stawki.getPradWPomWspolnych().multiply(new BigDecimal(mieszkanie.getLiczbaOsob()))+" zł");
             
-            sumaoplat+= stawki.getSmieci();
+            sumaoplat=sumaoplat.add(stawki.getSmieci());
             szczegoly.setSmf(stawki.getSmieci());
             szczegoly.setSmieci("Smieci -"+stawki.getSmieci()+" zł");
             
-            sumaoplat+= stawki.getUbezpieczenie();
+            sumaoplat=sumaoplat.add(stawki.getUbezpieczenie());
             szczegoly.setUbf(stawki.getUbezpieczenie());
             szczegoly.setUbezpieczenie("Ubezpieczenie - "+stawki.getUbezpieczenie()+" zł");
-            szczegoly.setDof(0.0f);
-            szczegoly.setDodatkowe_oplaty("-");
+            szczegoly.setDof(new BigDecimal(0));
+            if(getFacade().poprzedna_oplata(mieszkanie,miesiac,rok).doubleValue()<=0)
+            szczegoly.setDodatkowe_oplaty("Zaległości z poprzednich miesięcy: "+ getFacade().poprzedna_oplata(mieszkanie,miesiac,rok)+" zł" );
+            else
+            szczegoly.setDodatkowe_oplaty("Nadpłata z poprzednich miesięcy: "+ getFacade().poprzedna_oplata(mieszkanie,miesiac,rok)+" zł" );    
             
-            
-            pomoc=(int)(sumaoplat*100);
-            sumaoplat=(float)(pomoc*0.01);
+
+            //sumaoplat=(float)(sumaoplat*0.01);
             szczegoly.setSuma(""+sumaoplat);
             if(oplata2==null){
                 Oplaty oplata = new Oplaty();
@@ -193,11 +200,11 @@ public List<String> miesiac(){
                 oplata.setMiesiac(miesiac);
                 oplata.setRok(rok);
                 oplata.setIdStawki(stawki);
-                oplata.setZaplacono(0);
-                oplata.setPodsumowanie(0);
+                oplata.setZaplacono(new BigDecimal(0));
+                oplata.setPodsumowanie(new BigDecimal(0));
                 oplata.setIdMieszkania(mieszkania.get(i));
-                oplata.setSumaOplat((float) sumaoplat);
-                oplata.setZaleglosci((float)getFacade().poprzedna_oplata(mieszkanie,miesiac,rok));
+                oplata.setSumaOplat(sumaoplat);
+                oplata.setZaleglosci(getFacade().poprzedna_oplata(mieszkanie,miesiac,rok));
                 selected=oplata;
                 szczegoly.setId(oplata.getId());
                 
@@ -210,8 +217,8 @@ public List<String> miesiac(){
             {
                   oplata2.setMiesiac(miesiac);
                   oplata2.setRok(rok);
-                  oplata2.setZaleglosci((float)getFacade().poprzedna_oplata(mieszkanie,miesiac,rok));
-                  oplata2.setSumaOplat((float)sumaoplat);
+                  oplata2.setZaleglosci(getFacade().poprzedna_oplata(mieszkanie,miesiac,rok));
+                  oplata2.setSumaOplat(sumaoplat);
                   selected=oplata2;
                   
                   persist(PersistAction.UPDATE, "Oplaty dla mieszkania " + mieszkanie.getId() +" zaktualizowane");
@@ -229,22 +236,27 @@ public List<String> miesiac(){
         Date data = new Date();
         Integer miesiac = data.getMonth()+2;
         Integer rok = data.getYear()+1900;
-        Float zmienna1=0.0f;
+        BigDecimal zmienna1;
         Integer zmienna2=0;
         Oplaty oplaty = new Oplaty();
         lista=getFacade().oplatymiesieczne();
         for(int i=0;i<lista.size();i++){
         oplaty=lista.get(i);
-        oplaty.setZaplacono((float)(oplaty.getIdMieszkania().getStanKonta()));
-        zmienna1=(oplaty.getZaleglosci()-oplaty.getSumaOplat()+oplaty.getZaplacono());
-        zmienna2=(int)(zmienna1*100);
-        zmienna1=(float)(zmienna2*0.01);
+        oplaty.setZaplacono((oplaty.getIdMieszkania().getStanKonta()));
+        zmienna1=(oplaty.getZaleglosci().add(oplaty.getZaplacono()));
+        zmienna1=(zmienna1.subtract(oplaty.getSumaOplat()));
         oplaty.setPodsumowanie(zmienna1);
         selected=oplaty;
         persist(PersistAction.UPDATE, "Pole Zapłacono dla mieszkania " + selected.getIdMieszkania().getId() + " zaktualizowano");
         }
         items=null;
        return true;
+    }
+    public List<Oplaty> upomnienie(){
+        Date data = new Date();
+        Integer miesiac = data.getMonth()+2;
+        Integer rok = data.getYear()+1900;
+        return getFacade().upomnienie(miesiac, rok);
     }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("OplatyCreated"));
@@ -264,7 +276,9 @@ public List<String> miesiac(){
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    public List<Oplaty> oplaty_lokatora(Lokator lokator){
+       return getFacade().oplaty_lokatora(lokator);
+    }
     public List<Oplaty> getItems() {
         if (items == null) {
             items = getFacade().findAll();

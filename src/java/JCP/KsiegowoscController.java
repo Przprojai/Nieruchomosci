@@ -61,12 +61,19 @@ public class KsiegowoscController implements Serializable {
         if (getFacade().login(login, haslo)!=null) {
             selected=getFacade().login(login, haslo);
             zalogowany = true;
-            return "/ksiegowosc/zalogowany_ksiegowy.xhtml";
+            return "/ksiegowosc/zalogowany_ksiegowy.xhtml?faces-redirect=true";
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędny login lub hasło", "Błędny login lub hasło"));
            selected=getFacade().login(login, haslo);
            return "Login.xhtml";
         }}
+        public String wylogujKsiegowosc() {
+        
+        selected = null;
+        items = null;
+        zalogowany = false;
+        return "/index.xhtml?faces-redirect=true";
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("KsiegowoscCreated"));
         if (!JsfUtil.isValidationFailed()) {

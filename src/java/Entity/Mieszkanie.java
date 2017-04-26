@@ -8,6 +8,7 @@ package Entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -80,7 +81,7 @@ public class Mieszkanie implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "powierzchnia")
-    private float powierzchnia;
+    private BigDecimal powierzchnia;
     @Basic(optional = false)
     @NotNull
     @Column(name = "pietro")
@@ -96,7 +97,7 @@ public class Mieszkanie implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "nadplata")
-    private float nadplata;
+    private BigDecimal nadplata;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -105,11 +106,11 @@ public class Mieszkanie implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "stan_konta")
-    private float stanKonta;
+    private BigDecimal stanKonta;
     @Basic(optional = false)
     @NotNull
     @Column(name = "podsumowanie")
-    private float podsumowanie;
+    private BigDecimal podsumowanie;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMieszkania")
     private Collection<Lokator> lokatorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMieszkania")
@@ -129,7 +130,7 @@ public class Mieszkanie implements Serializable {
         this.id = id;
     }
 
-    public Mieszkanie(Integer id, int nrMieszkania, String ulica, int nrBloku, String klatka, int liczbaOsob, float powierzchnia, int pietro, boolean zajetosc, BigInteger nrKonta, float nadplata, String adresKorespondencyjny, float stanKonta, float podsumowanie) {
+    public Mieszkanie(Integer id, int nrMieszkania, String ulica, int nrBloku, String klatka, int liczbaOsob, BigDecimal powierzchnia, int pietro, boolean zajetosc, BigInteger nrKonta, BigDecimal nadplata, String adresKorespondencyjny, BigDecimal stanKonta, BigDecimal podsumowanie) {
         this.id = id;
         this.nrMieszkania = nrMieszkania;
         this.ulica = ulica;
@@ -194,11 +195,11 @@ public class Mieszkanie implements Serializable {
         this.liczbaOsob = liczbaOsob;
     }
 
-    public float getPowierzchnia() {
+    public BigDecimal getPowierzchnia() {
         return powierzchnia;
     }
 
-    public void setPowierzchnia(float powierzchnia) {
+    public void setPowierzchnia(BigDecimal powierzchnia) {
         this.powierzchnia = powierzchnia;
     }
 
@@ -226,11 +227,11 @@ public class Mieszkanie implements Serializable {
         this.nrKonta = nrKonta;
     }
 
-    public float getNadplata() {
+    public BigDecimal getNadplata() {
         return nadplata;
     }
 
-    public void setNadplata(float nadplata) {
+    public void setNadplata(BigDecimal nadplata) {
         this.nadplata = nadplata;
     }
 
@@ -242,19 +243,19 @@ public class Mieszkanie implements Serializable {
         this.adresKorespondencyjny = adresKorespondencyjny;
     }
 
-    public float getStanKonta() {
+    public BigDecimal getStanKonta() {
         return stanKonta;
     }
 
-    public void setStanKonta(float stanKonta) {
+    public void setStanKonta(BigDecimal stanKonta) {
         this.stanKonta = stanKonta;
     }
 
-    public float getPodsumowanie() {
+    public BigDecimal getPodsumowanie() {
         return podsumowanie;
     }
 
-    public void setPodsumowanie(float podsumowanie) {
+    public void setPodsumowanie(BigDecimal podsumowanie) {
         this.podsumowanie = podsumowanie;
     }
 
@@ -324,7 +325,7 @@ public class Mieszkanie implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Mieszkanie[ id=" + id + " ]";
+        return idBudynku.getAdres()+"/"+nrBloku+"/"+nrMieszkania;
     }
     
 }

@@ -14,6 +14,10 @@
                     <p:panelGrid columns="2" rendered="#{informacjaController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateInformacjaLabel_id}" for="id" />
                         <p:inputText id="id" value="#{informacjaController.selected.id}" title="#{bundle.CreateInformacjaTitle_id}" required="true" requiredMessage="#{bundle.CreateInformacjaRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_data}" for="data" />
+                        <p:calendar id="data" pattern="MM/dd/yyyy" value="#{informacjaController.selected.data}" title="#{bundle.EditInformacjaTitle_data}" required="true" requiredMessage="#{bundle.EditInformacjaRequiredMessage_data}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_tytul}" for="tytul" />
+                        <p:inputText id="tytul" value="#{informacjaController.selected.tytul}" title="#{bundle.CreateInformacjaTitle_tytul}" required="true" requiredMessage="#{bundle.CreateInformacjaRequiredMessage_tytul}"/>
                         <p:outputLabel value="#{bundle.CreateInformacjaLabel_opis}" for="opis" />
                         <p:inputText id="opis" value="#{informacjaController.selected.opis}" title="#{bundle.CreateInformacjaTitle_opis}" required="true" requiredMessage="#{bundle.CreateInformacjaRequiredMessage_opis}"/>
                         <p:outputLabel value="#{bundle.CreateInformacjaLabel_numer}" for="numer" />

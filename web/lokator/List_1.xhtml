@@ -16,7 +16,7 @@
         <ui:define name="body">
             <h:form id="LokatorListForm">
                 <p:panel header="#{bundle.ListLokatorTitle}">
-                    <p:dataTable id="datalist" value="#{lokatorController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{lokatorController.lista_hasel(lokatorController.items)}" var="item"
                                  selectionMode="single" selection="#{lokatorController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"

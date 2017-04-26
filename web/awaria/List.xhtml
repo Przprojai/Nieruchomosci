@@ -49,6 +49,12 @@
                                 <f:convertDateTime pattern="HH:mm:ss" />
                             </h:outputText>
                         </p:column>
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAwariaTitle_opis}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.opis}"/>
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAwariaTitle_status}"/>

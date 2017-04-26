@@ -6,6 +6,7 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -42,6 +45,16 @@ public class Informacja implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "data")
+    @Temporal(TemporalType.DATE)
+    private Date data;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "tytul")
+    private String tytul;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "opis")
     private String opis;
@@ -64,11 +77,13 @@ public class Informacja implements Serializable {
         this.id = id;
     }
 
-    public Informacja(Integer id, String opis, int numer, boolean potwierdzenie) {
+    public Informacja(Integer id, Date data, String opis, String tytul, int numer, boolean potwierdzenie) {
         this.id = id;
+        this.data = data;
         this.opis = opis;
         this.numer = numer;
         this.potwierdzenie = potwierdzenie;
+        this.tytul = tytul;
     }
 
     public Integer getId() {
@@ -79,8 +94,24 @@ public class Informacja implements Serializable {
         this.id = id;
     }
 
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
     public String getOpis() {
         return opis;
+    }
+
+    public String getTytul() {
+        return tytul;
+    }
+
+    public void setTytul(String tytul) {
+        this.tytul = tytul;
     }
 
     public void setOpis(String opis) {

@@ -16,7 +16,7 @@
         <ui:define name="body">
             <h:form id="InformacjaListForm">
                 <p:panel header="#{bundle.ListInformacjaTitle}">
-                    <p:dataTable id="datalist" value="#{informacjaController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{informacjaController.informacje_lokatora(lokatorController.przekaz())}" var="item"
                                  selectionMode="single" selection="#{informacjaController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
@@ -24,15 +24,10 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="editButton "/>
+                        <p:ajax event="rowUnselect" update="editButton "/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInformacjaTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInformacjaTitle_data}"/>
@@ -55,35 +50,25 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInformacjaTitle_numer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.numer}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInformacjaTitle_potwierdzenie}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.potwierdzenie}" disabled="true"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInformacjaTitle_idMieszkania}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idMieszkania}"/>
-                        </p:column>
+
+
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{informacjaController.prepareCreate}" update=":InformacjaCreateForm" oncomplete="PF('InformacjaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InformacjaViewForm" oncomplete="PF('InformacjaViewDialog').show()" disabled="#{empty informacjaController.selected}"/>
+                          
+                           
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InformacjaEditForm" oncomplete="PF('InformacjaEditDialog').show()" disabled="#{empty informacjaController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{informacjaController.destroy}" update=":growl,datalist" disabled="#{empty informacjaController.selected}"/>
+                           
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+
+            <ui:include src="Edit_1.xhtml"/>
+
         </ui:define>
     </ui:composition>
 

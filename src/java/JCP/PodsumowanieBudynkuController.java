@@ -8,6 +8,7 @@ import JCP.util.JsfUtil.PersistAction;
 import SBP.PodsumowanieBudynkuFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,30 +65,82 @@ public class PodsumowanieBudynkuController implements Serializable {
         Date data = new Date();
         Integer miesiac = data.getMonth()+2;
         Integer rok = data.getYear()+1900;
+
       for(int i=1;i<=budynki;i++){
+        BigDecimal ep = new BigDecimal(0);
+        BigDecimal fr = new BigDecimal(0);
+        BigDecimal lw = new BigDecimal(0);
+        BigDecimal ed = new BigDecimal(0);
+        BigDecimal kd = new BigDecimal(0);
+        BigDecimal co = new BigDecimal(0);
+        BigDecimal cw = new BigDecimal(0);
+        BigDecimal zwis = new BigDecimal(0);
+        BigDecimal pwpw = new BigDecimal(0);
+        BigDecimal sm = new BigDecimal(0);
+        BigDecimal ub = new BigDecimal(0);
+        BigDecimal gaz = new BigDecimal(0);
+        BigDecimal dod = new BigDecimal(0);
+        BigDecimal su = new BigDecimal(0);
+        BigDecimal za = new BigDecimal(0);
+        BigDecimal wy = new BigDecimal(0);
+        BigDecimal pom = new BigDecimal(0);
        lista=getFacade().oplaty(i);
        PodsumowanieBudynku nowy = new PodsumowanieBudynku();
        for(int j=0;j<lista.size();j++){
-       nowy.setEksploatacjaPodstawowa(nowy.getEksploatacjaPodstawowa()+lista.get(j).getEpf());
-       nowy.setFunduszRemontowy(nowy.getFunduszRemontowy()+lista.get(j).getFrf());
-       nowy.setLegalizacjaWodomierza(nowy.getLegalizacjaWodomierza()+lista.get(j).getLwf());
-       nowy.setEksploatacjaDzwigow(nowy.getEksploatacjaDzwigow()+lista.get(j).getEdf());
-       nowy.setKonserwacjaDomofonu(nowy.getKonserwacjaDomofonu()+lista.get(j).getKdf());
-       nowy.setCo(nowy.getCo()+lista.get(j).getCof());
-       nowy.setCw(nowy.getCw()+lista.get(j).getCwf());
-       nowy.setZwis(nowy.getZwis()+lista.get(j).getZwisf());
-       nowy.setPradWPomWspolnych(nowy.getPradWPomWspolnych()+lista.get(j).getPwpwf());
-       nowy.setSmieci(nowy.getSmieci()+lista.get(j).getSmf());
-       nowy.setUbezpieczenie(nowy.getUbezpieczenie()+lista.get(j).getUbf());
-       nowy.setGaz(nowy.getGaz()+lista.get(j).getGazf());
-       nowy.setDodatkowe_oplaty(nowy.getDodatkowe_oplaty()+lista.get(j).getDof()); 
-       nowy.setSuma(nowy.getSuma()+lista.get(j).getIdOplaty().getSumaOplat());
-       nowy.setZaplacono(nowy.getZaplacono()+lista.get(j).getIdOplaty().getZaplacono());
-       nowy.setWynik(nowy.getZaplacono()-nowy.getSuma());
+        ep=ep.add(lista.get(j).getEpf());
+        fr=fr.add(lista.get(j).getFrf());
+        lw=lw.add(lista.get(j).getLwf());
+        ed=ed.add(lista.get(j).getEdf());
+        kd=kd.add(lista.get(j).getKdf());
+        co=co.add(lista.get(j).getCof());
+        cw= cw.add(lista.get(j).getCwf());
+        zwis=zwis.add(lista.get(j).getZwisf());
+        pwpw=pwpw.add(lista.get(j).getPwpwf());
+        sm=sm.add(lista.get(j).getSmf());
+        ub=ub.add(lista.get(j).getUbf());
+        gaz=gaz.add(lista.get(j).getGazf());
+        dod=dod.add(lista.get(j).getDof());
+        su=su.add(lista.get(j).getIdOplaty().getSumaOplat());
+        za=za.add(lista.get(j).getIdOplaty().getZaplacono());
+        
+//       nowy.setEksploatacjaPodstawowa(nowy.getEksploatacjaPodstawowa().add(lista.get(j).getEpf()));
+//       nowy.setFunduszRemontowy(nowy.getFunduszRemontowy().add(lista.get(j).getFrf()));
+//       nowy.setLegalizacjaWodomierza(nowy.getLegalizacjaWodomierza().add(lista.get(j).getLwf()));
+//       nowy.setEksploatacjaDzwigow(nowy.getEksploatacjaDzwigow().add(lista.get(j).getEdf()));
+//       nowy.setKonserwacjaDomofonu(nowy.getKonserwacjaDomofonu().add(lista.get(j).getKdf()));
+//       nowy.setCo(nowy.getCo().add(lista.get(j).getCof()));
+//       nowy.setCw(nowy.getCw().add(lista.get(j).getCwf()));
+//       nowy.setZwis(nowy.getZwis().add(lista.get(j).getZwisf()));
+//       nowy.setPradWPomWspolnych(nowy.getPradWPomWspolnych().add(lista.get(j).getPwpwf()));
+//       nowy.setSmieci(nowy.getSmieci().add(lista.get(j).getSmf()));
+//       nowy.setUbezpieczenie(nowy.getUbezpieczenie().add(lista.get(j).getUbf()));
+//       nowy.setGaz(nowy.getGaz().add(lista.get(j).getGazf()));
+//       nowy.setDodatkowe_oplaty(nowy.getDodatkowe_oplaty().add(lista.get(j).getDof())); 
+//       nowy.setSuma(nowy.getSuma().add(lista.get(j).getIdOplaty().getSumaOplat()));
+//       nowy.setZaplacono(nowy.getZaplacono().add(lista.get(j).getIdOplaty().getZaplacono()));
+//       nowy.setWynik(nowy.getZaplacono().subtract(nowy.getSuma()));
        nowy.setZajetychMieszkan(lista.size());
        }
-       
-
+       pom=getFacade().poprzedni(i, miesiac, rok);
+       pom=pom.add(za);
+       za=pom;
+       wy=za.subtract(su);
+       nowy.setEksploatacjaPodstawowa(ep);
+       nowy.setFunduszRemontowy(fr);
+       nowy.setLegalizacjaWodomierza(lw);
+       nowy.setEksploatacjaDzwigow(ed);
+       nowy.setKonserwacjaDomofonu(kd);
+       nowy.setCo(co);
+       nowy.setCw(cw);
+       nowy.setZwis(zwis);
+       nowy.setPradWPomWspolnych(pwpw);
+       nowy.setSmieci(sm);
+       nowy.setUbezpieczenie(ub);
+       nowy.setGaz(gaz);
+       nowy.setDodatkowe_oplaty(dod); 
+       nowy.setSuma(su);
+       nowy.setZaplacono(za);
+       nowy.setWynik(wy);
        nowy.setIdBudynku(getFacade().zwrocid(i));
        selected=getFacade().znajdz(rok, miesiac,getFacade().zwrocid(i));
        if(selected!=null){
@@ -106,7 +159,7 @@ public class PodsumowanieBudynkuController implements Serializable {
        selected.setDodatkowe_oplaty(nowy.getDodatkowe_oplaty());
        selected.setSuma(nowy.getSuma());
        selected.setZaplacono(nowy.getZaplacono());
-       selected.setWynik(nowy.getZaplacono()-nowy.getSuma());
+       selected.setWynik(nowy.getZaplacono().subtract(nowy.getSuma()));
        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle2").getString("PodsumowanieBudynkuUpdated"));
        }
        else

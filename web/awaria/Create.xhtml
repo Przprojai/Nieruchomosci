@@ -15,11 +15,13 @@
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_id}" for="id" />
                         <p:inputText id="id" value="#{awariaController.selected.id}" title="#{bundle.CreateAwariaTitle_id}" required="true" requiredMessage="#{bundle.CreateAwariaRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_data}" for="data" />
-                        <p:calendar id="data" pattern="MM/dd/yyyy" value="#{awariaController.selected.data}" title="#{bundle.EditAwariaTitle_data}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_data}" showOn="button"/>
+                        <p:calendar id="data" pattern="dd/MM/yyyy" value="#{awariaController.selected.data}" title="#{bundle.EditAwariaTitle_data}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_data}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_godzina}" for="godzina" />
                         <p:calendar id="godzina" pattern="HH:mm:ss" value="#{awariaController.selected.godzina}" title="#{bundle.EditAwariaTitle_godzina}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_godzina}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_status}" for="status" />
                         <p:inputText id="status" value="#{awariaController.selected.status}" title="#{bundle.CreateAwariaTitle_status}" required="true" requiredMessage="#{bundle.CreateAwariaRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.CreateAwariaLabel_opis}" for="opis" />
+                        <p:inputText id="opis" value="#{awariaController.selected.opis}" title="#{bundle.CreateAwariaTitle_opis}" required="true" requiredMessage="#{bundle.CreateAwariaRequiredMessage_opis}"/>
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_koszt}" for="koszt" />
                         <p:inputText id="koszt" value="#{awariaController.selected.koszt}" title="#{bundle.CreateAwariaTitle_koszt}" required="true" requiredMessage="#{bundle.CreateAwariaRequiredMessage_koszt}"/>
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_idBudynku}" for="idBudynku" />

@@ -6,6 +6,7 @@
 package SBP;
 
 import Entity.Lokator;
+import szyfrowanie.CryptWithSHA256;
 import Entity.Mieszkanie;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import org.apache.xml.security.algorithms.implementations.SignatureDSA;
 import szyfrowanie.CryptWithSHA256;
 
 /**
@@ -90,5 +92,63 @@ public class LokatorFacade extends AbstractFacade<Lokator> {
         }
         return wynik;
 
+    }
+        public boolean sprawdzHaslo(String log) {
+        boolean wynik = false;
+        Lokator lokator = new Lokator();
+        try {
+            EntityManager em = getEntityManager();
+            TypedQuery<Lokator> query = em.createQuery("SELECT c FROM Lokator c WHERE c.login = :login", Lokator.class).setParameter("login", log);
+
+            if (!query.getResultList().isEmpty()) {
+                lokator=query.getResultList().get(0);
+                if(lokator.getHaslo().equals(CryptWithSHA256.sha256(log)))
+                wynik = true;
+                else
+                wynik=false;
+            }
+        } catch (NoResultException e) {
+
+            wynik = false;
+        }
+        return wynik;
+
+    }
+        public List<Lokator> sprawdzHaslo2(List<Lokator> log) {
+        boolean wynik = false;
+        List<Lokator> lista= new ArrayList<Lokator>();
+        Lokator lokator = new Lokator();
+        for(int i=0;i<log.size();i++){
+        try {
+            EntityManager em = getEntityManager();
+            TypedQuery<Lokator> query = em.createQuery("SELECT c FROM Lokator c WHERE c.haslo = :haslo", Lokator.class).setParameter("haslo", CryptWithSHA256.sha256(log.get(i).getLogin()));
+
+            if (!query.getResultList().isEmpty()) {
+               lista.add(query.getSingleResult());
+            }
+        } catch (NoResultException e) {
+
+            wynik = false;
+        }}
+        return lista;
+
+    }
+    public Integer wiadomosci(Lokator lokator){
+        Integer wiadomosci=0;
+        try {
+            EntityManager em = getEntityManager();
+            TypedQuery<Lokator> query = em.createQuery("SELECT c FROM Informacja c WHERE c.idMieszkania=:mieszkanie AND c.potwierdzenie=FALSE", Lokator.class).setParameter("mieszkanie", lokator.getIdMieszkania());
+
+            if (!query.getResultList().isEmpty()) 
+                
+                wiadomosci = query.getResultList().size();
+                else
+                wiadomosci=0;
+           
+        } catch (NoResultException e) {
+
+            wiadomosci = 0;
+        }
+        return wiadomosci;
     }
 }

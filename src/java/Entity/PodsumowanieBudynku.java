@@ -8,6 +8,7 @@ package Entity;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -65,67 +66,67 @@ public class PodsumowanieBudynku implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "eksploatacja_podstawowa")
-    private float eksploatacjaPodstawowa;
+    private BigDecimal eksploatacjaPodstawowa;
     @Basic(optional = false)
     @NotNull
     @Column(name = "fundusz_remontowy")
-    private float funduszRemontowy;
+    private BigDecimal funduszRemontowy;
     @Basic(optional = false)
     @NotNull
     @Column(name = "legalizacja_wodomierza")
-    private float legalizacjaWodomierza;
+    private BigDecimal legalizacjaWodomierza;
     @Basic(optional = false)
     @NotNull
     @Column(name = "konserwacja_domofonu")
-    private float konserwacjaDomofonu;
+    private BigDecimal konserwacjaDomofonu;
     @Basic(optional = false)
     @NotNull
     @Column(name = "eksploatacja_dzwigow")
-    private float eksploatacjaDzwigow;
+    private BigDecimal eksploatacjaDzwigow;
     @Basic(optional = false)
     @NotNull
     @Column(name = "co")
-    private float co;
+    private BigDecimal co;
     @Basic(optional = false)
     @NotNull
     @Column(name = "cw")
-    private float cw;
+    private BigDecimal cw;
     @Basic(optional = false)
     @NotNull
     @Column(name = "zwis")
-    private float zwis;
+    private BigDecimal zwis;
     @Basic(optional = false)
     @NotNull
     @Column(name = "gaz")
-    private float gaz;
+    private BigDecimal gaz;
     @Basic(optional = false)
     @NotNull
     @Column(name = "prad_w_pom_wspolnych")
-    private float pradWPomWspolnych;
+    private BigDecimal pradWPomWspolnych;
     @Basic(optional = false)
     @NotNull
     @Column(name = "smieci")
-    private float smieci;
+    private BigDecimal smieci;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ubezpieczenie")
-    private float ubezpieczenie;
+    private BigDecimal ubezpieczenie;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dodatkowe_oplaty")
-    private float dodatkoweoplaty;
+    private BigDecimal dodatkoweoplaty;
     @Basic(optional = false)
     @NotNull
     @Column(name = "suma")
-    private float suma;
+    private BigDecimal suma;
     @Basic(optional = false)
     @NotNull
     @Column(name = "zaplacono")
-    private float zaplacono;
+    private BigDecimal zaplacono;
     @Basic(optional = false)
     @NotNull
     @Column(name = "wynik")
-    private float wynik;
+    private BigDecimal wynik;
     @Basic(optional = false)
     @NotNull
     @Column(name = "zajetych_mieszkan")
@@ -141,7 +142,7 @@ public class PodsumowanieBudynku implements Serializable {
         this.id = id;
     }
 
-    public PodsumowanieBudynku(Integer id, int miesiac, int rok, float eksploatacjaPodstawowa, float funduszRemontowy, float legalizacjaWodomierza, float konserwacjaDomofonu, float eksploatacjaDzwigow, float co, float cw, float zwis, float gaz, float pradWPomWspolnych, float smieci,float dodatkoweoplaty, float ubezpieczenie, float suma, float zaplacono, float wynik, int zajetychMieszkan) {
+    public PodsumowanieBudynku(Integer id, int miesiac, int rok, BigDecimal eksploatacjaPodstawowa, BigDecimal funduszRemontowy, BigDecimal legalizacjaWodomierza, BigDecimal konserwacjaDomofonu, BigDecimal eksploatacjaDzwigow, BigDecimal co, BigDecimal cw, BigDecimal zwis, BigDecimal gaz, BigDecimal pradWPomWspolnych, BigDecimal smieci,BigDecimal dodatkoweoplaty, BigDecimal ubezpieczenie, BigDecimal suma, BigDecimal zaplacono, BigDecimal wynik, int zajetychMieszkan) {
         this.id = id;
         this.miesiac = miesiac;
         this.rok = rok;
@@ -180,7 +181,7 @@ public class PodsumowanieBudynku implements Serializable {
         this.miesiac = miesiac;
     }
 
-    public float getRok() {
+    public int getRok() {
         return rok;
     }
 
@@ -188,130 +189,130 @@ public class PodsumowanieBudynku implements Serializable {
         this.rok = rok;
     }
 
-    public float getEksploatacjaPodstawowa() {
+    public BigDecimal getEksploatacjaPodstawowa() {
         return eksploatacjaPodstawowa;
     }
 
-    public void setEksploatacjaPodstawowa(float eksploatacjaPodstawowa) {
+    public void setEksploatacjaPodstawowa(BigDecimal eksploatacjaPodstawowa) {
         this.eksploatacjaPodstawowa = eksploatacjaPodstawowa;
     }
 
-    public float getFunduszRemontowy() {
+    public BigDecimal getFunduszRemontowy() {
         return funduszRemontowy;
     }
 
-    public void setFunduszRemontowy(float funduszRemontowy) {
+    public void setFunduszRemontowy(BigDecimal funduszRemontowy) {
         this.funduszRemontowy = funduszRemontowy;
     }
 
-    public float getLegalizacjaWodomierza() {
+    public BigDecimal getLegalizacjaWodomierza() {
         return legalizacjaWodomierza;
     }
 
-    public void setLegalizacjaWodomierza(float legalizacjaWodomierza) {
+    public void setLegalizacjaWodomierza(BigDecimal legalizacjaWodomierza) {
         this.legalizacjaWodomierza = legalizacjaWodomierza;
     }
 
-    public float getKonserwacjaDomofonu() {
+    public BigDecimal getKonserwacjaDomofonu() {
         return konserwacjaDomofonu;
     }
 
-    public void setKonserwacjaDomofonu(float konserwacjaDomofonu) {
+    public void setKonserwacjaDomofonu(BigDecimal konserwacjaDomofonu) {
         this.konserwacjaDomofonu = konserwacjaDomofonu;
     }
 
-    public float getEksploatacjaDzwigow() {
+    public BigDecimal getEksploatacjaDzwigow() {
         return eksploatacjaDzwigow;
     }
 
-    public void setEksploatacjaDzwigow(float eksploatacjaDzwigow) {
+    public void setEksploatacjaDzwigow(BigDecimal eksploatacjaDzwigow) {
         this.eksploatacjaDzwigow = eksploatacjaDzwigow;
     }
 
-    public float getCo() {
+    public BigDecimal getCo() {
         return co;
     }
 
-    public void setCo(float co) {
+    public void setCo(BigDecimal co) {
         this.co = co;
     }
 
-    public float getCw() {
+    public BigDecimal getCw() {
         return cw;
     }
 
-    public void setCw(float cw) {
+    public void setCw(BigDecimal cw) {
         this.cw = cw;
     }
 
-    public float getZwis() {
+    public BigDecimal getZwis() {
         return zwis;
     }
 
-    public void setZwis(float zwis) {
+    public void setZwis(BigDecimal zwis) {
         this.zwis = zwis;
     }
 
-    public float getGaz() {
+    public BigDecimal getGaz() {
         return gaz;
     }
 
-    public void setGaz(float gaz) {
+    public void setGaz(BigDecimal gaz) {
         this.gaz = gaz;
     }
 
-    public float getPradWPomWspolnych() {
+    public BigDecimal getPradWPomWspolnych() {
         return pradWPomWspolnych;
     }
 
-    public void setPradWPomWspolnych(float pradWPomWspolnych) {
+    public void setPradWPomWspolnych(BigDecimal pradWPomWspolnych) {
         this.pradWPomWspolnych = pradWPomWspolnych;
     }
 
-    public float getSmieci() {
+    public BigDecimal getSmieci() {
         return smieci;
     }
 
-    public void setSmieci(float smieci) {
+    public void setSmieci(BigDecimal smieci) {
         this.smieci = smieci;
     }
 
-    public float getUbezpieczenie() {
+    public BigDecimal getUbezpieczenie() {
         return ubezpieczenie;
     }
 
-    public void setUbezpieczenie(float ubezpieczenie) {
+    public void setUbezpieczenie(BigDecimal ubezpieczenie) {
         this.ubezpieczenie = ubezpieczenie;
     }
 
-    public float getDodatkowe_oplaty() {
+    public BigDecimal getDodatkowe_oplaty() {
         return dodatkoweoplaty;
     }
 
-    public void setDodatkowe_oplaty(float dodatkoweoplaty) {
+    public void setDodatkowe_oplaty(BigDecimal dodatkoweoplaty) {
         this.dodatkoweoplaty = dodatkoweoplaty;
     }
-    public float getSuma() {
+    public BigDecimal getSuma() {
         return suma;
     }
 
-    public void setSuma(float suma) {
+    public void setSuma(BigDecimal suma) {
         this.suma = suma;
     }
 
-    public float getZaplacono() {
+    public BigDecimal getZaplacono() {
         return zaplacono;
     }
 
-    public void setZaplacono(float zaplacono) {
+    public void setZaplacono(BigDecimal zaplacono) {
         this.zaplacono = zaplacono;
     }
 
-    public float getWynik() {
+    public BigDecimal getWynik() {
         return wynik;
     }
 
-    public void setWynik(float wynik) {
+    public void setWynik(BigDecimal wynik) {
         this.wynik = wynik;
     }
 

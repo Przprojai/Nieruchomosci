@@ -7,6 +7,7 @@ package Entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,8 +62,13 @@ public class Awaria implements Serializable {
     private String status;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "opis")
+    private String opis;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "koszt")
-    private float koszt;
+    private BigDecimal koszt;
     @JoinColumn(name = "id_budynku", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Budynek idBudynku;
@@ -77,12 +83,13 @@ public class Awaria implements Serializable {
         this.id = id;
     }
 
-    public Awaria(Integer id, Date data, Date godzina, String status, float koszt) {
+    public Awaria(Integer id, Date data, Date godzina, String status, BigDecimal koszt, String opis) {
         this.id = id;
         this.data = data;
         this.godzina = godzina;
         this.status = status;
         this.koszt = koszt;
+        this.opis = opis;
     }
 
     public Integer getId() {
@@ -117,11 +124,18 @@ public class Awaria implements Serializable {
         this.status = status;
     }
 
-    public float getKoszt() {
+    public String getOpis() {
+        return opis;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+    public BigDecimal getKoszt() {
         return koszt;
     }
 
-    public void setKoszt(float koszt) {
+    public void setKoszt(BigDecimal koszt) {
         this.koszt = koszt;
     }
 

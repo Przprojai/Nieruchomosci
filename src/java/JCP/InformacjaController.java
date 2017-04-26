@@ -1,11 +1,15 @@
 package JCP;
 
 import Entity.Informacja;
+import Entity.Lokator;
+import Entity.Oplaty;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
 import SBP.InformacjaFacade;
+import java.awt.event.ActionEvent;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -54,7 +58,35 @@ public class InformacjaController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    public void upomnienie(List<Oplaty> lista){
+        Date data = new Date();
+        Integer numer= getFacade().numer();
+        for(int i=0;i<lista.size();i++){
+            Informacja info = new Informacja();
+            info.setNumer(numer);
+            info.setId(getFacade().id());
+            info.setData(data);
+            info.setPotwierdzenie(false);
+            info.setIdMieszkania(lista.get(i).getIdMieszkania());
+            info.setTytul("Zaległości opłat za miesiąc "+lista.get(i).getMiesiac()+"/"+lista.get(i).getRok()+"r.");
+            info.setOpis("Zaległości opłat w wysokości "+ (lista.get(i).getPodsumowanie().abs())+ "zł, za miesiąc "+lista.get(i).getMiesiac()+"/"+lista.get(i).getRok()+"r.");
+            selected=getFacade().sprawdzTytul(info);
+            if(selected!=null){
+               // if(!getFacade().sprawdzOpis(info)){
+               if(!selected.getOpis().equals(info.getOpis())){
+                selected.setOpis(info.getOpis());
+                selected.setPotwierdzenie(false);
+                persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("InformacjaUpdated"));
+                }
+            }
+            else
+            {
+            selected=info;
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("InformacjaUpdated"));
+            }
+        }
+        items=null;
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("InformacjaCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -79,6 +111,9 @@ public class InformacjaController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    public List<Informacja> informacje_lokatora(Lokator lokator){
+        return getFacade().informacje_lokatora(lokator);
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

@@ -7,6 +7,7 @@ package Entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -57,19 +58,19 @@ public class Oplaty implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "suma_oplat")
-    private float sumaOplat;
+    private BigDecimal sumaOplat;
     @Basic(optional = false)
     @NotNull
     @Column(name = "zaplacono")
-    private float zaplacono;
+    private BigDecimal zaplacono;
     @Basic(optional = false)
     @NotNull
     @Column(name = "zaleglosci")
-    private float zaleglosci;
+    private BigDecimal zaleglosci;
     @Basic(optional = false)
     @NotNull
     @Column(name = "podsumowanie")
-    private float podsumowanie;
+    private BigDecimal podsumowanie;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOplaty")
     private Collection<DodatkoweOplaty> dodatkoweOplatyCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOplaty")
@@ -88,7 +89,7 @@ public class Oplaty implements Serializable {
         this.id = id;
     }
 
-    public Oplaty(Integer id, int miesiac, int rok, float sumaOplat, float zaplacono, float zaleglosci, float podsumowanie) {
+    public Oplaty(Integer id, int miesiac, int rok, BigDecimal sumaOplat, BigDecimal zaplacono, BigDecimal zaleglosci, BigDecimal podsumowanie) {
         this.id = id;
         this.miesiac = miesiac;
         this.rok = rok;
@@ -122,34 +123,34 @@ public class Oplaty implements Serializable {
         this.rok = rok;
     }
 
-    public float getSumaOplat() {
+    public BigDecimal getSumaOplat() {
         return sumaOplat;
     }
 
-    public void setSumaOplat(float sumaOplat) {
+    public void setSumaOplat(BigDecimal sumaOplat) {
         this.sumaOplat = sumaOplat;
     }
 
-    public float getZaplacono() {
+    public BigDecimal getZaplacono() {
         return zaplacono;
     }
 
-    public void setZaplacono(float zaplacono) {
+    public void setZaplacono(BigDecimal zaplacono) {
         this.zaplacono = zaplacono;
     }
 
-    public float getZaleglosci() {
+    public BigDecimal getZaleglosci() {
         return zaleglosci;
     }
 
-    public void setZaleglosci(float zaleglosci) {
+    public void setZaleglosci(BigDecimal zaleglosci) {
         this.zaleglosci = zaleglosci;
     }
-    public float getPodsumowanie() {
+    public BigDecimal getPodsumowanie() {
         return podsumowanie;
     }
 
-    public void setPodsumowanie(float podsumowanie) {
+    public void setPodsumowanie(BigDecimal podsumowanie) {
         this.podsumowanie = podsumowanie;
     }
 

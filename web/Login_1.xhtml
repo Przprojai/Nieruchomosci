@@ -8,25 +8,25 @@
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
-    <h:body>
+    <h:body style="background: url(resources/icon/background.jpg); background-size: 100%; background-repeat:no-repeat;">
 
         <h:form id="logowanie">
             <p:messages id="messages"  autoUpdate="true" closable="true"  />
+
+            <p:fieldset legend="Logowanie" style="width:20%;margin-left: 40%;background: silver" >
             <h:panelGrid columns="2">
                 <h:outputLabel value="Login" for="login"  />
-                <h:inputText id="login"  value="#{String1}" title="#{bundle.CreatePacjentTitle_login}" /> 
+                <h:inputText id="login"  value="#{String1}" title="#{bundle.CreateKsiegowoscTitle_login}" /> 
                 <h:outputLabel value="Hasło" for="haslo" />
-                <h:inputSecret id="haslo" value="#{String2}" />
+                <h:inputSecret id="haslo" value="#{String2}" title="#{bundle.CreateKsiegowoscTitle_haslo}"/>
             </h:panelGrid>
             <br />
             <p:commandButton action="#{ksiegowoscController.logowanie(String1,String2)}" value="Zaloguj" />
 
             <p:commandButton value="Powrót"  action="/index.xhtml" ajax="false"/>
-
-            <p:watermark for="login" value="Login"/>     
-            <p:watermark for="haslo" value="Hasło"/>   
-
- 
+            </p:fieldset>
+             <p:watermark for="login" value="Login"/>     
+            <p:watermark for="haslo" value="Hasło"/> 
 
         </h:form>
 

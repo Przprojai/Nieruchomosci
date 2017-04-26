@@ -7,53 +7,53 @@
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
-    <h:form id="index">
-        <p:messages id="messages"  autoUpdate="true" closable="true"  />
-        <h:body>
-            <h:form>
-                <h:commandButton actionListener="#{lokatorController.prepareCreate3()}" action="/lokator/rejestracja.xhtml"  value="Utwórz konto lokatora"/>
+    </h:head>     
+    <h:body style="background: url(resources/icon/background.jpg); background-size: 100%; background-repeat:no-repeat;">
+        <h:form id="index">
+            <p:messages id="messages"  autoUpdate="true" closable="true"  />
 
-                <br />
-                <h:commandButton action="/mieszkanie/List_1" value="Aktualizuj stany kont"/>
-                <br />
+                 
+                    <p:fieldset legend="Zalogowano jako: #{ksiegowoscController.selected.login}" style="width:50%;margin-left: 25%;background: silver"  >
+                        <h:commandButton actionListener="#{lokatorController.prepareCreate3()}" action="/lokator/rejestracja.xhtml"  value="Utwórz konto lokatora" style="width: 20%;height: 150px;"/>
+
+                        <h:commandButton action="/mieszkanie/List_1" value="Aktualizuj stany kont" style="width: 20%;height: 150px;"/>
+ 
+
+                        <h:commandButton action="/liczniki/List_1" value="Aktualizuj stany liczników" style="width: 20%;height: 150px;"/>
+
+                        <h:commandButton action="/podsumowanieBudynku/List" value="Podsumowanie Budynku" style="width: 20%;height: 150px;"/>
+     
+                        <h:commandButton action="/awaria/List" value="Awarie" style="width: 20%;height: 150px;"/>
+      
+                        <h:commandButton action="/budynek/List" value="Budynki" style="width: 20%;height: 150px;"/>
+   
+                        <h:commandButton action="/dodatkoweOplaty/List" value="Dodatkowe Opłaty" style="width: 20%;height: 150px;"/>
+         
+                        <h:commandButton action="/informacja/List" value="Informacje" style="width: 20%;height: 150px;"/>
+
+                        <h:commandButton action="/ksiegowosc/List" value="Ksiegowosc" style="width: 20%;height: 150px;"/>
+
+                        <h:commandButton action="/lokator/List_1" value="Lokatorzy" style="width: 20%;height: 150px;"/>
+
+                        <h:commandButton action="/mieszkanie/List" value="Mieszkania" style="width: 20%;height: 150px;"/>
+    
+                        <h:commandButton action="/oplaty/List" value="Oplaty" style="width: 20%;height: 150px;"/>
+       
+                        <h:commandButton action="/wspolnota/List" value="Wspolnota" style="width: 20%;height: 150px;"/>
+      
+                        <h:commandButton action="/stawki/List" value="Stawki" style="width: 20%;height: 150px;"/>
+                        
+                        <h:commandButton action="#{ksiegowoscController.wylogujKsiegowosc()}" value="Wyloguj" style="width: 20%;height: 150px;"/>
+       
+
+
+                
+                </p:fieldset>
+
+
             </h:form>
-            <h:link outcome="/liczniki/List_1" value="Aktualizuj stany liczników"/>
-            <br />
-            <h:link outcome="/admin/List" value="Show All Admin Items"/>
-            <br />
-            <h:link outcome="/podsumowanieBudynku/List" value="Show All PodsumowanieBudynku Items"/>
-            <br />
-            <h:link outcome="/awaria/List" value="Show All Awaria Items"/>
-            <br />
-            <h:link outcome="/budynek/List" value="Show All Budynek Items"/>
-            <br />
-            <h:link outcome="/dodatkoweOplaty/List" value="Show All DodatkoweOplaty Items"/>
-            <br />
-            <h:link outcome="/informacja/List" value="Show All Informacja Items"/>
-            <br />
-            <h:link outcome="/ksiegowosc/List" value="Show All Ksiegowosc Items"/>
-            <br />
-            <h:link outcome="/lokator/List" value="Show All Lokator Items"/>
-            <br />
-            <h:link outcome="/mieszkanie/List" value="Show All Mieszkanie Items"/>
-            <br />
-            <h:link outcome="/oplaty/List" value="Show All Oplaty Items"/>
-            <br />
-            <h:link outcome="/wspolnota/List" value="Show All Wspolnota Items"/>
-            <br />
-            <h:link outcome="/stawki/List" value="Show All Stawki Items"/>
 
-            <br />
-
-
-        </h:body>
-
-
-
-    </h:form>
-
-
+    </h:body>
 
 
 

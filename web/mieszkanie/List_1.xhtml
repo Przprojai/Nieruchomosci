@@ -16,11 +16,11 @@
         <ui:define name="body">
             <h:form id="MieszkanieListForm">
                 <p:panel header="#{bundle.ListMieszkanieTitle}">
-                    <p:dataTable id="datalist" value="#{mieszkanieController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{mieszkanieController.items}" widgetVar="Mieszkania" var="item"
                                  selectionMode="single" selection="#{mieszkanieController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
-                                 rows="10"
+                                 rows="20"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  tableStyle="table-layout: auto; position: center"
                                  style="text-align: center"
@@ -29,30 +29,40 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMieszkanieTitle_nrMieszkania}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nrMieszkania}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMieszkanieTitle_ulica}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ulica}"/>
-                        </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.nrBloku}" filterBy="#{item.nrBloku}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMieszkanieTitle_nrBloku}"/>
                             </f:facet>
                             <h:outputText value="#{item.nrBloku}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.ulica}" filterBy="#{item.ulica}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_ulica}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ulica}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.klatka}" filterBy="#{item.klatka}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMieszkanieTitle_klatka}"/>
                             </f:facet>
                             <h:outputText value="#{item.klatka}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.nrMieszkania}" filterBy="#{item.nrMieszkania}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMieszkanieTitle_nrMieszkania}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nrMieszkania}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.zajetosc}" filterBy="#{item.zajetosc}" headerText="#{bundle.ListMieszkanieTitle_zajetosc}">
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('Mieszkania').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="Wszystkie" itemValue="" />
+                                    <f:selectItem itemLabel="Zajete" itemValue="true" />
+                                    <f:selectItem itemLabel="Puste" itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.zajetosc}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

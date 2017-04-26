@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -96,7 +97,7 @@ public class MieszkanieController implements Serializable {
                 for (int i =0;i<lista_mieszkan.size();i++){
                 selected = lista_mieszkan.get(i);
                 numer[0]=numer[0].replace("nr ", "");
-                if (selected.getNrKonta().toString().equals(numer[0])) {selected.setStanKonta(Float.parseFloat(numer[1]));persist(PersistAction.UPDATE, "Stan konta dla mieszkania "+selected.getId()+" zaktualizowany");}
+                if (selected.getNrKonta().toString().equals(numer[0])) {selected.setStanKonta(BigDecimal.valueOf(Double.parseDouble(numer[1])));persist(PersistAction.UPDATE, "Stan konta dla mieszkania "+selected.getId()+" zaktualizowany");}
                 }
             }
 
