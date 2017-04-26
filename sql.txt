@@ -1,0 +1,123 @@
+create table "public".admin
+(
+	id INT4 not null primary key,
+	login VARCHAR(25) not null,
+	haslo VARCHAR(512) not null
+);
+create table "public".awaria
+(
+	id INT4 not null primary key,
+	data DATE not null,
+	godzina TIME not null,
+	status VARCHAR(25) not null,
+	koszt REAL(8) not null,
+	id_budynku INT4 not null,
+	id_lokatora INT4 not null
+);
+create table "public".budynek
+(
+	id INT4 not null primary key,
+	adres VARCHAR(255) not null,
+	liczba_mieszkan INT4 default 1 not null,
+	liczba_klatek INT4 default 1 not null,
+	kontakt VARCHAR(100) not null,
+	id_wspolnota INT4 not null
+);
+create table "public".dodatkowe_oplaty
+(
+	id INT4 not null primary key,
+	rodzaj VARCHAR(100) not null,
+	koszt REAL(8) not null,
+	id_oplaty INT4 not null
+);
+create table "public".informacja
+(
+	id INT4 not null primary key,
+	opis VARCHAR(100) not null,
+	numer INT4 not null,
+	potwierdzenie BOOL default false not null,
+	id_mieszkania INT4 not null
+);
+create table "public".ksiegowosc
+(
+	id INT4 not null primary key,
+	login VARCHAR(25) not null,
+	haslo VARCHAR(512) not null,
+	imie VARCHAR(25) not null,
+	nazwisko VARCHAR(50) not null,
+	kontakt VARCHAR(100) not null
+);
+create table "public".lokator
+(
+	id INT4 not null primary key,
+	login VARCHAR(25) not null,
+	haslo VARCHAR(512) not null,
+	imie VARCHAR(50) not null,
+	nazwisko VARCHAR(50) not null,
+	kontakt VARCHAR(100),
+	id_mieszkania INT4 not null
+);
+create table "public".mieszkanie
+(
+	id INT4 not null primary key,
+	nr_mieszkania INT4 not null,
+	ulica VARCHAR(100) not null,
+	nr_bloku INT4 not null,
+	klatka VARCHAR(5) not null,
+	liczba_osob INT4 not null,
+	powierzchnia REAL(8) default 1.0 not null,
+	pietro INT4 not null,
+	licznik_wody_cieplej INT4 not null,
+	licznik_wody_zimnej INT4 not null,
+	licznik_ciepla INT4 not null,
+	zajetosc BOOL default false not null,
+	id_budynku INT4 not null,
+	nr_konta NUMERIC(1000) not null,
+	nadplata REAL(8) not null,
+	adres_korespondencyjny VARCHAR(100) not null,
+	stan_konta REAL(8) default 0.00 not null,
+	podsumowanie REAL(8) default 0.0 not null
+);
+create table "public".oplaty
+(
+	id INT4 not null primary key,
+	miesiac INT4 not null,
+	rok INT4 not null,
+	suma_oplat REAL(8) not null,
+	id_mieszkania INT4 not null,
+	id_stawki INT4 not null,
+	zaplacono REAL(8) default 0.0 not null,
+	podsumowanie REAL(8) default 0.0 not null
+);
+create table "public".stawki
+(
+	id INT4 not null primary key,
+	eksploatacja_podstawowa REAL(8) not null,
+	fundusz_remontowy REAL(8) not null,
+	legalizacja_wodomierza REAL(8) not null,
+	konserwacja_domofonu REAL(8) not null,
+	eksploatacja_dzwigow REAL(8) not null,
+	co REAL(8) not null,
+	cw REAL(8) not null,
+	zwis REAL(8) not null,
+	gaz REAL(8) not null,
+	prad_w_pom_wspolnych REAL(8) not null,
+	smieci REAL(8) not null,
+	ubezpieczenie REAL(8) not null,
+	id_budynku INT4 not null
+);
+create table "public".wspolnota
+(
+	id INT4 not null primary key,
+	nazwa VARCHAR(255) not null
+);
+alter table awaria add foreign key (id_lokatora) references lokator(id);
+alter table awaria add foreign key (id_budynku) references budynek(id);
+alter table informacja add foreign key (id_mieszkania) references mieszkanie(id);
+alter table mieszkanie add foreign key (id_budynku) references budynek(id);
+alter table budynek add foreign key (id_wspolnoty) references wspolnota(id);
+alter table dodatkowe_oplaty add foreign key (id_oplaty) references oplaty(id);
+alter table lokator add foreign key (id_mieszkania) references mieszkanie(id);
+alter table oplaty add foreign key (id_mieszkania) references mieszkanie(id);
+alter table oplaty add foreign key (id_stawki) references stawki(id);
+alter table stawki add foreign key (id_budynku) references budynek(id);
