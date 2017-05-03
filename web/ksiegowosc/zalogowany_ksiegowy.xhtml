@@ -4,15 +4,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
+    <h:head >
         <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
+       <h:outputStylesheet name="css/jsfcrud.css"/> 
     </h:head>     
-    <h:body style="background: url(resources/icon/background.jpg); background-size: 100%; background-repeat:no-repeat;">
+    <h:body style="background: url(../resources/icon/background.jpg) !important; background-size: 100%; background-repeat:no-repeat; " >
         <h:form id="index">
             <p:messages id="messages"  autoUpdate="true" closable="true"  />
 
-                 
                     <p:fieldset legend="Zalogowano jako: #{ksiegowoscController.selected.login}" style="width:50%;margin-left: 25%;background: silver"  >
                         <h:commandButton actionListener="#{lokatorController.prepareCreate3()}" action="/lokator/rejestracja.xhtml"  value="Utwórz konto lokatora" style="width: 20%;height: 150px;"/>
 

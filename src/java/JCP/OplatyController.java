@@ -130,8 +130,8 @@ public List<String> miesiac(){
             sumaoplat= sumaoplat.add(stawki.getLegalizacjaWodomierza().multiply(new BigDecimal (2)));
             szczegoly.setFrf(stawki.getFunduszRemontowy().multiply(mieszkanie.getPowierzchnia()));
             szczegoly.setLwf(stawki.getLegalizacjaWodomierza().multiply(new BigDecimal (2)));
-            szczegoly.setFunduszRemontowy("Fundusz Remontowy "+stawki.getFunduszRemontowy()+" zł/m2 * "+ mieszkanie.getPowierzchnia()+" m2  - " +stawki.getFunduszRemontowy().multiply(mieszkanie.getPowierzchnia())+ " zł");
-            szczegoly.setLegalizacjaWodomierza("Legalizacja Wodomierza "+stawki.getLegalizacjaWodomierza()+" zł/wod * 2  -"+stawki.getLegalizacjaWodomierza().multiply(new BigDecimal (2))+" zł ");
+            szczegoly.setFunduszRemontowy("Fundusz remontowy "+stawki.getFunduszRemontowy()+" zł/m2 * "+ mieszkanie.getPowierzchnia()+" m2  - " +stawki.getFunduszRemontowy().multiply(mieszkanie.getPowierzchnia())+ " zł");
+            szczegoly.setLegalizacjaWodomierza("Legalizacja wodomierza "+stawki.getLegalizacjaWodomierza()+" zł/wod * 2  -"+stawki.getLegalizacjaWodomierza().multiply(new BigDecimal (2))+" zł ");
             
             sumaoplat= sumaoplat.add(stawki.getKonserwacjaDomofonu());
             szczegoly.setKdf(stawki.getKonserwacjaDomofonu());
@@ -139,7 +139,7 @@ public List<String> miesiac(){
             
             sumaoplat=sumaoplat.add(stawki.getEksploatacjaDzwigow().multiply(new BigDecimal(mieszkanie.getLiczbaOsob()).multiply(((new BigDecimal (mieszkanie.getPietro()))))));
             szczegoly.setEdf(stawki.getEksploatacjaDzwigow().multiply(new BigDecimal(mieszkanie.getLiczbaOsob()).multiply(((new BigDecimal (mieszkanie.getPietro()))))));
-            szczegoly.setEksploatacjaDzwigow("Eksploatacja Dzwigow " +stawki.getEksploatacjaDzwigow() +" zł/os * "+ mieszkanie.getLiczbaOsob()*mieszkanie.getPietro()+" os * piętro - "+stawki.getEksploatacjaDzwigow().multiply(new BigDecimal(mieszkanie.getLiczbaOsob()).multiply(((new BigDecimal (mieszkanie.getPietro())))))+" zł");
+            szczegoly.setEksploatacjaDzwigow("Eksploatacja dzwigow " +stawki.getEksploatacjaDzwigow() +" zł/os * "+ mieszkanie.getLiczbaOsob()*mieszkanie.getPietro()+" os * piętro - "+stawki.getEksploatacjaDzwigow().multiply(new BigDecimal(mieszkanie.getLiczbaOsob()).multiply(((new BigDecimal (mieszkanie.getPietro())))))+" zł");
             
             licznik1=getFacade().poprzedni(mieszkanie, miesiac, rok);
             licznik2=getFacade().liczniki(mieszkanie, miesiac, rok);
