@@ -1,5 +1,6 @@
 package JCP;
 
+import Entity.Budynek;
 import Entity.Mieszkanie;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
@@ -11,6 +12,7 @@ import java.io.IOException;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -32,26 +34,64 @@ public class MieszkanieController implements Serializable {
     private SBP.MieszkanieFacade ejbFacade;
     private List<Mieszkanie> items = null;
     private Mieszkanie selected;
-    static String csvFile=null;
-    
-    
+    static String csvFile = null;
+    BigDecimal prad2 = new BigDecimal(0);
+    BigDecimal gaz2 = new BigDecimal(0);
+    BigDecimal woda2 = new BigDecimal(0);
+    BigDecimal co2 = new BigDecimal(0);
+
     public MieszkanieController() {
     }
 
     public Mieszkanie getSelected() {
         return selected;
     }
-   
+
     public static String wyswietlsciezke() {
         return csvFile;
     }
-    public static String pobierzplik(String plik){
-       MieszkanieController.csvFile=plik;
-       return MieszkanieController.csvFile;
+
+    public BigDecimal getPrad2() {
+        return prad2;
     }
-    public static String asd(){
+
+    public BigDecimal getWoda2() {
+        return woda2;
+    }
+
+    public void setWoda2(BigDecimal woda2) {
+        this.woda2 = woda2;
+    }
+
+    public void setPrad2(BigDecimal prad2) {
+        this.prad2 = prad2;
+    }
+
+    public BigDecimal getGaz2() {
+        return gaz2;
+    }
+
+    public void setGaz2(BigDecimal gaz2) {
+        this.gaz2 = gaz2;
+    }
+
+    public BigDecimal getCo2() {
+        return co2;
+    }
+
+    public void setCo2(BigDecimal co2) {
+        this.co2 = co2;
+    }
+
+    public static String pobierzplik(String plik) {
+        MieszkanieController.csvFile = plik;
         return MieszkanieController.csvFile;
     }
+
+    public static String asd() {
+        return MieszkanieController.csvFile;
+    }
+
     public void setSelected(Mieszkanie selected) {
         this.selected = selected;
     }
@@ -71,12 +111,14 @@ public class MieszkanieController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+
     public List<Mieszkanie> lista_mieszkan() {
-        
+
         return getFacade().lista_mieszkan();
     }
- public void wyswietl() {
-       // String csvFile = "C:\\Users\\Waldek\\Desktop\\magisterka\\b.csv";
+
+    public void wyswietl() {
+        // String csvFile = "C:\\Users\\Waldek\\Desktop\\magisterka\\b.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
@@ -84,7 +126,7 @@ public class MieszkanieController implements Serializable {
         List<Mieszkanie> lista_mieszkan = null;
         lista_mieszkan = getFacade().findAll();
         Mieszkanie mieszkanie = new Mieszkanie();
-        
+
         try {
 
             br = new BufferedReader(new FileReader(csvFile));
@@ -94,10 +136,13 @@ public class MieszkanieController implements Serializable {
                 // use comma as separator
                 //String[] country = line.split(cvsSplitBy);
                 numer = line.split(cvsSplitBy);
-                for (int i =0;i<lista_mieszkan.size();i++){
-                selected = lista_mieszkan.get(i);
-                numer[0]=numer[0].replace("nr ", "");
-                if (selected.getNrKonta().toString().equals(numer[0])) {selected.setStanKonta(BigDecimal.valueOf(Double.parseDouble(numer[1])));persist(PersistAction.UPDATE, "Stan konta dla mieszkania "+selected.getId()+" zaktualizowany");}
+                for (int i = 0; i < lista_mieszkan.size(); i++) {
+                    selected = lista_mieszkan.get(i);
+                    numer[0] = numer[0].replace("nr ", "");
+                    if (selected.getNrKonta().toString().equals(numer[0])) {
+                        selected.setStanKonta(BigDecimal.valueOf(Double.parseDouble(numer[1])));
+                        persist(PersistAction.UPDATE, "Stan konta dla mieszkania " + selected.getId() + " zaktualizowany");
+                    }
                 }
             }
 
@@ -114,8 +159,8 @@ public class MieszkanieController implements Serializable {
                 }
             }
         }
-                csvFile=null;
-                items=null;
+        csvFile = null;
+        items = null;
     }
 
     public void create() {
@@ -136,17 +181,56 @@ public class MieszkanieController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    public String utworz_lokatora(Mieszkanie mieszkanie){
-    mieszkanie.setZajetosc(true);
-    selected=mieszkanie;
-    persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MieszkanieUpdated"));
-    return "/lokator/List_1.xhtml";
+
+    public String utworz_lokatora(Mieszkanie mieszkanie) {
+        mieszkanie.setZajetosc(true);
+        selected = mieszkanie;
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MieszkanieUpdated"));
+        return "/lokator/List_1.xhtml";
     }
+
     public List<Mieszkanie> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public void rozlicz(BigDecimal prad, BigDecimal gaz, BigDecimal woda, BigDecimal co) {
+
+        List<Budynek> lista = new ArrayList<Budynek>();
+        BigDecimal pomoc = new BigDecimal(0);
+        BigDecimal wynik = new BigDecimal(0);
+        lista = getFacade().budynki();
+        Budynek budynek = new Budynek();
+        for (int i = 0; i < lista.size(); i++) {
+
+            budynek = lista.get(i);
+            List<Mieszkanie> list = getFacade().aktywne(lista.get(i));
+            for (int j = 0; j < list.size(); j++) {
+                selected = list.get(j);
+                pomoc = pomoc.add(prad);
+                pomoc = pomoc.multiply(new BigDecimal(budynek.getPrad()));
+                wynik = wynik.add(pomoc);
+                pomoc = new BigDecimal(0);
+                pomoc = pomoc.add(gaz);
+                pomoc = pomoc.multiply(new BigDecimal(budynek.getGaz()));
+                wynik = wynik.add(pomoc);
+                pomoc = new BigDecimal(0);
+                pomoc = pomoc.add(woda);
+                pomoc = pomoc.multiply(new BigDecimal(budynek.getWoda()));
+                wynik = wynik.add(pomoc);
+                pomoc = new BigDecimal(0);
+                pomoc = pomoc.add(co);
+                pomoc = pomoc.multiply(new BigDecimal(budynek.getCo()));
+                wynik = wynik.add(pomoc);
+                wynik = wynik.divide(new BigDecimal(list.size()), 2);
+                selected.setNadplata(wynik);
+                update();
+                wynik = new BigDecimal(0);
+            }
+
+        }
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

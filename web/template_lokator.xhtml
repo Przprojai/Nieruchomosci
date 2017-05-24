@@ -9,6 +9,9 @@
         <title><ui:insert name="title">Default Title</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
+        <style type="text/css">
+        .ui-layout-unit-content{background-image:url('../resources/icon/background2.jpg');}
+    </style>
     </h:head>
 
     <h:body>
@@ -23,9 +26,9 @@
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Awaria" outcome="/awaria/List_lokator.xhtml" />
                             
-                            <p:menuitem value="Informacje" outcome="/informacja/List.xhtml" />
+                            <p:menuitem value="Informacje" outcome="/informacja/List_1.xhtml" />
                             
-                            <p:menuitem value="Oplaty" outcome="/oplaty/List.xhtml" />
+                            <p:menuitem value="Oplaty" outcome="/oplaty/List_1.xhtml" />
                         </p:submenu>
                     </p:menubar>
                 </h:form>

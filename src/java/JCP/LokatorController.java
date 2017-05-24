@@ -59,6 +59,10 @@ public class LokatorController implements Serializable {
         return ejbFacade;
     }
 
+    public Boolean getZalogowany() {
+        return zalogowany;
+    }
+
     public Boolean SprawdzHaslo(String log) {
         return getFacade().sprawdzHaslo(log);
     }

@@ -171,6 +171,14 @@ public class Szczegoly implements Serializable {
     @NotNull
     @Column(name = "dof")
     private BigDecimal dof;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "suf")
+    private BigDecimal suf;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "pods")
+    private BigDecimal pods;
     @Basic(optional = true)
     @NotNull
     @Size(min = 1, max = 300)
@@ -184,7 +192,7 @@ public class Szczegoly implements Serializable {
         this.id = id;
     }
 
-    public Szczegoly(Integer id, String eksploatacjaPodstawowa, String funduszRemontowy, String legalizacjaWodomierza, String konserwacjaDomofonu, String eksploatacjaDzwigow, String co, String cw, String zwis, String pradWPomWspolnych, String smieci, String ubezpieczenie, String gaz, String suma, BigDecimal epf, BigDecimal frf, BigDecimal lwf, BigDecimal kdf, BigDecimal edf, BigDecimal cof, BigDecimal cwf, BigDecimal zwisf, BigDecimal pwpwf, BigDecimal smf, BigDecimal ubf, BigDecimal gazf, BigDecimal dof) {
+    public Szczegoly(Integer id, String eksploatacjaPodstawowa, String funduszRemontowy, String legalizacjaWodomierza, String konserwacjaDomofonu, String eksploatacjaDzwigow, String co, String cw, String zwis, String pradWPomWspolnych, String smieci, String ubezpieczenie, String gaz, String suma, BigDecimal epf, BigDecimal frf, BigDecimal lwf, BigDecimal kdf, BigDecimal edf, BigDecimal cof, BigDecimal cwf, BigDecimal zwisf, BigDecimal pwpwf, BigDecimal smf, BigDecimal ubf, BigDecimal gazf, BigDecimal dof, BigDecimal suf, BigDecimal pods) {
         this.id = id;
         this.eksploatacjaPodstawowa = eksploatacjaPodstawowa;
         this.funduszRemontowy = funduszRemontowy;
@@ -212,6 +220,8 @@ public class Szczegoly implements Serializable {
         this.ubf = ubf;
         this.gazf = gazf;
         this.dof = dof;
+        this.suf = suf;
+        this.pods = pods;
     }
 
 
@@ -398,6 +408,14 @@ public class Szczegoly implements Serializable {
         this.cwf = cwf;
     }
 
+    public BigDecimal getPods() {
+        return pods;
+    }
+
+    public void setPods(BigDecimal pods) {
+        this.pods = pods;
+    }
+    
     public BigDecimal getZwisf() {
         return zwisf;
     }
@@ -437,6 +455,15 @@ public class Szczegoly implements Serializable {
     public void setGazf(BigDecimal gazf) {
         this.gazf = gazf;
     }
+
+    public BigDecimal getSuf() {
+        return suf;
+    }
+
+    public void setSuf(BigDecimal suf) {
+        this.suf = suf;
+    }
+    
     public String getDodatkowe_oplaty() {
         return dodatkowe_oplaty;
     }

@@ -39,14 +39,15 @@
 
                         <h:outputText value="#{szczegolyController.selected.ubezpieczenie}" title="#{bundle.ViewSzczegolyTitle_ubezpieczenie}"/>
 
-                        <h:outputText value="Dodatkowe opłaty #{szczegolyController.selected.dodatkowe_oplaty}" title="Dodatkowe opłaty"/>
                          
-                        <h:outputText value="Suma #{szczegolyController.selected.suma}" title="Suma"/>
+                        <h:outputText value="#{szczegolyController.selected.suma}" title="Suma"/>
 
-                       
+                        <h:outputText value="Dodatkowe opłaty: #{szczegolyController.selected.dodatkowe_oplaty}" title="Dodatkowe opłaty"/>
+                        
+                        <h:outputText value="Do zapłaty: #{szczegolyController.selected.pods}" />
 
-                        <h:outputText value="#{szczegolyController.selected.idOplaty}" title="#{bundle.ViewSzczegolyTitle_idOplaty}"/>
                     </p:panelGrid>
+                    <p:commandButton value="PDF" actionListener="#{szczegolyController.PDF(szczegolyController.selected)}" ajax="false"/>
                     <p:commandButton value="#{bundle.Close}" onclick="SzczegolyViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

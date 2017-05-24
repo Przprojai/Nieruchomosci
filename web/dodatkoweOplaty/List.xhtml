@@ -50,7 +50,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDodatkoweOplatyTitle_idOplaty}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idOplaty}"/>
+                            <h:outputText value="#{item.idBudynku}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{dodatkoweOplatyController.prepareCreate}" update=":DodatkoweOplatyCreateForm" oncomplete="PF('DodatkoweOplatyCreateDialog').show()"/>

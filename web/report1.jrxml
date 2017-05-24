@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1b787194-af9b-43a2-b476-228cc6538adf">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="86"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="przekaz_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     szczegoly."id" AS id,
+     szczegoly."eksploatacja_podstawowa" AS eksploatacjaPodstawowa,
+     szczegoly."fundusz_remontowy" AS funduszRemontowy,
+     szczegoly."legalizacja_wodomierza" AS legalizacjaWodomierza,
+     szczegoly."konserwacja_domofonu" AS konserwacjaDomofonu,
+     szczegoly."eksploatacja_dzwigow" AS eksploatacjaDzwigow,
+     szczegoly."co" AS co,
+     szczegoly."cw" AS cw,
+     szczegoly."zwis" AS zwis,
+     szczegoly."prad_w_pom_wspolnych" AS pradWPomWspolnych,
+     szczegoly."smieci" AS smieci,
+     szczegoly."ubezpieczenie" AS ubezpieczenie,
+     
+     szczegoly."gaz" AS gaz,
+     szczegoly."suma" AS suma,
+     szczegoly."dodatkowe_oplaty" AS dodatkoweOplaty
+FROM
+     "public"."szczegoly" szczegoly
+WHERE
+szczegoly."id" = $P{przekaz_id}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="eksploatacjaPodstawowa" class="java.lang.String"/>
+	<field name="funduszRemontowy" class="java.lang.String"/>
+	<field name="legalizacjaWodomierza" class="java.lang.String"/>
+	<field name="konserwacjaDomofonu" class="java.lang.String"/>
+	<field name="eksploatacjaDzwigow" class="java.lang.String"/>
+	<field name="co" class="java.lang.String"/>
+	<field name="cw" class="java.lang.String"/>
+	<field name="zwis" class="java.lang.String"/>
+	<field name="pradWPomWspolnych" class="java.lang.String"/>
+	<field name="smieci" class="java.lang.String"/>
+	<field name="ubezpieczenie" class="java.lang.String"/>
+	<field name="gaz" class="java.lang.String"/>
+	<field name="suma" class="java.lang.String"/>
+	<field name="dodatkowe_oplaty" class="java.lang.String"/>
+	<group name="id">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+		<groupHeader>
+			<band height="328">
+				<textField>
+					<reportElement style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#333333" uuid="a8c92a16-df7f-468e-9aa3-836262be6438"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="06c6a6d5-b994-4839-8d88-311b30c8abc7"/>
+				</rectangle>
+				<textField>
+					<reportElement style="Detail" x="0" y="67" width="553" height="16" uuid="dbfd571c-f934-4b50-b117-18b11ecccd43"/>
+					<textFieldExpression><![CDATA[$F{legalizacjaWodomierza}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="-1" y="52" width="554" height="16" uuid="825ec7bb-8c1e-45ac-aaa8-c082154a38a3"/>
+					<textFieldExpression><![CDATA[$F{funduszRemontowy}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="0" y="37" width="553" height="16" uuid="6a5d2172-d641-40dc-8560-dde6084bada0"/>
+					<textFieldExpression><![CDATA[$F{eksploatacjaPodstawowa}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="0" y="82" width="553" height="16" uuid="c1782635-73df-4cd2-aca9-81a2d79c7b92"/>
+					<textFieldExpression><![CDATA[$F{konserwacjaDomofonu}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="0" y="97" width="553" height="16" uuid="6c37e753-02b7-465c-a211-f0a50bbea489"/>
+					<textFieldExpression><![CDATA[$F{cw}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="0" y="112" width="553" height="16" uuid="eb258af8-bba6-4dd5-8eb9-ccedd3d3b5b2"/>
+					<textFieldExpression><![CDATA[$F{zwis}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="0" y="157" width="553" height="16" uuid="bc4bd3cf-1fc9-4a77-90bc-2d92e13ac9fe"/>
+					<textFieldExpression><![CDATA[$F{gaz}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="-1" y="237" width="553" height="16" uuid="88cce5c0-d4eb-4618-af5b-41ae585817a3"/>
+					<textFieldExpression><![CDATA[$F{suma}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="2" y="189" width="553" height="16" uuid="f2c07318-2cf8-49f1-b44a-782b0e403e8e"/>
+					<textFieldExpression><![CDATA[$F{co}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="0" y="221" width="553" height="16" uuid="f2de8808-a20e-453c-98bf-bd5a71432d85"/>
+					<textFieldExpression><![CDATA[$F{pradWPomWspolnych}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="0" y="173" width="554" height="16" uuid="f1898314-c4cc-4cc7-a948-35b1c96d5ec5"/>
+					<textFieldExpression><![CDATA[$F{eksploatacjaDzwigow}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="12"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="-20" y="0" width="595" height="64" uuid="164e6db2-7785-4623-bacf-4911ad4338c9"/>
+				<imageExpression><![CDATA["wood.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="5" width="263" height="33" uuid="dcd8b9e7-bbfc-42d9-bb24-a3a672c8b630"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Wood Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="63" y="39" width="200" height="22" forecolor="#FFFFFF" uuid="9d983c2a-6def-4e87-9a5b-46475c98fc6f"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Wood SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="3c0900c7-e433-478e-ab37-0e9eb9fd6a64"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="66b16465-3a41-4948-9ff1-e03011354f70"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="-1" y="-201" width="553" height="16" uuid="8ce1dbca-aaf4-461d-ada8-ea604b1a3916"/>
+				<textFieldExpression><![CDATA[$F{smieci}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="-1" y="-186" width="553" height="16" uuid="11e10888-6216-423a-8b46-f24a1e446435"/>
+				<textFieldExpression><![CDATA[$F{ubezpieczenie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="-1" y="-123" width="554" height="16" uuid="6def1cb6-b895-4416-aab9-d06320315ef4"/>
+				<textFieldExpression><![CDATA[$F{dodatkowe_oplaty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="59a6e78c-b44f-4eb6-af2f-14ee5af0a69e"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="80fd59eb-db5c-463b-847b-c35b896c5a23"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="9ad897ff-e526-4956-81ac-b88eba211101"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="7668f618-7c2c-498f-b200-851a34cb8953"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

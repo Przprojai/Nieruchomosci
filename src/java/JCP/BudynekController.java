@@ -1,11 +1,20 @@
 package JCP;
 
 import Entity.Budynek;
+import Entity.Liczniki;
+import Entity.Mieszkanie;
+import static JCP.LicznikiController.csvFileLicznik;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
 import SBP.BudynekFacade;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.math.BigDecimal;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -28,6 +37,8 @@ public class BudynekController implements Serializable {
     @EJB private SBP.BudynekFacade ejbFacade;
     private List<Budynek> items = null;
     private Budynek selected;
+    static String csvFileLicznik=null;
+
 
     public BudynekController() {
     }
@@ -35,10 +46,14 @@ public class BudynekController implements Serializable {
     public Budynek getSelected() {
         return selected;
     }
-
+    public static String setCsvFileLicznik(String csvFileLicznik) {
+        BudynekController.csvFileLicznik = csvFileLicznik;
+        return LicznikiController.csvFileLicznik;
+    }
     public void setSelected(Budynek selected) {
         this.selected = selected;
     }
+
 
     protected void setEmbeddableKeys() {
     }
@@ -55,7 +70,68 @@ public class BudynekController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    public void liczniki() {
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ";";
+        String[] numer = new String[]{};
+        List<Budynek> lista_budynkow = null;
+        lista_budynkow = getFacade().findAll();
+        //Mieszkanie mieszkanie = new Mieszkanie();
+        Budynek budynek = new Budynek();
+    //    selected = null;
+        try {
 
+            br = new BufferedReader(new FileReader(csvFileLicznik));
+            //br = csvFile;
+
+            while ((line = br.readLine()) != null) {
+
+                // use comma as separator
+                //String[] country = line.split(cvsSplitBy);
+                numer = line.split(cvsSplitBy);
+                for (int i = 0; i < lista_budynkow.size(); i++) {
+                    selected = lista_budynkow.get(i);
+                   // selected = mieszkanie;
+                  // selected = new Budynek();
+                    if (selected.getId().toString().equals(numer[0])) {
+                        {
+                        selected.setGaz(Integer.parseInt(numer[1]));
+                        selected.setPrad(Integer.parseInt(numer[2]));
+                        selected.setWoda(Integer.parseInt(numer[3]));
+                        selected.setCo(Integer.parseInt(numer[4]));
+                        persist(PersistAction.UPDATE, "Stan liczników dla budynku "+selected.getId()+" zaktualizowany");
+                        }
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        csvFileLicznik = null;
+        items=null;
+    }
+//    public void rozlicz(BigDecimal prad, BigDecimal gaz, BigDecimal woda, Integer co){
+//
+//        List<Budynek> lista = new ArrayList<Budynek>();
+//        lista = getFacade().findAll();
+//        for (int i=0;i<lista.size();i++){
+//            
+//        }
+//        
+//    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle2").getString("BudynekCreated"));
         if (!JsfUtil.isValidationFailed()) {

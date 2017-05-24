@@ -18,12 +18,12 @@
                         <p:inputText id="rodzaj" value="#{dodatkoweOplatyController.selected.rodzaj}" title="#{bundle.EditDodatkoweOplatyTitle_rodzaj}" required="true" requiredMessage="#{bundle.EditDodatkoweOplatyRequiredMessage_rodzaj}"/>
                         <p:outputLabel value="#{bundle.EditDodatkoweOplatyLabel_koszt}" for="koszt" />
                         <p:inputText id="koszt" value="#{dodatkoweOplatyController.selected.koszt}" title="#{bundle.EditDodatkoweOplatyTitle_koszt}" required="true" requiredMessage="#{bundle.EditDodatkoweOplatyRequiredMessage_koszt}"/>
-                        <p:outputLabel value="#{bundle.EditDodatkoweOplatyLabel_idOplaty}" for="idOplaty" />
-                        <p:selectOneMenu id="idOplaty" value="#{dodatkoweOplatyController.selected.idOplaty}" required="true" requiredMessage="#{bundle.EditDodatkoweOplatyRequiredMessage_idOplaty}">
+                        <p:outputLabel value="#{bundle.EditDodatkoweOplatyLabel_idBudynku}" for="idBudynku" />
+                        <p:selectOneMenu id="idBudynku" value="#{dodatkoweOplatyController.selected.idBudynku}" required="true" requiredMessage="#{bundle.EditDodatkoweOplatyRequiredMessage_idBudynku}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{oplatyController.itemsAvailableSelectOne}"
-                                           var="idOplatyItem"
-                                           itemValue="#{idOplatyItem}"/>
+                                           var="idBudynkuItem"
+                                           itemValue="#{idBudynkuItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{dodatkoweOplatyController.update}" value="#{bundle.Save}" update="display,:DodatkoweOplatyListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DodatkoweOplatyEditDialog');"/>

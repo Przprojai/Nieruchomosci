@@ -1,11 +1,14 @@
 package JCP;
 
+import Entity.Budynek;
 import Entity.DodatkoweOplaty;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
 import SBP.DodatkoweOplatyFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +21,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.FlowEvent;
 
 @Named("dodatkoweOplatyController")
 @SessionScoped
@@ -27,6 +31,10 @@ public class DodatkoweOplatyController implements Serializable {
     private SBP.DodatkoweOplatyFacade ejbFacade;
     private List<DodatkoweOplaty> items = null;
     private DodatkoweOplaty selected;
+    Budynek budynek = null;
+    String miesiac="";
+
+
 
     public DodatkoweOplatyController() {
     }
@@ -49,19 +57,101 @@ public class DodatkoweOplatyController implements Serializable {
         return ejbFacade;
     }
 
+    public String getMiesiac() {
+        return miesiac;
+    }
+
+    public void setMiesiac(String miesiac) {
+        this.miesiac = miesiac;
+    }
+    
+    public List<String> klatka(){
+        List<String> list = new ArrayList<String>();
+        List<String> list2 = new ArrayList<String>();
+        list.add("Wszystkie");
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        list.add("D");
+        list.add("E");
+        list.add("F");
+        list.add("G");
+        for(int i=0;i<budynek.getLiczbaKlatek()+1;i++)list2.add(list.get(i));
+        return list2;
+        
+    }
     public DodatkoweOplaty prepareCreate() {
         selected = new DodatkoweOplaty();
         initializeEmbeddableKey();
         return selected;
     }
+    public String onFlowProcess(FlowEvent event) {
+        if(budynek!=null)
+        return event.getNewStep();
+        else
+            return "budynek";
+    }
+    public Budynek getBudynek() {
+        return budynek;
+    }
 
+    public void setBudynek(Budynek budynek) {
+        this.budynek = budynek;
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DodatkoweOplatyCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    public List<String> miesiac(){
+        List<String> lista = new ArrayList<String>();
+        List<String> lista2 = new ArrayList<String>();
+        Date data = new Date();
+        
+        lista.add("Styczeń");
+        lista.add("Luty");
+        lista.add("Marzec");
+        lista.add("Kwiecień");
+        lista.add("Maj");
+        lista.add("Czerwiec");
+        lista.add("Lipiec");
+        lista.add("Sierpień");
+        lista.add("Wrzesień");
+        lista.add("Październik");
+        lista.add("Listopad");
+        lista.add("Grudzień");
+        for (int i=data.getMonth()+1;i<12;i++)lista2.add(lista.get(i));
+        return lista2;
+    }
+    public Integer zamienMiesiac(String miesiac){
+        Integer wynik=0;
+        switch(miesiac){
+            case "Styczeń": {wynik=1;break;}
+            case "Luty": {wynik=2;break;}
+            case "Marzec": {wynik=3;break;}
+            case "Kwiecień": {wynik=4;break;}
+            case "Maj": {wynik=5;break;}
+            case "Czerwiec": {wynik=6;break;}
+            case "Lipiec": {wynik=7;break;}
+            case "Sierpień": {wynik=8;break;}
+            case "Wrzesień": {wynik=9;break;}
+            case "Październik": {wynik=10;break;}
+            case "Listopad": {wynik=11;break;}
+            case "Grudzień": {wynik=12;break;}
+        }
+        return wynik;
+    }
+        public String create2() {
+        selected.setId(getFacade().id());
+        selected.setIdBudynku(budynek);
+        selected.setMiesiac(zamienMiesiac(miesiac));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DodatkoweOplatyCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+        return "/dodatkoweOplaty/List.xhtml";
+    }
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DodatkoweOplatyUpdated"));
     }

@@ -6,9 +6,14 @@
 package SBP;
 
 import Entity.Budynek;
+import Entity.Mieszkanie;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,5 +33,6 @@ public class BudynekFacade extends AbstractFacade<Budynek> {
     public BudynekFacade() {
         super(Budynek.class);
     }
-    
+
+
 }

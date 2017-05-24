@@ -71,8 +71,8 @@ public class Oplaty implements Serializable {
     @NotNull
     @Column(name = "podsumowanie")
     private BigDecimal podsumowanie;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOplaty")
-    private Collection<DodatkoweOplaty> dodatkoweOplatyCollection;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "idOplaty")
+    //private Collection<DodatkoweOplaty> dodatkoweOplatyCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOplaty")
     private Collection<Szczegoly> szczegolyCollection;
     @JoinColumn(name = "id_mieszkania", referencedColumnName = "id")
@@ -154,14 +154,14 @@ public class Oplaty implements Serializable {
         this.podsumowanie = podsumowanie;
     }
 
-    @XmlTransient
-    public Collection<DodatkoweOplaty> getDodatkoweOplatyCollection() {
-        return dodatkoweOplatyCollection;
-    }
-
-    public void setDodatkoweOplatyCollection(Collection<DodatkoweOplaty> dodatkoweOplatyCollection) {
-        this.dodatkoweOplatyCollection = dodatkoweOplatyCollection;
-    }
+//    @XmlTransient
+//    public Collection<DodatkoweOplaty> getDodatkoweOplatyCollection() {
+//        return dodatkoweOplatyCollection;
+//    }
+//
+//    public void setDodatkoweOplatyCollection(Collection<DodatkoweOplaty> dodatkoweOplatyCollection) {
+//        this.dodatkoweOplatyCollection = dodatkoweOplatyCollection;
+//    }
 
     @XmlTransient
     public Collection<Szczegoly> getSzczegolyCollection() {

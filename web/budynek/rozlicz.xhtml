@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudynekRozliczDlg" widgetVar="BudynekRozliczDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBudynekTitle}">
+            <h:form id="BudynekRozliczForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" >
+                        <p:outputLabel value="Stawka prąd" for="id" />
+                        <p:inputText id="id" value="#{mieszkanieController.prad2}"  required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_id}"/>
+                        <p:outputLabel value="Stawka gaz" for="adres" />
+                        <p:inputText id="adres" value="#{mieszkanieController.gaz2}" title="#{bundle.EditBudynekTitle_adres}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_adres}"/>
+                        <p:outputLabel value="Stawka woda" for="liczbaMieszkan" />
+                        <p:inputText id="liczbaMieszkan" value="#{mieszkanieController.woda2}"  required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_liczbaMieszkan}"/>
+                        <p:outputLabel value="Stawka CO" for="liczbaMieszkan2" />
+                        <p:inputText id="liczbaMieszkan2" value="#{mieszkanieController.co2}"  required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_liczbaMieszkan}"/>
+                    </p:panelGrid>
+                    <p:commandButton  value="#{bundle.Save}" action="#{mieszkanieController.rozlicz(mieszkanieController.prad2, mieszkanieController.gaz2, mieszkanieController.woda2, mieszkanieController.co2)}" update="display,:BudynekListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BudynekEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BudynekEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

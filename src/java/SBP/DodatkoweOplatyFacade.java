@@ -9,6 +9,7 @@ import Entity.DodatkoweOplaty;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +29,13 @@ public class DodatkoweOplatyFacade extends AbstractFacade<DodatkoweOplaty> {
     public DodatkoweOplatyFacade() {
         super(DodatkoweOplaty.class);
     }
-    
+                public Integer id(){
+        Query q = em.createQuery ("SELECT MAX(X.id) FROM DodatkoweOplaty X");
+Integer result = (Integer) q.getSingleResult ();
+if(result==null)result=1;
+else
+      result+=1;
+      
+        return result;
+    } 
 }

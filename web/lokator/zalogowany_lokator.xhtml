@@ -11,7 +11,7 @@
     </h:head>
  
          <h:form id="Zalogowany_lokator"> 
-         <h:body onload="if (#{lokatorController.SprawdzHaslo(lokatorController.selected.login)}) {PF('LokatorEditDialog').show()}" style="background: url(resources/icon/background.jpg); background-size: 100%; background-repeat:no-repeat;">
+         <h:body onload="if (#{lokatorController.SprawdzHaslo(lokatorController.selected.login)}) {PF('LokatorEditDialog').show()}" style="background: url(../resources/icon/background.jpg) !important; background-size: 100%; background-repeat:no-repeat; " >
          <p:messages id="messages"  autoUpdate="true" closable="true"  />
          <p:fieldset legend="Witaj #{lokatorController.selected.imie} #{lokatorController.selected.nazwisko} &lt;br /&gt;#{lokatorController.wiadomosci(lokatorController.selected) }" style="width:50%;margin-left: 25%;background: silver"  >
         

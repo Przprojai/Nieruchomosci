@@ -5,8 +5,10 @@ import Entity.Szczegoly;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
 import SBP.SzczegolyFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,6 +21,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Named("szczegolyController")
 @SessionScoped
@@ -30,7 +40,7 @@ public class SzczegolyController implements Serializable {
     private SBP.SzczegolyFacade ejbFacade;
     private List<Szczegoly> items = null;
     private Szczegoly selected;
-    private static String dupa;
+    JasperPrint jasperPrint;
     static List<Szczegoly> szczegoly_lista = null;
             
     public SzczegolyController() {
@@ -81,7 +91,26 @@ public class SzczegolyController implements Serializable {
         SzczegolyController.szczegoly_lista = szczegoly_lista;
     }
 
+        public void init(Szczegoly szczegoly) throws JRException{
 
+        HashMap hm = new HashMap();
+        selected=getItems().get(0);
+        hm.put("przekaz_id", 1);
+        hm.put("miesiac",szczegoly.getIdOplaty().getMiesiac());
+        hm.put("rok",szczegoly.getIdOplaty().getRok());
+        hm.put("konto",szczegoly.getIdOplaty().getIdMieszkania().getNrKonta());
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(getItems());
+        String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/raport/report1.jasper");
+        jasperPrint = JasperFillManager.fillReport(reportPath, hm, new JRBeanArrayDataSource(new Szczegoly [] {szczegoly}));
+}
+    public void PDF(Szczegoly szczegoly) throws JRException, IOException{
+        init(szczegoly);
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("ASD", "attachment; filename=report.pdf");
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
 
     public static List<Szczegoly> setSzczegoly(List<Szczegoly> szczegoly) {
         SzczegolyController.szczegoly_lista = szczegoly;

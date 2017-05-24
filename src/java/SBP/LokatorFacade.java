@@ -124,7 +124,8 @@ public class LokatorFacade extends AbstractFacade<Lokator> {
             TypedQuery<Lokator> query = em.createQuery("SELECT c FROM Lokator c WHERE c.haslo = :haslo", Lokator.class).setParameter("haslo", CryptWithSHA256.sha256(log.get(i).getLogin()));
 
             if (!query.getResultList().isEmpty()) {
-               lista.add(query.getSingleResult());
+               //lista.add(query.getSingleResult());
+               lista = query.getResultList();
             }
         } catch (NoResultException e) {
 

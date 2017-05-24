@@ -6,6 +6,7 @@
 package Entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,16 +42,27 @@ public class DodatkoweOplaty implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "miesiac")
+    private Integer miesiac;    @Basic(optional = false)
+    @NotNull
+    @Column(name = "rok")
+    private Integer rok;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "rodzaj")
     private String rodzaj;
     @Basic(optional = false)
     @NotNull
     @Column(name = "koszt")
-    private float koszt;
-    @JoinColumn(name = "id_oplaty", referencedColumnName = "id")
+    private BigDecimal koszt;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "klatka")
+    private String klatka;
+    @JoinColumn(name = "id_budynku", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Oplaty idOplaty;
+    private Budynek idBudynku;
 
     public DodatkoweOplaty() {
     }
@@ -59,11 +71,16 @@ public class DodatkoweOplaty implements Serializable {
         this.id = id;
     }
 
-    public DodatkoweOplaty(Integer id, String rodzaj, float koszt) {
+    public DodatkoweOplaty(Integer id, String rodzaj, BigDecimal koszt, String klatka, Integer miesiac, Integer rok) {
         this.id = id;
         this.rodzaj = rodzaj;
         this.koszt = koszt;
+        this.klatka = klatka;
+        this.miesiac = miesiac;
+        this.rok = rok;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -73,6 +90,23 @@ public class DodatkoweOplaty implements Serializable {
         this.id = id;
     }
 
+    public Integer getMiesiac() {
+        return miesiac;
+    }
+
+    public void setMiesiac(Integer miesiac) {
+        this.miesiac = miesiac;
+    }
+
+    public Integer getRok() {
+        return rok;
+    }
+
+    public void setRok(Integer rok) {
+        this.rok = rok;
+    }
+
+    
     public String getRodzaj() {
         return rodzaj;
     }
@@ -81,20 +115,27 @@ public class DodatkoweOplaty implements Serializable {
         this.rodzaj = rodzaj;
     }
 
-    public float getKoszt() {
+    public BigDecimal getKoszt() {
         return koszt;
     }
 
-    public void setKoszt(float koszt) {
+    public void setKoszt(BigDecimal koszt) {
         this.koszt = koszt;
     }
-
-    public Oplaty getIdOplaty() {
-        return idOplaty;
+    
+    public String getKlatka() {
+        return klatka;
     }
 
-    public void setIdOplaty(Oplaty idOplaty) {
-        this.idOplaty = idOplaty;
+    public void setKlatka(String klatka) {
+        this.klatka = klatka;
+    }
+    public Budynek getIdBudynku() {
+        return idBudynku;
+    }
+
+    public void setIdBudynku(Budynek idBudynku) {
+        this.idBudynku = idBudynku;
     }
 
     @Override

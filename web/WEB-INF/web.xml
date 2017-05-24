@@ -16,6 +16,14 @@
         <servlet-name>UploadServletLicznik</servlet-name>
         <url-pattern>/UploadServletLicznik</url-pattern>
     </servlet-mapping>
+        <servlet>
+        <servlet-name>UploadServletBudynek</servlet-name>
+        <servlet-class>Upload.UploadServletBudynek</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadServletBudynek</servlet-name>
+        <url-pattern>/UploadServletBudynek</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
