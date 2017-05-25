@@ -13,28 +13,28 @@
             <p:messages id="messages"  autoUpdate="true" closable="true"  />
 
                     <p:fieldset legend="Zalogowano jako: #{ksiegowoscController.selected.login}" style="width:50%;margin-left: 25%;background: silver"  >
-                        <h:commandButton actionListener="#{lokatorController.prepareCreate3()}" action="/lokator/rejestracja.xhtml"  value="Utwórz konto lokatora" style="width: 20%;height: 150px;"/>
+                        <h:commandButton actionListener="#{lokatorController.prepareCreate3()}" action="/lokator/rejestracja.xhtml?faces-redirect=true"  value="Utwórz konto lokatora" style="width: 20%;height: 150px;"/>
 
                         <h:commandButton action="/mieszkanie/List_1" value="Aktualizuj stany kont" style="width: 20%;height: 150px;"/>
  
 
                         <h:commandButton action="/liczniki/List_1" value="Aktualizuj stany liczników" style="width: 20%;height: 150px;"/>
 
-                        <h:commandButton action="/podsumowanieBudynku/List" value="Podsumowanie Budynku" style="width: 20%;height: 150px;"/>
+                        <h:commandButton action="/podsumowanieBudynku/List_1" value="Podsumowanie Budynku" style="width: 20%;height: 150px;"/>
      
-                        <h:commandButton action="/awaria/List" value="Awarie" style="width: 20%;height: 150px;"/>
+                        <h:commandButton action="/awaria/List_1" value="Awarie" style="width: 20%;height: 150px;"/>
       
                         <h:commandButton action="/budynek/List_1" value="Liczniki budynków" style="width: 20%;height: 150px;"/>
    
                         <h:commandButton action="/dodatkoweOplaty/dodawanie" actionListener="#{dodatkoweOplatyController.prepareCreate()}" value="Dodatkowe Opłaty" style="width: 20%;height: 150px;"/>
          
-                        <h:commandButton action="/informacja/List" value="Informacje" style="width: 20%;height: 150px;"/>
+                        <h:commandButton action="/informacja/List_2" value="Informacje" style="width: 20%;height: 150px;"/>
 
-                        <h:commandButton action="/ksiegowosc/List" value="Ksiegowosc" style="width: 20%;height: 150px;"/>
+                        <h:commandButton action="/ksiegowosc/List_1" value="Ksiegowosc" style="width: 20%;height: 150px;"/>
 
                         <h:commandButton action="/lokator/List_1" value="Lokatorzy" style="width: 20%;height: 150px;"/>
 
-                        <h:commandButton action="/mieszkanie/List" value="Mieszkania" style="width: 20%;height: 150px;"/>
+                        <h:commandButton action="/mieszkanie/List_3" value="Mieszkania" style="width: 20%;height: 150px;"/>
     
                         <h:commandButton action="/oplaty/List_ksiegowy" value="Oplaty" style="width: 20%;height: 150px;"/>
        

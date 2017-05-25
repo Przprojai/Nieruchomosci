@@ -196,11 +196,13 @@ public class MieszkanieController implements Serializable {
         return items;
     }
 
-    public void rozlicz(BigDecimal prad, BigDecimal gaz, BigDecimal woda, BigDecimal co) {
+    public String rozlicz(BigDecimal prad, BigDecimal gaz, BigDecimal woda, BigDecimal co, Integer rok) {
 
         List<Budynek> lista = new ArrayList<Budynek>();
         BigDecimal pomoc = new BigDecimal(0);
         BigDecimal wynik = new BigDecimal(0);
+        BigDecimal pradwpomwsp = new BigDecimal(0);
+        BigDecimal gazcalk = new BigDecimal(0);
         lista = getFacade().budynki();
         Budynek budynek = new Budynek();
         for (int i = 0; i < lista.size(); i++) {
@@ -209,13 +211,17 @@ public class MieszkanieController implements Serializable {
             List<Mieszkanie> list = getFacade().aktywne(lista.get(i));
             for (int j = 0; j < list.size(); j++) {
                 selected = list.get(j);
+                pradwpomwsp=getFacade().prad(selected, rok);
                 pomoc = pomoc.add(prad);
                 pomoc = pomoc.multiply(new BigDecimal(budynek.getPrad()));
                 wynik = wynik.add(pomoc);
+                wynik = wynik.subtract(pradwpomwsp);
                 pomoc = new BigDecimal(0);
                 pomoc = pomoc.add(gaz);
                 pomoc = pomoc.multiply(new BigDecimal(budynek.getGaz()));
                 wynik = wynik.add(pomoc);
+                gazcalk = getFacade().gaz(selected, rok);
+                wynik = wynik.subtract(gazcalk);
                 pomoc = new BigDecimal(0);
                 pomoc = pomoc.add(woda);
                 pomoc = pomoc.multiply(new BigDecimal(budynek.getWoda()));
@@ -231,6 +237,7 @@ public class MieszkanieController implements Serializable {
             }
 
         }
+        return "/mieszkanie/List_3.xhtml";
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

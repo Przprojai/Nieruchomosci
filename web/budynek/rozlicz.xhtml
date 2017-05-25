@@ -20,8 +20,10 @@
                         <p:inputText id="liczbaMieszkan" value="#{mieszkanieController.woda2}"  required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_liczbaMieszkan}"/>
                         <p:outputLabel value="Stawka CO" for="liczbaMieszkan2" />
                         <p:inputText id="liczbaMieszkan2" value="#{mieszkanieController.co2}"  required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_liczbaMieszkan}"/>
+                        <p:outputLabel value="Rok"/>
+                        <p:inputText value="#{Integer}"/>
                     </p:panelGrid>
-                    <p:commandButton  value="#{bundle.Save}" action="#{mieszkanieController.rozlicz(mieszkanieController.prad2, mieszkanieController.gaz2, mieszkanieController.woda2, mieszkanieController.co2)}" update="display,:BudynekListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BudynekEditDialog');"/>
+                    <p:commandButton  value="#{bundle.Save}" action="#{mieszkanieController.rozlicz(mieszkanieController.prad2, mieszkanieController.gaz2, mieszkanieController.woda2, mieszkanieController.co2,Integer)}" update="display,:BudynekListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BudynekEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="BudynekEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

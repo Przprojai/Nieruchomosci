@@ -122,10 +122,14 @@ public List<String> miesiac(){
             stawki=getFacade().zwroc(mieszkanie.getIdBudynku());
             oplata2=getFacade().sprawdz(miesiac, rok,mieszkanie);
             
+            
             sumaoplat=stawki.getEksploatacjaPodstawowa().multiply(mieszkanie.getPowierzchnia());
             szczegoly.setEpf(stawki.getEksploatacjaPodstawowa().multiply(mieszkanie.getPowierzchnia()));
             szczegoly.setEksploatacjaPodstawowa("Eksploatacja podstawowa "+stawki.getEksploatacjaPodstawowa() + " zł/m2 * "+mieszkanie.getPowierzchnia()+ " m2  - " +(stawki.getEksploatacjaPodstawowa().multiply(mieszkanie.getPowierzchnia()))+ " zł");
-            
+           
+            if(miesiac==1){
+                sumaoplat=sumaoplat.add(mieszkanie.getNadplata());
+            }
             
             sumaoplat= sumaoplat.add(stawki.getFunduszRemontowy().multiply(mieszkanie.getPowierzchnia()));
             sumaoplat= sumaoplat.add(stawki.getLegalizacjaWodomierza().multiply(new BigDecimal (2)));
