@@ -1,16 +1,18 @@
 package JCP;
 
-import Entity.Liczniki;
-import Entity.Mieszkanie;
+import Entity.Budynek;
+import Entity.LicznikiBudynku;
+import Entity.Stawki;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
-import SBP.LicznikiFacade;
+import SBP.LicznikiBudynkuFacade;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -24,30 +26,28 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("licznikiController")
+@Named("licznikiBudynkuController")
 @SessionScoped
-public class LicznikiController implements Serializable {
+public class LicznikiBudynkuController implements Serializable {
 
     @EJB
-    private SBP.LicznikiFacade ejbFacade;
-    private List<Liczniki> items = null;
-    private Liczniki selected;
+    private SBP.LicznikiBudynkuFacade ejbFacade;
+    private List<LicznikiBudynku> items = null;
+    private LicznikiBudynku selected;
     static String csvFileLicznik=null;
-    
-    public LicznikiController() {
+    static String csvFileLicznik2=null;
+
+    public LicznikiBudynkuController() {
     }
 
-    public Liczniki getSelected() {
+    public LicznikiBudynku getSelected() {
         return selected;
     }
     public static String setCsvFileLicznik(String csvFileLicznik) {
-        LicznikiController.csvFileLicznik = csvFileLicznik;
-        return LicznikiController.csvFileLicznik;
+        LicznikiBudynkuController.csvFileLicznik = csvFileLicznik;
+        return LicznikiBudynkuController.csvFileLicznik;
     }
-    public static String wyswietlsciezke2() {
-        return csvFileLicznik;
-    }
-    public void setSelected(Liczniki selected) {
+    public void setSelected(LicznikiBudynku selected) {
         this.selected = selected;
     }
 
@@ -57,23 +57,24 @@ public class LicznikiController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private LicznikiFacade getFacade() {
+    private LicznikiBudynkuFacade getFacade() {
         return ejbFacade;
     }
 
-    public Liczniki prepareCreate() {
-        selected = new Liczniki();
+    public LicznikiBudynku prepareCreate() {
+        selected = new LicznikiBudynku();
         initializeEmbeddableKey();
         return selected;
     }
-    public void liczniki() {
+    public void liczniki(){
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
         String[] numer = new String[]{};
-        List<Mieszkanie> lista_mieszkan = null;
-        lista_mieszkan = getFacade().lista_mieszkan();
-        Mieszkanie mieszkanie = new Mieszkanie();
+        List<Budynek> lista_budynkow = getFacade().budynki();
+        //lista_budynkow = getFacade().findAll();
+        //Mieszkanie mieszkanie = new Mieszkanie();
+        LicznikiBudynku liczniki = new LicznikiBudynku();
     //    selected = null;
         try {
 
@@ -85,30 +86,49 @@ public class LicznikiController implements Serializable {
                 // use comma as separator
                 //String[] country = line.split(cvsSplitBy);
                 numer = line.split(cvsSplitBy);
-                for (int i = 0; i < lista_mieszkan.size(); i++) {
-                    mieszkanie = lista_mieszkan.get(i);
+                for (int i = 0; i < lista_budynkow.size(); i++) {
+                    selected = new LicznikiBudynku();
                    // selected = mieszkanie;
-                   selected = new Liczniki();
-                    if (mieszkanie.getId().toString().equals(numer[0])) {
-                        if(getFacade().update(mieszkanie, Integer.parseInt(numer[4]), Integer.parseInt(numer[5]))==null){
+                  // selected = new Budynek();
+                  Budynek budynek = new Budynek();
+                  budynek=lista_budynkow.get(i);
+                    if (budynek.getId().toString().equals(numer[0])) {
+                        if(getFacade().update(budynek, Integer.parseInt(numer[5]), Integer.parseInt(numer[6]))==null)
+                        {
                         selected.setId(getFacade().id());
-                        selected.setIdMieszkania(mieszkanie);
-                        
-                        if(!numer[1].equals(""))selected.setLicznikWodyCieplej(Integer.parseInt(numer[1])); else selected.setLicznikWodyCieplej(0); 
-                        if(!numer[2].equals(""))selected.setLicznikWodyZimnej(Integer.parseInt(numer[2])); else selected.setLicznikWodyZimnej(0);
-                        if(!numer[3].equals(""))selected.setLicznikCiepla(Integer.parseInt(numer[3])); else selected.setLicznikCiepla(0);
-                        if(!numer[4].equals(""))selected.setGaz(Integer.parseInt(numer[4])); else selected.setGaz(0);
+                        selected.setGaz(Integer.parseInt(numer[1]));
+                        selected.setPrad(Integer.parseInt(numer[2]));
+                        selected.setWoda(Integer.parseInt(numer[3]));
+                        if(lista_budynkow.get(i).getWspolnyLicznik())
+                        selected.setCo(Integer.parseInt(numer[4]));
+                        else
+                        selected.setCo(0);    
                         selected.setMiesiac(Integer.parseInt(numer[5]));
                         selected.setRok(Integer.parseInt(numer[6]));
-                        persist(PersistAction.CREATE, "Dodano nowy stan licznika dla  "+selected.getIdMieszkania()+" Mieszkania");
+                        Stawki stawki = getFacade().stawki(budynek);
+                        selected.setStawkaCo(stawki.getCo());
+                        selected.setStawkaGazu(stawki.getGaz());
+                        selected.setStawkaPradu(stawki.getPradWPomWspolnych());
+                        selected.setStawkaWody(new BigDecimal(3));
+                        selected.setIdBudynku(budynek);
+                        persist(PersistAction.UPDATE, "Stan liczników dla budynku "+selected.getId()+" zaktualizowany");
                         }
-                        else{
-                        selected = getFacade().update(mieszkanie, Integer.parseInt(numer[4]), Integer.parseInt(numer[5]));
-                        selected.setLicznikWodyCieplej(Integer.parseInt(numer[1]));
-                        selected.setLicznikWodyZimnej(Integer.parseInt(numer[2]));
-                        selected.setLicznikCiepla(Integer.parseInt(numer[3]));
-                        selected.setGaz(Integer.parseInt(numer[4]));
-                        persist(PersistAction.UPDATE, "Stan liczników dla mieszkania "+selected.getIdMieszkania()+" zaktualizowany");
+                        else
+                        {
+                            selected=getFacade().update(budynek, Integer.parseInt(numer[5]), Integer.parseInt(numer[6]));
+                             selected.setGaz(Integer.parseInt(numer[1]));
+                        selected.setPrad(Integer.parseInt(numer[2]));
+                        selected.setWoda(Integer.parseInt(numer[3]));
+                        if(lista_budynkow.get(i).getWspolnyLicznik())
+                        selected.setCo(Integer.parseInt(numer[4]));
+                        else
+                        selected.setCo(0);    
+                        Stawki stawki = getFacade().stawki(budynek);
+                        selected.setStawkaCo(stawki.getCo());
+                        selected.setStawkaGazu(stawki.getGaz());
+                        selected.setStawkaPradu(stawki.getPradWPomWspolnych());
+                        selected.setStawkaWody(new BigDecimal(3));
+                        persist(PersistAction.UPDATE, "Stan liczników dla budynku "+selected.getId()+" zaktualizowany");
                         }
                     }
                 }
@@ -129,30 +149,32 @@ public class LicznikiController implements Serializable {
         }
 
         csvFileLicznik = null;
+        items=null;
     }
+    
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LicznikiCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LicznikiBudynkuCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("LicznikiUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("LicznikiBudynkuUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("LicznikiDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("LicznikiBudynkuDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Liczniki> getItems() {
-       // if (items == null) {
+    public List<LicznikiBudynku> getItems() {
+        if (items == null) {
             items = getFacade().findAll();
-      //  }
+        }
         return items;
     }
 
@@ -184,29 +206,29 @@ public class LicznikiController implements Serializable {
         }
     }
 
-    public Liczniki getLiczniki(java.lang.Integer id) {
+    public LicznikiBudynku getLicznikiBudynku(java.lang.Integer id) {
         return getFacade().find(id);
     }
 
-    public List<Liczniki> getItemsAvailableSelectMany() {
+    public List<LicznikiBudynku> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Liczniki> getItemsAvailableSelectOne() {
+    public List<LicznikiBudynku> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Liczniki.class)
-    public static class LicznikiControllerConverter implements Converter {
+    @FacesConverter(forClass = LicznikiBudynku.class)
+    public static class LicznikiBudynkuControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            LicznikiController controller = (LicznikiController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "licznikiController");
-            return controller.getLiczniki(getKey(value));
+            LicznikiBudynkuController controller = (LicznikiBudynkuController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "licznikiBudynkuController");
+            return controller.getLicznikiBudynku(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -226,11 +248,11 @@ public class LicznikiController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Liczniki) {
-                Liczniki o = (Liczniki) object;
+            if (object instanceof LicznikiBudynku) {
+                LicznikiBudynku o = (LicznikiBudynku) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Liczniki.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), LicznikiBudynku.class.getName()});
                 return null;
             }
         }

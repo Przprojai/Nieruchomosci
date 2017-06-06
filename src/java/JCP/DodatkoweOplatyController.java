@@ -7,6 +7,7 @@ import JCP.util.JsfUtil.PersistAction;
 import SBP.DodatkoweOplatyFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,8 @@ public class DodatkoweOplatyController implements Serializable {
     private DodatkoweOplaty selected;
     Budynek budynek = null;
     String miesiac="";
+    Boolean raty=false;
+    int ilosc_rat=1;
 
 
 
@@ -64,6 +67,22 @@ public class DodatkoweOplatyController implements Serializable {
     public void setMiesiac(String miesiac) {
         this.miesiac = miesiac;
     }
+
+    public Boolean getRaty() {
+        return raty;
+    }
+
+    public void setRaty(Boolean raty) {
+        this.raty = raty;
+    }
+
+    public int getIlosc_rat() {
+        return ilosc_rat;
+    }
+
+    public void setIlosc_rat(int ilosc_rat) {
+        this.ilosc_rat = ilosc_rat;
+    }
     
     public List<String> klatka(){
         List<String> list = new ArrayList<String>();
@@ -94,7 +113,7 @@ public class DodatkoweOplatyController implements Serializable {
     public Budynek getBudynek() {
         return budynek;
     }
-
+    
     public void setBudynek(Budynek budynek) {
         this.budynek = budynek;
     }
@@ -103,6 +122,9 @@ public class DodatkoweOplatyController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+    public void zmiana(){
+        if(!raty)ilosc_rat=1;
     }
     public List<String> miesiac(){
         List<String> lista = new ArrayList<String>();
@@ -121,6 +143,7 @@ public class DodatkoweOplatyController implements Serializable {
         lista.add("Październik");
         lista.add("Listopad");
         lista.add("Grudzień");
+        //lista.add("Rok");
         for (int i=data.getMonth()+1;i<12;i++)lista2.add(lista.get(i));
         return lista2;
     }
@@ -139,17 +162,76 @@ public class DodatkoweOplatyController implements Serializable {
             case "Październik": {wynik=10;break;}
             case "Listopad": {wynik=11;break;}
             case "Grudzień": {wynik=12;break;}
+           // case "Rok": {wynik=0;break;}
         }
         return wynik;
     }
+    public DodatkoweOplaty ustaw(int id, int miesiac3, int rok, BigDecimal koszt,Budynek budynek,String klatka, String rodzaj){
+              DodatkoweOplaty pomoc = new DodatkoweOplaty();
+              int miesiac4=miesiac3;
+              int rok2=rok;
+      if(miesiac3>12){miesiac4-=12;rok2++;}
+      pomoc.setId(id);
+      pomoc.setMiesiac(miesiac4);
+      pomoc.setRok(rok2);
+      pomoc.setKoszt(koszt);
+      pomoc.setIdBudynku(budynek);
+      pomoc.setKlatka(klatka);
+      pomoc.setRodzaj(rodzaj);
+      return pomoc;
+    }
         public String create2() {
+      if(raty){
+      BigDecimal koszt=selected.getKoszt().divide(new BigDecimal(ilosc_rat),2);
+      int id = getFacade().id();
+      int miesiac2=zamienMiesiac(miesiac);
+      int rok = selected.getRok();
+      for(int i=1;i<(ilosc_rat+1);i++){
+      
+      
+      selected=ustaw(id,miesiac2,rok,koszt,budynek,selected.getKlatka(),selected.getRodzaj());
+      persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DodatkoweOplatyCreated"));
+      id++;
+      miesiac2++;
+      }
+      }
+//        int miesiacpodany=zamienMiesiac(miesiac);
+//        if(miesiacpodany==0){
+//            BigDecimal koszt=selected.getKoszt().divide(new BigDecimal(12),2);
+//            
+//            Date data = new Date();
+//            int miesiac2=data.getMonth();
+//            int rok = selected.getRok();
+//            int id = getFacade().id();
+//            for(int i=1;i<13;i++)
+//            {
+//               DodatkoweOplaty pomoc = new DodatkoweOplaty();
+//               pomoc.setId(id);
+//               pomoc.setIdBudynku(budynek);
+//               pomoc.setKoszt(koszt);
+//               id+=1;
+//               miesiac2+=1;
+//               if(miesiac2>12){
+//                   miesiac2=1;
+//                   rok=rok+1;
+//               }
+//               pomoc.setMiesiac(miesiac2);
+//               pomoc.setRok(rok);
+//               selected = pomoc;
+//               persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DodatkoweOplatyCreated"));
+//               selected=new DodatkoweOplaty();
+//             
+//            }
+//        }
+        else{
         selected.setId(getFacade().id());
         selected.setIdBudynku(budynek);
         selected.setMiesiac(zamienMiesiac(miesiac));
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DodatkoweOplatyCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
-        }
+        }}
+      items=null;
         return "/dodatkoweOplaty/List.xhtml";
     }
     public void update() {

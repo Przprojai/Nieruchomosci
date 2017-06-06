@@ -122,7 +122,7 @@ public class OplatyFacade extends AbstractFacade<Oplaty> {
             // TypedQuery<Stawki> q2 = em.createNamedQuery("Stawki.findByBudynek",Stawki.class).setParameter("budynek", budynek);
             TypedQuery<Liczniki> q2
                     = em.createQuery("SELECT c FROM Liczniki c WHERE c.idMieszkania=:mieszkanie AND c.miesiac=:miesiac AND c.rok=:rok", Liczniki.class).setParameter("mieszkanie", mieszkanie).setParameter("miesiac", miesiac).setParameter("rok", rok);
-            if (q2.getSingleResult() != null) {
+            if (!q2.getResultList().isEmpty()) {
                 wynik = q2.getSingleResult();
             } 
         } catch (NoResultException e) {
@@ -138,7 +138,7 @@ public class OplatyFacade extends AbstractFacade<Oplaty> {
             // TypedQuery<Stawki> q2 = em.createNamedQuery("Stawki.findByBudynek",Stawki.class).setParameter("budynek", budynek);
             TypedQuery<Liczniki> q2
                     = em.createQuery("SELECT c FROM Liczniki c WHERE c.idMieszkania=:mieszkanie AND C.miesiac < :miesiac AND C.rok <= :rok ORDER BY C.id ", Liczniki.class).setParameter("mieszkanie", mieszkanie).setParameter("miesiac", miesiac).setParameter("rok", rok);
-            if (q2.getResultList() != null) {
+            if (!q2.getResultList().isEmpty()) {
                 wynik = q2.getResultList().get(q2.getResultList().size() - 1);
             }
         } catch (NoResultException e) {

@@ -1,6 +1,7 @@
 package Upload;
 
 import Entity.Mieszkanie;
+import JCP.LicznikiBudynkuController;
 import java.io.*;
 import java.util.*;
 
@@ -92,7 +93,8 @@ public class UploadServletBudynek extends HttpServlet {
             }
             fi.write( file ) ;
             //request.setAttribute("plik", fi);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/budynek/Liczniki.jsp?faces-redirect=true");
+            LicznikiBudynkuController.setCsvFileLicznik(fileName);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/licznikiBudynku/Liczniki.jsp?faces-redirect=true");
             request.setAttribute("Name",filePath + fi.getName()); // set your String value in the attribute
             dispatcher.forward( request, response );
             //out.println("Uploaded Filename: " + fi.getString() + "<br>");

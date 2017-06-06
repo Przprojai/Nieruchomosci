@@ -101,6 +101,14 @@ public class Stawki implements Serializable {
     @NotNull
     @Column(name = "ubezpieczenie")
     private BigDecimal ubezpieczenie;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ryczalt_gaz")
+    private BigDecimal ryczalt_gaz;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ryczalt_co")
+    private BigDecimal ryczalt_co;
     @JoinColumn(name = "id_budynku", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Budynek idBudynku;
@@ -114,7 +122,7 @@ public class Stawki implements Serializable {
         this.id = id;
     }
 
-    public Stawki(Integer id, BigDecimal eksploatacjaPodstawowa, BigDecimal funduszRemontowy, BigDecimal legalizacjaWodomierza, BigDecimal konserwacjaDomofonu, BigDecimal eksploatacjaDzwigow, BigDecimal co, BigDecimal cw, BigDecimal zwis, BigDecimal gaz, BigDecimal pradWPomWspolnych, BigDecimal smieci, BigDecimal ubezpieczenie) {
+    public Stawki(Integer id, BigDecimal eksploatacjaPodstawowa, BigDecimal funduszRemontowy, BigDecimal legalizacjaWodomierza, BigDecimal konserwacjaDomofonu, BigDecimal eksploatacjaDzwigow, BigDecimal co, BigDecimal cw, BigDecimal zwis, BigDecimal gaz, BigDecimal pradWPomWspolnych, BigDecimal smieci, BigDecimal ubezpieczenie,BigDecimal ryczalt_gaz,BigDecimal ryczalt_co) {
         this.id = id;
         this.eksploatacjaPodstawowa = eksploatacjaPodstawowa;
         this.funduszRemontowy = funduszRemontowy;
@@ -128,6 +136,8 @@ public class Stawki implements Serializable {
         this.pradWPomWspolnych = pradWPomWspolnych;
         this.smieci = smieci;
         this.ubezpieczenie = ubezpieczenie;
+        this.ryczalt_co = ryczalt_co;
+        this.ryczalt_gaz = ryczalt_gaz;
     }
 
     public Integer getId() {
@@ -232,6 +242,22 @@ public class Stawki implements Serializable {
 
     public void setUbezpieczenie(BigDecimal ubezpieczenie) {
         this.ubezpieczenie = ubezpieczenie;
+    }
+
+    public BigDecimal getRyczalt_gaz() {
+        return ryczalt_gaz;
+    }
+
+    public void setRyczalt_gaz(BigDecimal ryczalt_gaz) {
+        this.ryczalt_gaz = ryczalt_gaz;
+    }
+
+    public BigDecimal getRyczalt_co() {
+        return ryczalt_co;
+    }
+
+    public void setRyczalt_co(BigDecimal ryczalt_co) {
+        this.ryczalt_co = ryczalt_co;
     }
 
     public Budynek getIdBudynku() {

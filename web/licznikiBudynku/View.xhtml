@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LicznikiBudynkuViewDlg" widgetVar="LicznikiBudynkuViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLicznikiBudynkuTitle}">
+            <h:form id="LicznikiBudynkuViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{licznikiBudynkuController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_id}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.id}" title="#{bundle.ViewLicznikiBudynkuTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_miesiac}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.miesiac}" title="#{bundle.ViewLicznikiBudynkuTitle_miesiac}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_rok}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.rok}" title="#{bundle.ViewLicznikiBudynkuTitle_rok}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_prad}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.prad}" title="#{bundle.ViewLicznikiBudynkuTitle_prad}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_stawkaPradu}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.stawkaPradu}" title="#{bundle.ViewLicznikiBudynkuTitle_stawkaPradu}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_gaz}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.gaz}" title="#{bundle.ViewLicznikiBudynkuTitle_gaz}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_stawkaGazu}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.stawkaGazu}" title="#{bundle.ViewLicznikiBudynkuTitle_stawkaGazu}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_woda}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.woda}" title="#{bundle.ViewLicznikiBudynkuTitle_woda}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_stawkaWody}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.stawkaWody}" title="#{bundle.ViewLicznikiBudynkuTitle_stawkaWody}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_co}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.co}" title="#{bundle.ViewLicznikiBudynkuTitle_co}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_stawkaCo}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.stawkaCo}" title="#{bundle.ViewLicznikiBudynkuTitle_stawkaCo}"/>
+                        <h:outputText value="#{bundle.ViewLicznikiBudynkuLabel_idBudynku}"/>
+                        <h:outputText value="#{licznikiBudynkuController.selected.idBudynku}" title="#{bundle.ViewLicznikiBudynkuTitle_idBudynku}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LicznikiBudynkuViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

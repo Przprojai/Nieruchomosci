@@ -22,6 +22,8 @@
                                  rowKey="#{item.id}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 tableStyle="table-layout: auto"
+                                 style="text-align: center"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
@@ -104,6 +106,18 @@
                                 <h:outputText value="#{bundle.ListStawkiTitle_ubezpieczenie}"/>
                             </f:facet>
                             <h:outputText value="#{item.ubezpieczenie}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Ryczałt CO"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ryczalt_co}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Ryczałt gaz"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ryczalt_gaz}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

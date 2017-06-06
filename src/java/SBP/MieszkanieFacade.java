@@ -6,10 +6,13 @@
 package SBP;
 
 import Entity.Budynek;
+import Entity.LicznikiBudynku;
 import Entity.Mieszkanie;
+import Entity.Stawki;
 import Entity.Szczegoly;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -55,7 +58,22 @@ public class MieszkanieFacade extends AbstractFacade<Mieszkanie> {
         }
         return lista;
     }
-
+    public BigDecimal powierzchnia(Budynek budynek) {
+        BigDecimal wynik= new BigDecimal(0);
+        List<Mieszkanie> lista = new ArrayList<Mieszkanie>();
+        try {
+            TypedQuery<Mieszkanie> q = em.createQuery("SELECT X FROM Mieszkanie X WHERE X.idBudynku=:budynek AND X.idBudynku=:budynek AND X.zajetosc=TRUE", Mieszkanie.class).setParameter("budynek", budynek);
+            if (q.getResultList() != null) {
+                lista = q.getResultList();
+                for(int i=0;i<lista.size();i++){
+                    wynik=wynik.add(lista.get(i).getPowierzchnia());
+                }
+            }
+        } catch (NoResultException e) {
+            return wynik;
+        }
+        return wynik;
+    }
     public List<Budynek> budynki() {
         List<Budynek> lista = new ArrayList<Budynek>();
         try {
@@ -99,6 +117,49 @@ public class MieszkanieFacade extends AbstractFacade<Mieszkanie> {
             }
         } catch (NoResultException e) {
             wynik = new BigDecimal(0);
+        }
+        return wynik;
+    }
+        public BigDecimal co(Mieszkanie mieszkanie, Integer rok) {
+        Szczegoly szczegoly = new Szczegoly();
+        BigDecimal wynik = new BigDecimal(0);
+        try {
+            TypedQuery<Szczegoly> q = em.createQuery("SELECT X FROM Szczegoly X WHERE X.idOplaty.idMieszkania=:mieszkanie AND X.idOplaty.rok=:rok", Szczegoly.class).setParameter("mieszkanie", mieszkanie).setParameter("rok", rok);
+            if (q.getResultList() != null) {
+                for (int i = 0; i < q.getResultList().size(); i++) {
+                    szczegoly = q.getResultList().get(i);
+                    wynik = wynik.add(szczegoly.getCof());
+                }
+            }
+        } catch (NoResultException e) {
+            wynik = new BigDecimal(0);
+        }
+        return wynik;
+    }
+    public List<LicznikiBudynku> liczniki_budynku(Budynek budynek)
+    {
+        List<LicznikiBudynku> wynik= new ArrayList<LicznikiBudynku>();
+        Date data = new Date();
+        int rok=data.getYear()+1900;
+        try {
+            TypedQuery<LicznikiBudynku> q = em.createQuery("SELECT X FROM LicznikiBudynku X WHERE X.idBudynku=:budynek AND X.rok=:rok", LicznikiBudynku.class).setParameter("budynek", budynek).setParameter("rok", rok);
+            if (!q.getResultList().isEmpty()) {
+                wynik=q.getResultList();
+            }
+        } catch (NoResultException e) {
+            wynik = null;
+        }
+        return wynik;
+    }
+    public Stawki stawki(Budynek budynek){
+    Stawki wynik = new Stawki();
+    try {
+            TypedQuery<Stawki> q = em.createQuery("SELECT X FROM Stawki X WHERE X.idBudynku=:budynek", Stawki.class).setParameter("budynek", budynek);
+            if (!q.getResultList().isEmpty()) {
+                wynik=q.getSingleResult();
+            }
+        } catch (NoResultException e) {
+            wynik = null;
         }
         return wynik;
     }

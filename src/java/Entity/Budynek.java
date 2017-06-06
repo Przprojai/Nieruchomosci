@@ -36,11 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Budynek.findByAdres", query = "SELECT b FROM Budynek b WHERE b.adres = :adres")
     , @NamedQuery(name = "Budynek.findByLiczbaMieszkan", query = "SELECT b FROM Budynek b WHERE b.liczbaMieszkan = :liczbaMieszkan")
     , @NamedQuery(name = "Budynek.findByLiczbaKlatek", query = "SELECT b FROM Budynek b WHERE b.liczbaKlatek = :liczbaKlatek")
-    , @NamedQuery(name = "Budynek.findByKontakt", query = "SELECT b FROM Budynek b WHERE b.kontakt = :kontakt")})
+    , @NamedQuery(name = "Budynek.findByKontakt", query = "SELECT b FROM Budynek b WHERE b.kontakt = :kontakt")
+    , @NamedQuery(name = "Budynek.findByWspolnyLicznik", query = "SELECT b FROM Budynek b WHERE b.wspolnyLicznik = :wspolnyLicznik")})
 public class Budynek implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBudynku")
-    private Collection<PodsumowanieBudynku> podsumowanieBudynkuCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,25 +61,23 @@ public class Budynek implements Serializable {
     private int liczbaKlatek;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "gaz")
-    private int gaz;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "prad")
-    private int prad;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "woda")
-    private int woda;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "co")
-    private int co;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "kontakt")
     private String kontakt;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "wspolny_licznik")
+    private boolean wspolnyLicznik;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "wspolny_licznik_gazu")
+    private boolean wspolnyLicznikGazu;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBudynku")
+    private Collection<PodsumowanieBudynku> podsumowanieBudynkuCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBudynku")
+    private Collection<LicznikiBudynku> licznikiBudynkuCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBudynku")
+    private Collection<DodatkoweOplaty> dodatkoweOplatyCollection;
     @JoinColumn(name = "id_wspolnota", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Wspolnota idWspolnota;
@@ -91,8 +87,7 @@ public class Budynek implements Serializable {
     private Collection<Mieszkanie> mieszkanieCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBudynku")
     private Collection<Awaria> awariaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBudynku")
-    private Collection<DodatkoweOplaty> dodatkoweOplatyCollection;
+
     public Budynek() {
     }
 
@@ -100,16 +95,14 @@ public class Budynek implements Serializable {
         this.id = id;
     }
 
-    public Budynek(Integer id, String adres, int liczbaMieszkan, int liczbaKlatek, String kontakt, int gaz, int prad, int woda, int co) {
+    public Budynek(Integer id, String adres, int liczbaMieszkan, int liczbaKlatek, String kontakt, boolean wspolnyLicznik,boolean wspolnyLicznikGazu) {
         this.id = id;
         this.adres = adres;
         this.liczbaMieszkan = liczbaMieszkan;
         this.liczbaKlatek = liczbaKlatek;
         this.kontakt = kontakt;
-        this.gaz = gaz;
-        this.prad = prad;
-        this.woda = woda;
-        this.co = co;
+        this.wspolnyLicznik = wspolnyLicznik;
+        this.wspolnyLicznikGazu = wspolnyLicznikGazu;
     }
 
     public Integer getId() {
@@ -152,36 +145,47 @@ public class Budynek implements Serializable {
         this.kontakt = kontakt;
     }
 
-    public int getGaz() {
-        return gaz;
+    public boolean getWspolnyLicznik() {
+        return wspolnyLicznik;
     }
 
-    public void setGaz(int gaz) {
-        this.gaz = gaz;
+    public void setWspolnyLicznik(boolean wspolnyLicznik) {
+        this.wspolnyLicznik = wspolnyLicznik;
     }
 
-    public int getPrad() {
-        return prad;
+    public boolean getWspolnyLicznikGazu() {
+        return wspolnyLicznikGazu;
     }
 
-    public void setPrad(int prad) {
-        this.prad = prad;
+    public void setWspolnyLicznikGazu(boolean wspolnyLicznikGazu) {
+        this.wspolnyLicznikGazu = wspolnyLicznikGazu;
     }
 
-    public int getWoda() {
-        return woda;
+    @XmlTransient
+    public Collection<PodsumowanieBudynku> getPodsumowanieBudynkuCollection() {
+        return podsumowanieBudynkuCollection;
     }
 
-    public void setWoda(int woda) {
-        this.woda = woda;
+    public void setPodsumowanieBudynkuCollection(Collection<PodsumowanieBudynku> podsumowanieBudynkuCollection) {
+        this.podsumowanieBudynkuCollection = podsumowanieBudynkuCollection;
     }
 
-    public int getCo() {
-        return co;
+    @XmlTransient
+    public Collection<LicznikiBudynku> getLicznikiBudynkuCollection() {
+        return licznikiBudynkuCollection;
     }
 
-    public void setCo(int co) {
-        this.co = co;
+    public void setLicznikiBudynkuCollection(Collection<LicznikiBudynku> licznikiBudynkuCollection) {
+        this.licznikiBudynkuCollection = licznikiBudynkuCollection;
+    }
+
+    @XmlTransient
+    public Collection<DodatkoweOplaty> getDodatkoweOplatyCollection() {
+        return dodatkoweOplatyCollection;
+    }
+
+    public void setDodatkoweOplatyCollection(Collection<DodatkoweOplaty> dodatkoweOplatyCollection) {
+        this.dodatkoweOplatyCollection = dodatkoweOplatyCollection;
     }
 
     public Wspolnota getIdWspolnota() {
@@ -218,14 +222,7 @@ public class Budynek implements Serializable {
     public void setAwariaCollection(Collection<Awaria> awariaCollection) {
         this.awariaCollection = awariaCollection;
     }
-    @XmlTransient
-    public Collection<DodatkoweOplaty> getDodatkoweOplatyCollection() {
-        return dodatkoweOplatyCollection;
-    }
 
-    public void setDodatkoweOplatyCollection(Collection<DodatkoweOplaty> dodatkoweOplatyCollection) {
-        this.dodatkoweOplatyCollection = dodatkoweOplatyCollection;
-    }
     @Override
     public int hashCode() {
         int hash = 0;
@@ -249,15 +246,6 @@ public class Budynek implements Serializable {
     @Override
     public String toString() {
         return "Entity.Budynek[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<PodsumowanieBudynku> getPodsumowanieBudynkuCollection() {
-        return podsumowanieBudynkuCollection;
-    }
-
-    public void setPodsumowanieBudynkuCollection(Collection<PodsumowanieBudynku> podsumowanieBudynkuCollection) {
-        this.podsumowanieBudynkuCollection = podsumowanieBudynkuCollection;
     }
     
 }

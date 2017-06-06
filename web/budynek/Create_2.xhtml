@@ -22,11 +22,6 @@
                         <p:inputText id="liczbaKlatek" value="#{budynekController.selected.liczbaKlatek}" title="#{bundle.CreateBudynekTitle_liczbaKlatek}" required="true" requiredMessage="#{bundle.CreateBudynekRequiredMessage_liczbaKlatek}"/>
                         <p:outputLabel value="#{bundle.CreateBudynekLabel_kontakt}" for="kontakt" />
                         <p:inputText id="kontakt" value="#{budynekController.selected.kontakt}" title="#{bundle.CreateBudynekTitle_kontakt}" required="true" requiredMessage="#{bundle.CreateBudynekRequiredMessage_kontakt}"/>
-                        <p:outputLabel value="#{bundle.CreateBudynekLabel_wspolnyLicznik}" for="wspolnyLicznik" />
-                        <p:selectBooleanCheckbox id="wspolnyLicznik" value="#{budynekController.selected.wspolnyLicznik}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_wspolnyLicznik}"/>
-                        <p:outputLabel value="Wspólny licznik gazu" for="wspolnyLicznikGazu" />
-                        <p:selectBooleanCheckbox id="wspolnyLicznikGazu" value="#{budynekController.selected.wspolnyLicznikGazu}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_wspolnyLicznik}"/>
-                        
                         <p:outputLabel value="#{bundle.CreateBudynekLabel_idWspolnota}" for="idWspolnota" />
                         <p:selectOneMenu id="idWspolnota" value="#{budynekController.selected.idWspolnota}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_idWspolnota}">
                             <f:selectItems value="#{wspolnotaController.itemsAvailableSelectOne}"

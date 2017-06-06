@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1b787194-af9b-43a2-b476-228cc6538adf">
 	<property name="ireport.zoom" value="1.4641000000000013"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="200"/>
+	<property name="ireport.y" value="3"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -62,10 +62,16 @@ szczegoly."id" = $P{przekaz_id}]]>
 				</rectangle>
 				<textField>
 					<reportElement style="Detail" x="1" y="67" width="553" height="16" uuid="dbfd571c-f934-4b50-b117-18b11ecccd43"/>
+					<textElement>
+						<font pdfEncoding="Cp1250"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{legalizacjaWodomierza}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement style="Detail" x="1" y="52" width="554" height="16" uuid="825ec7bb-8c1e-45ac-aaa8-c082154a38a3"/>
+					<textElement>
+						<font pdfEncoding="Cp1250"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{funduszRemontowy}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -77,14 +83,23 @@ szczegoly."id" = $P{przekaz_id}]]>
 				</textField>
 				<textField>
 					<reportElement style="Detail" x="1" y="83" width="553" height="16" uuid="c1782635-73df-4cd2-aca9-81a2d79c7b92"/>
+					<textElement>
+						<font pdfEncoding="Cp1250"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{konserwacjaDomofonu}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement style="Detail" x="1" y="143" width="553" height="16" uuid="6c37e753-02b7-465c-a211-f0a50bbea489"/>
+					<textElement>
+						<font pdfEncoding="Cp1250"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{cw}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement style="Detail" x="1" y="129" width="553" height="16" uuid="eb258af8-bba6-4dd5-8eb9-ccedd3d3b5b2"/>
+					<textElement>
+						<font pdfEncoding="Cp1250"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{zwis}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -96,10 +111,16 @@ szczegoly."id" = $P{przekaz_id}]]>
 				</textField>
 				<textField>
 					<reportElement style="Detail" x="1" y="221" width="553" height="16" uuid="88cce5c0-d4eb-4618-af5b-41ae585817a3"/>
+					<textElement>
+						<font pdfEncoding="Cp1250"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{suma}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement style="Detail" x="1" y="204" width="553" height="16" uuid="f2c07318-2cf8-49f1-b44a-782b0e403e8e"/>
+					<textElement>
+						<font pdfEncoding="Cp1250"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{co}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -111,6 +132,9 @@ szczegoly."id" = $P{przekaz_id}]]>
 				</textField>
 				<textField>
 					<reportElement style="Detail" x="1" y="191" width="554" height="16" uuid="f1898314-c4cc-4cc7-a948-35b1c96d5ec5"/>
+					<textElement>
+						<font pdfEncoding="Cp1250"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{eksploatacjaDzwigow}]]></textFieldExpression>
 				</textField>
 				<staticText>
@@ -191,7 +215,9 @@ szczegoly."id" = $P{przekaz_id}]]>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="0" y="5" width="263" height="33" uuid="dcd8b9e7-bbfc-42d9-bb24-a3a672c8b630"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<text><![CDATA[Opłaty]]></text>
 			</staticText>
 		</band>
@@ -219,6 +245,9 @@ szczegoly."id" = $P{przekaz_id}]]>
 			</line>
 			<textField>
 				<reportElement style="Detail" x="1" y="-203" width="553" height="16" uuid="8ce1dbca-aaf4-461d-ada8-ea604b1a3916"/>
+				<textElement>
+					<font pdfEncoding="Cp1250"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{smieci}]]></textFieldExpression>
 			</textField>
 			<textField>

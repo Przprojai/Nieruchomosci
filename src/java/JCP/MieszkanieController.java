@@ -1,7 +1,9 @@
 package JCP;
 
 import Entity.Budynek;
+import Entity.LicznikiBudynku;
 import Entity.Mieszkanie;
+import Entity.Stawki;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
 import SBP.MieszkanieFacade;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -196,48 +199,65 @@ public class MieszkanieController implements Serializable {
         return items;
     }
 
-    public String rozlicz(BigDecimal prad, BigDecimal gaz, BigDecimal woda, BigDecimal co, Integer rok) {
+    public void rozlicz() {
 
         List<Budynek> lista = new ArrayList<Budynek>();
         BigDecimal pomoc = new BigDecimal(0);
         BigDecimal wynik = new BigDecimal(0);
         BigDecimal pradwpomwsp = new BigDecimal(0);
         BigDecimal gazcalk = new BigDecimal(0);
+        BigDecimal cocalk = new BigDecimal(0);
+        BigDecimal powierzchnia = new BigDecimal(0);
         lista = getFacade().budynki();
         Budynek budynek = new Budynek();
         for (int i = 0; i < lista.size(); i++) {
 
             budynek = lista.get(i);
+            Date data = new Date();
+            int rok=data.getYear()+1900;
+            Stawki stawki = getFacade().stawki(budynek);
+            List<LicznikiBudynku> liczniki_budynku = new ArrayList<LicznikiBudynku>();
+            liczniki_budynku=getFacade().liczniki_budynku(budynek);
             List<Mieszkanie> list = getFacade().aktywne(lista.get(i));
             for (int j = 0; j < list.size(); j++) {
                 selected = list.get(j);
                 pradwpomwsp=getFacade().prad(selected, rok);
-                pomoc = pomoc.add(prad);
-                pomoc = pomoc.multiply(new BigDecimal(budynek.getPrad()));
+                for(int q=0;q<liczniki_budynku.size();q++){
+                    pomoc=pomoc.add(new BigDecimal(liczniki_budynku.get(q).getPrad()).multiply(liczniki_budynku.get(q).getStawkaPradu()).divide(new BigDecimal(getFacade().aktywne(budynek).size()).multiply(new BigDecimal (selected.getLiczbaOsob())),2));
+                }
+               
                 wynik = wynik.add(pomoc);
                 wynik = wynik.subtract(pradwpomwsp);
                 pomoc = new BigDecimal(0);
-                pomoc = pomoc.add(gaz);
-                pomoc = pomoc.multiply(new BigDecimal(budynek.getGaz()));
+                for(int w=0;w<liczniki_budynku.size();w++){
+                    pomoc=pomoc.add(new BigDecimal(liczniki_budynku.get(w).getGaz()).multiply(liczniki_budynku.get(w).getStawkaGazu()).divide(new BigDecimal(getFacade().aktywne(budynek).size()).multiply(new BigDecimal (selected.getLiczbaOsob())),2));
+                }
                 wynik = wynik.add(pomoc);
-                gazcalk = getFacade().gaz(selected, rok);
+                if(budynek.getWspolnyLicznikGazu())gazcalk = getFacade().gaz(selected, rok);
                 wynik = wynik.subtract(gazcalk);
                 pomoc = new BigDecimal(0);
-                pomoc = pomoc.add(woda);
-                pomoc = pomoc.multiply(new BigDecimal(budynek.getWoda()));
+                for(int w=0;w<liczniki_budynku.size();w++){
+                    pomoc=pomoc.add(new BigDecimal(liczniki_budynku.get(w).getWoda()).multiply(liczniki_budynku.get(w).getStawkaWody()).divide(new BigDecimal(getFacade().aktywne(budynek).size()).multiply(new BigDecimal (selected.getLiczbaOsob())),2));
+                }
                 wynik = wynik.add(pomoc);
                 pomoc = new BigDecimal(0);
-                pomoc = pomoc.add(co);
-                pomoc = pomoc.multiply(new BigDecimal(budynek.getCo()));
+                if(budynek.getWspolnyLicznik())cocalk=getFacade().co(selected, rok);
+                powierzchnia=getFacade().powierzchnia(budynek);
+                for(int w=0;w<liczniki_budynku.size();w++){
+                    pomoc=pomoc.add(new BigDecimal(liczniki_budynku.get(w).getCo()).multiply(liczniki_budynku.get(w).getStawkaCo()).divide(powierzchnia,2).multiply(selected.getPowierzchnia()));
+                }
+                //pomoc = pomoc.add(co);
+                //pomoc = pomoc.multiply(new BigDecimal(budynek.getCo()));
                 wynik = wynik.add(pomoc);
-                wynik = wynik.divide(new BigDecimal(list.size()), 2);
+                wynik = wynik.subtract(cocalk);
                 selected.setNadplata(wynik);
                 update();
                 wynik = new BigDecimal(0);
             }
 
         }
-        return "/mieszkanie/List_3.xhtml";
+        //return "/mieszkanie/List_3.xhtml";
+        items=null;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

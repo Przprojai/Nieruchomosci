@@ -80,7 +80,15 @@
                             </p:selectOneMenu>
                             <h:outputLabel value="Rok: "/>    
                             <h:inputText   value="#{dodatkoweOplatyController.selected.rok}" required="true" />
+                            <h:outputLabel value="Raty: "/>    
+                            <h:selectBooleanCheckbox   value="#{dodatkoweOplatyController.raty}" required="true" >
+                            <p:ajax event="change" update="raty"/>
+                            #{dodatkoweOplatyController.zmiana()}
+                            </h:selectBooleanCheckbox>
+                            <h:outputLabel value="Ilość rat: "/> 
+                            <h:inputText  id="raty"  value="#{dodatkoweOplatyController.ilosc_rat}" disabled="#{dodatkoweOplatyController.raty == false}" />
                         </h:panelGrid>
+                        
 
                     </p:panel>
                 </p:tab>
@@ -103,7 +111,10 @@
                             <h:outputLabel  value="#{dodatkoweOplatyController.miesiac}" /> 
                             <h:outputLabel value="Rok: "/>    
                             <h:outputLabel  value="#{dodatkoweOplatyController.selected.rok}" /> 
-
+                            <h:outputLabel value="Raty: "/>    
+                            <h:selectBooleanCheckbox   value="#{dodatkoweOplatyController.raty}" required="true" disabled="true"/>
+                            <h:outputLabel value="Ilość rat: "/>  
+                            <h:outputLabel value="#{dodatkoweOplatyController.ilosc_rat}"/> 
                         </h:panelGrid>
 
                         <p:commandButton value="Dodaj" action="#{dodatkoweOplatyController.create2()}"  process="@this" style="margin-left: 40%"/>

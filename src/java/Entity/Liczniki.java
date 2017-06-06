@@ -61,6 +61,10 @@ public class Liczniki implements Serializable {
     @NotNull
     @Column(name = "licznik_ciepla")
     private int licznikCiepla;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "gaz")
+    private int gaz;
     @JoinColumn(name = "id_mieszkania", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Mieszkanie idMieszkania;
@@ -72,13 +76,14 @@ public class Liczniki implements Serializable {
         this.id = id;
     }
 
-    public Liczniki(Integer id, int miesiac, int rok, int licznikWodyCieplej, int licznikWodyZimnej, int licznikCiepla) {
+    public Liczniki(Integer id, int miesiac, int rok, int licznikWodyCieplej, int licznikWodyZimnej, int licznikCiepla,int gaz) {
         this.id = id;
         this.miesiac = miesiac;
         this.rok = rok;
         this.licznikWodyCieplej = licznikWodyCieplej;
         this.licznikWodyZimnej = licznikWodyZimnej;
         this.licznikCiepla = licznikCiepla;
+        this.gaz =gaz;
     }
 
     public Integer getId() {
@@ -127,6 +132,14 @@ public class Liczniki implements Serializable {
 
     public void setLicznikCiepla(int licznikCiepla) {
         this.licznikCiepla = licznikCiepla;
+    }
+
+    public int getGaz() {
+        return gaz;
+    }
+
+    public void setGaz(int gaz) {
+        this.gaz = gaz;
     }
 
     public Mieszkanie getIdMieszkania() {

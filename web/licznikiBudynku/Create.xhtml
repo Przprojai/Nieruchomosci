@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LicznikiBudynkuCreateDlg" widgetVar="LicznikiBudynkuCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLicznikiBudynkuTitle}">
+            <h:form id="LicznikiBudynkuCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{licznikiBudynkuController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{licznikiBudynkuController.selected.id}" title="#{bundle.CreateLicznikiBudynkuTitle_id}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_miesiac}" for="miesiac" />
+                        <p:inputText id="miesiac" value="#{licznikiBudynkuController.selected.miesiac}" title="#{bundle.CreateLicznikiBudynkuTitle_miesiac}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_miesiac}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_rok}" for="rok" />
+                        <p:inputText id="rok" value="#{licznikiBudynkuController.selected.rok}" title="#{bundle.CreateLicznikiBudynkuTitle_rok}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_rok}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_prad}" for="prad" />
+                        <p:inputText id="prad" value="#{licznikiBudynkuController.selected.prad}" title="#{bundle.CreateLicznikiBudynkuTitle_prad}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_prad}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_stawkaPradu}" for="stawkaPradu" />
+                        <p:inputText id="stawkaPradu" value="#{licznikiBudynkuController.selected.stawkaPradu}" title="#{bundle.CreateLicznikiBudynkuTitle_stawkaPradu}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_stawkaPradu}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_gaz}" for="gaz" />
+                        <p:inputText id="gaz" value="#{licznikiBudynkuController.selected.gaz}" title="#{bundle.CreateLicznikiBudynkuTitle_gaz}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_gaz}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_stawkaGazu}" for="stawkaGazu" />
+                        <p:inputText id="stawkaGazu" value="#{licznikiBudynkuController.selected.stawkaGazu}" title="#{bundle.CreateLicznikiBudynkuTitle_stawkaGazu}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_stawkaGazu}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_woda}" for="woda" />
+                        <p:inputText id="woda" value="#{licznikiBudynkuController.selected.woda}" title="#{bundle.CreateLicznikiBudynkuTitle_woda}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_woda}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_stawkaWody}" for="stawkaWody" />
+                        <p:inputText id="stawkaWody" value="#{licznikiBudynkuController.selected.stawkaWody}" title="#{bundle.CreateLicznikiBudynkuTitle_stawkaWody}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_stawkaWody}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_co}" for="co" />
+                        <p:inputText id="co" value="#{licznikiBudynkuController.selected.co}" title="#{bundle.CreateLicznikiBudynkuTitle_co}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_co}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_stawkaCo}" for="stawkaCo" />
+                        <p:inputText id="stawkaCo" value="#{licznikiBudynkuController.selected.stawkaCo}" title="#{bundle.CreateLicznikiBudynkuTitle_stawkaCo}" required="true" requiredMessage="#{bundle.CreateLicznikiBudynkuRequiredMessage_stawkaCo}"/>
+                        <p:outputLabel value="#{bundle.CreateLicznikiBudynkuLabel_idBudynku}" for="idBudynku" />
+                        <p:selectOneMenu id="idBudynku" value="#{licznikiBudynkuController.selected.idBudynku}" required="true" requiredMessage="#{bundle.EditLicznikiBudynkuRequiredMessage_idBudynku}">
+                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
+                                           var="idBudynkuItem"
+                                           itemValue="#{idBudynkuItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{licznikiBudynkuController.create}" value="#{bundle.Save}" update="display,:LicznikiBudynkuListForm:datalist,:growl" oncomplete="handleSubmit(args,'LicznikiBudynkuCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LicznikiBudynkuCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -70,59 +70,59 @@ public class BudynekController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-    public void liczniki() {
-        BufferedReader br = null;
-        String line = "";
-        String cvsSplitBy = ";";
-        String[] numer = new String[]{};
-        List<Budynek> lista_budynkow = null;
-        lista_budynkow = getFacade().findAll();
-        //Mieszkanie mieszkanie = new Mieszkanie();
-        Budynek budynek = new Budynek();
-    //    selected = null;
-        try {
-
-            br = new BufferedReader(new FileReader(csvFileLicznik));
-            //br = csvFile;
-
-            while ((line = br.readLine()) != null) {
-
-                // use comma as separator
-                //String[] country = line.split(cvsSplitBy);
-                numer = line.split(cvsSplitBy);
-                for (int i = 0; i < lista_budynkow.size(); i++) {
-                    selected = lista_budynkow.get(i);
-                   // selected = mieszkanie;
-                  // selected = new Budynek();
-                    if (selected.getId().toString().equals(numer[0])) {
-                        {
-                        selected.setGaz(Integer.parseInt(numer[1]));
-                        selected.setPrad(Integer.parseInt(numer[2]));
-                        selected.setWoda(Integer.parseInt(numer[3]));
-                        selected.setCo(Integer.parseInt(numer[4]));
-                        persist(PersistAction.UPDATE, "Stan liczników dla budynku "+selected.getId()+" zaktualizowany");
-                        }
-                    }
-                }
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        csvFileLicznik = null;
-        items=null;
-    }
+//    public void liczniki() {
+//        BufferedReader br = null;
+//        String line = "";
+//        String cvsSplitBy = ";";
+//        String[] numer = new String[]{};
+//        List<Budynek> lista_budynkow = null;
+//        lista_budynkow = getFacade().findAll();
+//        //Mieszkanie mieszkanie = new Mieszkanie();
+//        Budynek budynek = new Budynek();
+//    //    selected = null;
+//        try {
+//
+//            br = new BufferedReader(new FileReader(csvFileLicznik));
+//            //br = csvFile;
+//
+//            while ((line = br.readLine()) != null) {
+//
+//                // use comma as separator
+//                //String[] country = line.split(cvsSplitBy);
+//                numer = line.split(cvsSplitBy);
+//                for (int i = 0; i < lista_budynkow.size(); i++) {
+//                    selected = lista_budynkow.get(i);
+//                   // selected = mieszkanie;
+//                  // selected = new Budynek();
+//                    if (selected.getId().toString().equals(numer[0])) {
+//                        {
+//                        selected.setGaz(Integer.parseInt(numer[1]));
+//                        selected.setPrad(Integer.parseInt(numer[2]));
+//                        selected.setWoda(Integer.parseInt(numer[3]));
+//                        selected.setCo(Integer.parseInt(numer[4]));
+//                        persist(PersistAction.UPDATE, "Stan liczników dla budynku "+selected.getId()+" zaktualizowany");
+//                        }
+//                    }
+//                }
+//            }
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (br != null) {
+//                try {
+//                    br.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//
+//        csvFileLicznik = null;
+//        items=null;
+//    }
 //    public void rozlicz(BigDecimal prad, BigDecimal gaz, BigDecimal woda, Integer co){
 //
 //        List<Budynek> lista = new ArrayList<Budynek>();
