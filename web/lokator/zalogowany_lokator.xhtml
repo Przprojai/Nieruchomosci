@@ -12,20 +12,23 @@
  
          <h:form id="Zalogowany_lokator"> 
          <h:body onload="if (#{lokatorController.SprawdzHaslo(lokatorController.selected.login)}) {PF('LokatorEditDialog').show()}" style="background: url(../resources/icon/background.jpg) !important; background-size: 100%; background-repeat:no-repeat; " >
-         <p:messages id="messages"  autoUpdate="true" closable="true"  />
-         <p:fieldset legend="Witaj #{lokatorController.selected.imie} #{lokatorController.selected.nazwisko} &lt;br /&gt;#{lokatorController.wiadomosci(lokatorController.selected) }" style="width:50%;margin-left: 25%;background: silver"  >
+             <p:messages id="messages"  autoUpdate="true" style="margin-left: 40%; margin-right: 40%" closable="true"  />
+         <p:fieldset legend="Witaj #{lokatorController.selected.imie} #{lokatorController.selected.nazwisko} &lt;br /&gt;#{lokatorController.wiadomosci(lokatorController.selected) }" style="width:55%;margin-left: 20%;background: silver"  >
         
-             <div style="margin-left:20% ">                 
+             <div style="margin-left:3%; margin-right: 0.5% ">                 
                      
-        <h:commandButton action="/awaria/List_lokator" value="Zgłoś awarię" style="width: 20%;height: 150px;" />
+        <p:commandButton action="/awaria/List_lokator" value="Zgłoś awarię" style="width: 16%;height: 150px;" />
 
-        <h:commandButton action="/informacja/List_1" value="Informacje" style="width: 20%;height: 150px"/>
+        <p:commandButton action="/informacja/List_1" value="Informacje" style="width: 16%;height: 150px"/>
 
-        <h:commandButton action="/oplaty/List_1" value="Opłaty" style="width: 20%;height: 150px"/>
+        <p:commandButton action="/oplaty/List_1" value="Opłaty" style="width: 16%;height: 150px"/>
 
-        <h:commandButton action="/wlasciciel/List_1" value="Kontakt z właścicielem" style="width: 20%;height: 150px"/>
+        <p:commandButton action="/ksiegowosc/List_1" value="Kontakt z księgowością" style="width: 16%;height: 150px"/>
+        <p:commandButton actionListener="#{lokatorController.stary_login()}" update=":LokatorEditForm2" oncomplete="PF('LokatorEditDialog2').show()" value="Zmień dane osobowe" style="width: 16%;height: 150px"/>
+        <p:commandButton  value="Zmień hasło" update=":LokatorEditForm3" oncomplete="PF('LokatorEditDialog3').show()" style="width: 16%;height: 150px"/>
+        
         <br />
-        <h:commandButton action="#{lokatorController.wylogujLokator()}" value="Wyloguj" style="margin-left: 30%;width: 20%;height: 20px"/>
+        <p:commandButton action="#{lokatorController.wylogujLokator()}" value="Wyloguj" style="margin-left: 38%;width: 20%;height: 20px"/>
         </div>
         </p:fieldset>
       </h:body>       
@@ -33,7 +36,8 @@
  
 
    <ui:include src="zmiana_hasla.xhtml"/>
-   
+   <ui:include src="Edit_1.xhtml"/>
+   <ui:include src="zmiana_hasla_1.xhtml"/>
 
 
 

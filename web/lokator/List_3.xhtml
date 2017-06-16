@@ -16,7 +16,7 @@
         <ui:define name="body">
             <h:form id="LokatorListForm">
                 <p:panel header="#{bundle.ListLokatorTitle}">
-                    <p:dataTable id="datalist" value="#{lokatorController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{lokatorController.lista_hasel(lokatorController.items)}" var="item"
                                  selectionMode="single" selection="#{lokatorController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
@@ -24,17 +24,22 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton resetButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton resetButton"/>
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                       
+
                         <p:column sortBy="#{item.login}" filterBy="#{item.login}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLokatorTitle_login}"/>
                             </f:facet>
                             <h:outputText value="#{item.login}"/>
                         </p:column>
-                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLokatorTitle_haslo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.login}"/>
+                        </p:column>
                         <p:column sortBy="#{item.imie}" filterBy="#{item.imie}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLokatorTitle_imie}"/>
@@ -53,25 +58,34 @@
                             </f:facet>
                             <h:outputText value="#{item.kontakt}"/>
                         </p:column>
-                        <p:column sortBy="#{item.idMieszkania}" filterBy="#{item.idMieszkania}">
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLokatorTitle_idMieszkania}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idMieszkania}"/>
+                            <h:outputText value="Ul. #{item.idMieszkania.ulica}, #{item.idMieszkania.nrBloku}, mieszkania #{item.idMieszkania.nrMieszkania}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nr konta"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMieszkania.nrKonta}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{lokatorController.prepareCreate}" update=":LokatorCreateForm" oncomplete="PF('LokatorCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LokatorViewForm" oncomplete="PF('LokatorViewDialog').show()" disabled="#{empty lokatorController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LokatorEditForm4" oncomplete="PF('LokatorEditDialog4').show()" disabled="#{empty lokatorController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LokatorEditForm" oncomplete="PF('LokatorEditDialog').show()" disabled="#{empty lokatorController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{lokatorController.destroy}" update=":growl,datalist" disabled="#{empty lokatorController.selected}"/>
-                            <p:commandButton id="resetButton"  action="#{lokatorController.resetuj_haslo()}" value="Resetuj hasło"  update=":growl,datalist" disabled="#{empty lokatorController.selected}"/>
+                            <h:commandLink>
+                <p:graphicImage name="icon/pdf.png" height="20" width="24"/>
+                <p:dataExporter type="pdf" target="datalist" selectionOnly="true" fileName="#{oplatyController.items.get(lokatorController.items.size()-1).id.toString()}"/>
+            </h:commandLink>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
 
-            <ui:include src="Create_1.xhtml"/>
-            <ui:include src="Edit_2.xhtml"/>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>

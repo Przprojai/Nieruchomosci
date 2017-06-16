@@ -7,16 +7,16 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="LicznikiUpadteDlg" widgetVar="LicznikiUploadDialog" modal="true" resizable="false" appendTo="@(body)" header="Upload">
+        <p:dialog id="LicznikiUpadteDlg" widgetVar="LicznikiUploadDialog" modal="true" resizable="false" appendTo="@(body)" header="Wczytaj">
           
                 <h:panelGroup id="display">
 
-                Select a file to upload: <br />
+               Wybierz plik do wczytania:  <br />
                 <form action="/Nieruchomosci/UploadServletBudynek" method="POST"
                                         enctype="multipart/form-data">
                 <input type="file" accept=".csv"  name="file" size="50" />
                 <br />
-                <input type="submit" value="Upload File" />
+                <input type="submit" value="Wczytaj" />
 
                 
                 </form>

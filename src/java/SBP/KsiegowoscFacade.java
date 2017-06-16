@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import szyfrowanie.CryptWithSHA256;
 
@@ -46,4 +47,21 @@ public class KsiegowoscFacade extends AbstractFacade<Ksiegowosc> {
         }
         return wynik;
     }   
+             public boolean sprawdzLogin(String log) {
+        boolean wynik = false;
+        try {
+            EntityManager em = getEntityManager();
+            Query query = em.createQuery("SELECT c.login FROM Ksiegowosc c WHERE c.login LIKE :login");
+            query.setParameter("login", log);
+
+            if (query.getSingleResult() != null) {
+                wynik = true;
+            }
+        } catch (NoResultException e) {
+
+            wynik = false;
+        }
+        return wynik;
+
+    }
 }

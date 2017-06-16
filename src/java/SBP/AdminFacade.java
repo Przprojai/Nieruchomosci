@@ -6,9 +6,13 @@
 package SBP;
 
 import Entity.Admin;
+import Entity.Ksiegowosc;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import szyfrowanie.CryptWithSHA256;
 
 /**
  *
@@ -28,5 +32,19 @@ public class AdminFacade extends AbstractFacade<Admin> {
     public AdminFacade() {
         super(Admin.class);
     }
-    
+    public Admin login(String log, String pass) {
+        pass = CryptWithSHA256.sha256(pass);
+        Admin wynik= new Admin();
+        try {
+             TypedQuery<Admin> q2
+                = em.createQuery("SELECT c FROM Admin c WHERE c.login = :login AND c.haslo=:haslo  ", Admin.class).setParameter("login", log).setParameter("haslo", pass);
+            if (q2.getSingleResult() != null) {
+                wynik = q2.getSingleResult();
+            }
+        } catch (NoResultException e) {
+
+            wynik = null;
+        }
+        return wynik;
+    }  
 }

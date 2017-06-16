@@ -19,7 +19,11 @@
                         <p:outputLabel value="#{bundle.EditAwariaLabel_godzina}" for="godzina" />
                         <p:calendar id="godzina" pattern="HH:mm:ss" value="#{awariaController.selected.godzina}" title="#{bundle.EditAwariaTitle_godzina}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_godzina}" showOn="button"/>
                         <p:outputLabel value="#{bundle.EditAwariaLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{awariaController.selected.status}" title="#{bundle.EditAwariaTitle_status}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_status}"/>
+                        <p:selectOneMenu id="status" value="#{awariaController.selected.status}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_status}">
+                           
+                            <f:selectItems value="#{awariaController.lista()}"/>
+                                          
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditAwariaLabel_opis}" for="opis" />
                         <p:inputText id="opis" value="#{awariaController.selected.opis}" title="#{bundle.EditAwariaTitle_opis}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_opis}"/>
                         <p:outputLabel value="#{bundle.EditAwariaLabel_koszt}" for="koszt" />

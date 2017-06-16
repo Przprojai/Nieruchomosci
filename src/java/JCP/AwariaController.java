@@ -10,6 +10,7 @@ import SBP.AwariaFacade;
 import java.io.Serializable;
 import java.util.Date;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -65,6 +66,13 @@ public class AwariaController implements Serializable {
         }
         return items;
     
+    }
+        public List<String> lista(){
+        List<String> lista = new ArrayList<String>();
+        lista.add("Zgłoszono");
+        lista.add("Realizacja");
+        lista.add("Rozwiązano");
+        return lista;
     }
     public void create(Lokator lokator, Budynek budynek) {
         Date data = new Date();

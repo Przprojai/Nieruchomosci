@@ -20,13 +20,13 @@
                       <p:fieldset legend="Logowanie" style="width:20%;margin-left: 40%;background: silver" >
             <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundleadmin.CreateAdminLabel_login}" for="login" style="font-weight: bold; margin-left: 30%" />
-                    <h:inputText id="login" value="#{adminController.wybierz.login}" style="margin-left: 30%"/>
+                    <h:inputText id="login" value="#{String1}" style="margin-left: 30%"/>
                     <h:outputLabel value="#{bundleadmin.CreateAdminLabel_haslo}" for="haslo" style="font-weight: bold; margin-left: 30%" />
-                    <h:inputSecret id="haslo" value="#{adminController.wybierz.haslo}" style="margin-left: 30%" />
+                    <h:inputSecret id="haslo" value="#{String2}" style="margin-left: 30%" />
                    
                 </h:panelGrid>
                 <br />
-                <p:commandButton action="#{adminController.find}" value="Zaloguj" style="margin-left: 20%"/>
+                <p:commandButton action="#{adminController.logowanie(String1, String2)}" value="Zaloguj" style="margin-left: 20%"/>
                    
                 <p:commandButton value="Powrót"  action="/index.xhtml" ajax="false" immediate="true" style="margin-left:15px"/>
                                  

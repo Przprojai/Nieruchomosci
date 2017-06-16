@@ -29,14 +29,6 @@
 
                       
 
-                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
-                            <f:facet name="header">
-                                
-                                <h:outputText value="#{bundle.ListOplatyTitle_id}"/>
-                            </f:facet>
-                            
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
                         <p:column sortBy="#{item.miesiac}" filterBy="#{item.miesiac}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListOplatyTitle_miesiac}"/>
@@ -87,14 +79,11 @@
                         </p:column>
                         <f:facet name="footer">
                             
-                            <p:commandButton icon="ui-icon-plus"   value="Automat" actionListener="#{oplatyController.prepareCreate}" update=":OplatyCreateForm2" oncomplete="PF('OplatyCreateDialog2').show()"/>
-                            <p:commandButton icon="ui-icon-plus"   value="Aktualizuj"   action="#{podsumowanieBudynkuController.podsumowanie(oplatyController.zaplacono())}" update=":growl,datalist"/>
-                            <p:commandButton id="szczegolyButton" icon="ui-icon-plus"   value="Szczegoly" action="#{szczegolyController.pokaz_szczegoly(oplatyController.selected)}"  oncomplete="PF('SzczegolyViewDialog').show()" update=":SzczegolyViewForm"/>
+                            <p:commandButton    value="Nalicz" actionListener="#{oplatyController.prepareCreate}" update=":OplatyCreateForm2" oncomplete="PF('OplatyCreateDialog2').show()"/>
+                            <p:commandButton    value="Aktualizuj"   action="#{podsumowanieBudynkuController.podsumowanie(oplatyController.zaplacono())}" update=":growl,datalist"/>
+                            <p:commandButton id="szczegolyButton"   value="Szczegoly" action="#{szczegolyController.pokaz_szczegoly(oplatyController.selected)}"  oncomplete="PF('SzczegolyViewDialog').show()" update=":SzczegolyViewForm"/>
                             <p:commandButton id="upomnienie"   value="Upomnienie" actionListener="#{informacjaController.prepareCreate}" action="#{informacjaController.upomnienie(oplatyController.upomnienie())}" update=":growl,datalist"/>
-            <h:commandLink>
-                <p:graphicImage name="icon/pdf.png" height="20" width="24"/>
-                <p:dataExporter type="pdf" target="datalist" fileName="#{oplatyController.items.get(oplatyController.items.size()-1).id.toString()}"/>
-            </h:commandLink>
+           
 
                         </f:facet>
                     </p:dataTable>

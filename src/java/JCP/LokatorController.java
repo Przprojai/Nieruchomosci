@@ -37,6 +37,7 @@ public class LokatorController implements Serializable {
     Boolean zalogowany = false;
     Boolean flaga = false;
     FlowEvent ivent = null;
+    String login="";
     
     public LokatorController() {
     }
@@ -66,7 +67,9 @@ public class LokatorController implements Serializable {
     public Boolean SprawdzHaslo(String log) {
         return getFacade().sprawdzHaslo(log);
     }
-
+    public void stary_login(){
+        login=selected.getLogin();
+    }
     public String wylogujLokator() {
         
         selected = null;
@@ -119,8 +122,9 @@ public class LokatorController implements Serializable {
         this.mieszkanie = mieszkanie;
     }
 
-    public FlowEvent dupa() {
-        return ivent;
+    public void resetuj_haslo(){
+        selected.setHaslo(CryptWithSHA256.sha256(selected.getLogin()));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Hasło dla "+selected.getLogin() +" zostało zresetowane", "Hasło dla"+selected.getLogin() +"zostało zresetowane"));
     }
 
     public List<Mieszkanie> lista_mieszkan() {
@@ -173,14 +177,37 @@ public class LokatorController implements Serializable {
     }
     
     public void create() {
+        selected.setHaslo(CryptWithSHA256.sha256(selected.getHaslo()));
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LokatorCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+    public void create2() {
+        selected.setId(getFacade().id());
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LokatorCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("LokatorUpdated"));
+    }
+    public void update2() {
+        if(login.equals(selected.getLogin())){
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("LokatorUpdated"));
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('LokatorEditDialog2').hide();");
+        }
+        else
+            if(getFacade().sprawdzLogin(selected.getLogin()))
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login zajęty", "Login zajęty"));
+        else
+            {
+           persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("LokatorUpdated"));  
+           RequestContext context = RequestContext.getCurrentInstance();
+           context.execute("PF('LokatorEditDialog2').hide();");
+            }
     }
 
     public void zmiana_hasla(Lokator lokator, String haslo, String haslo2) {
@@ -204,7 +231,31 @@ public class LokatorController implements Serializable {
         }
         
     }
-
+    public void zmiana_hasla2(String stare_haslo,Lokator lokator, String haslo, String haslo2) {
+        if(selected.getHaslo().equals(CryptWithSHA256.sha256(stare_haslo))){
+        if (haslo.length() >= 6) {
+            if (!lokator.getLogin().equals(haslo)) {
+                if (haslo.equals(haslo2)) {
+                    selected = lokator;
+                    selected.setHaslo(CryptWithSHA256.sha256(haslo));
+                    persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("LokatorUpdated"));                    
+                    RequestContext context = RequestContext.getCurrentInstance();
+                    context.execute("PF('LokatorEditDialog3').hide();");
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hasła muszą się zgadzać", "Hasła muszą się zgadzać"));
+                    
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hasło musi być różne od loginu", "Hasło musi być różne od loginu"));
+            }            
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Długość hasła musi być nie mniejsza niż 6 znaków", "Długość hasła musi być nie mniejsza niż 6 znaków"));
+        }
+        }else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Złe stare hasło", "Złe stare hasło"));
+                    
+                }
+    }
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("LokatorDeleted"));
         if (!JsfUtil.isValidationFailed()) {

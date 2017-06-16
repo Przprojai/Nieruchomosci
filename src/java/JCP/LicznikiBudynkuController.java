@@ -47,6 +47,11 @@ public class LicznikiBudynkuController implements Serializable {
         LicznikiBudynkuController.csvFileLicznik = csvFileLicznik;
         return LicznikiBudynkuController.csvFileLicznik;
     }
+
+    public static String wyswietlSciezke2() {
+        return csvFileLicznik;
+    }
+    
     public void setSelected(LicznikiBudynku selected) {
         this.selected = selected;
     }
@@ -99,10 +104,10 @@ public class LicznikiBudynkuController implements Serializable {
                         selected.setGaz(Integer.parseInt(numer[1]));
                         selected.setPrad(Integer.parseInt(numer[2]));
                         selected.setWoda(Integer.parseInt(numer[3]));
-                        if(lista_budynkow.get(i).getWspolnyLicznik())
+                        //if(lista_budynkow.get(i).getWspolnyLicznik())
                         selected.setCo(Integer.parseInt(numer[4]));
-                        else
-                        selected.setCo(0);    
+                        //else
+                        //selected.setCo(0);    
                         selected.setMiesiac(Integer.parseInt(numer[5]));
                         selected.setRok(Integer.parseInt(numer[6]));
                         Stawki stawki = getFacade().stawki(budynek);

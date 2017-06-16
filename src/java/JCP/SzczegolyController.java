@@ -1,5 +1,6 @@
 package JCP;
 
+import Entity.Lokator;
 import Entity.Oplaty;
 import Entity.Szczegoly;
 import JCP.util.JsfUtil;
@@ -99,6 +100,10 @@ public class SzczegolyController implements Serializable {
         hm.put("miesiac",szczegoly.getIdOplaty().getMiesiac());
         hm.put("rok",szczegoly.getIdOplaty().getRok());
         hm.put("konto",szczegoly.getIdOplaty().getIdMieszkania().getNrKonta());
+        Lokator lokator=getFacade().lokator(szczegoly.getIdOplaty().getIdMieszkania());
+        hm.put("imie",lokator.getImie()+" "+lokator.getNazwisko());
+        //hm.put("nazwisko",);
+        hm.put("mieszkanie",szczegoly.getIdOplaty().getIdMieszkania().getIdBudynku().getAdres()+"/"+szczegoly.getIdOplaty().getIdMieszkania().getNrMieszkania());
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(getItems());
         String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/raport/report1.jasper");
         jasperPrint = JasperFillManager.fillReport(reportPath, hm, new JRBeanArrayDataSource(new Szczegoly [] {szczegoly}));

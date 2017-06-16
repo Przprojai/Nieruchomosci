@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head >
         <title>Facelet Title</title>
@@ -10,48 +11,51 @@
     </h:head>     
     <h:body style="background: url(../resources/icon/background.jpg) !important; background-size: 100%; background-repeat:no-repeat; " >
         <h:form id="index">
-            <p:messages id="messages"  autoUpdate="true" closable="true"  />
+            <p:messages id="messages"  autoUpdate="true" style="margin-left: 40%; margin-right: 40%" closable="true"  />
 
-                    <p:fieldset legend="Zalogowano jako: #{ksiegowoscController.selected.login}" style="width:50%;margin-left: 25%;background: silver"  >
-                        <h:commandButton actionListener="#{lokatorController.prepareCreate3()}" action="/lokator/rejestracja.xhtml?faces-redirect=true"  value="Utwórz konto lokatora" style="width: 20%;height: 150px;"/>
+            <p:fieldset legend="Zalogowano jako: #{ksiegowoscController.selected.imie} #{ksiegowoscController.selected.nazwisko}" style="width:55%;margin-left: 25%;  background: silver"  >
+                         <div style="margin-left:7%; margin-right: 10px ">  
+                        <p:commandButton actionListener="#{lokatorController.prepareCreate3()}" action="/lokator/rejestracja.xhtml?faces-redirect=true"  value="Utwórz konto lokatora" style="width: 19%;height: 150px;"/>
 
-                        <h:commandButton action="/mieszkanie/List_1" value="Aktualizuj stany kont" style="width: 20%;height: 150px;"/>
+                        <p:commandButton action="/mieszkanie/List_1" value="Aktualizuj stany kont" style="width: 19%;height: 150px;"/>
  
 
-                        <h:commandButton action="/liczniki/List_1" value="Aktualizuj stany liczników" style="width: 20%;height: 150px;"/>
+                        <p:commandButton action="/liczniki/List_1" value="Aktualizuj stany liczników" style="width: 19%;height: 150px;"/>
 
-                        <h:commandButton action="/podsumowanieBudynku/List_1" value="Podsumowanie Budynku" style="width: 20%;height: 150px;"/>
+                        <p:commandButton action="/podsumowanieBudynku/List_1" value="Podsumowanie Budynku" style="width: 19%;height: 150px;"/>
      
-                        <h:commandButton action="/awaria/List_1" value="Awarie" style="width: 20%;height: 150px;"/>
       
-                        <h:commandButton action="/licznikiBudynku/List" value="Liczniki budynków" style="width: 20%;height: 150px;"/>
+                        <p:commandButton action="/licznikiBudynku/List" value="Liczniki budynków" style="width: 19%;height: 150px;"/>
    
-                        <h:commandButton action="/dodatkoweOplaty/dodawanie" actionListener="#{dodatkoweOplatyController.prepareCreate()}" value="Dodatkowe Opłaty" style="width: 20%;height: 150px;"/>
+                        <p:commandButton actionListener="#{informacjaController.prepareCreate()}" action="/informacja/dodawanie" value="Informacje dla budynku" style="width: 19%;height: 150px;"/>
          
-                        <h:commandButton action="/informacja/List_2" value="Informacje" style="width: 20%;height: 150px;"/>
+                        <p:commandButton action="/informacja/List" value="Informacje dla mieszkania" style="width: 19%;height: 150px;"/>
 
-                        <h:commandButton action="/ksiegowosc/List_1" value="Ksiegowosc" style="width: 20%;height: 150px;"/>
+                        <p:commandButton action="/ksiegowosc/List_1" value="Ksiegowość" style="width: 19%;height: 150px;"/>
 
-                        <h:commandButton action="/lokator/List_1" value="Lokatorzy" style="width: 20%;height: 150px;"/>
+                        <p:commandButton action="/lokator/List_1" value="Lokatorzy" style="width: 19%;height: 150px;"/>
 
-                        <h:commandButton action="/mieszkanie/List_3" value="Mieszkania" style="width: 20%;height: 150px;"/>
+                        <p:commandButton action="/mieszkanie/List_3" value="Mieszkania" style="width: 19%;height: 150px;"/>
     
-                        <h:commandButton action="/oplaty/List_ksiegowy" value="Oplaty" style="width: 20%;height: 150px;"/>
-       
-                        <h:commandButton action="/wspolnota/List" value="Wspolnota" style="width: 20%;height: 150px;"/>
-      
-                        <h:commandButton action="/stawki/List" value="Stawki" style="width: 20%;height: 150px;"/>
+                        <p:commandButton action="/oplaty/List_ksiegowy" value="Oplaty" style="width: 19%;height: 150px;"/>
+        
+                        <p:commandButton action="/stawki/List" value="Stawki" style="width: 19%;height: 150px;"/>
                         
-                        <h:commandButton action="#{ksiegowoscController.wylogujKsiegowosc()}" value="Wyloguj" style="width: 20%;height: 150px;"/>
+                        <p:commandButton actionListener="#{ksiegowoscController.stary_login()}" update=":KsiegowoscEditForm2" oncomplete="PF('KsiegowoscEditDialog2').show()" value="Zmień dane osobowe" style="width: 19%;height: 150px;"/>
+                        
+                        <p:commandButton  value="Zmień hasło" update=":KsiegowoscEditForm3" oncomplete="PF('KsiegowoscEditDialog3').show()" style="width: 19%;height: 150px;"/>
+                        
+                        <p:commandButton action="#{ksiegowoscController.wylogujKsiegowosc()}" value="Wyloguj" style="width: 19%;height: 150px;"/>
        
 
 
-                
+                         </div>
                 </p:fieldset>
 
 
             </h:form>
-
+<ui:include src="Edit_1.xhtml"/>
+<ui:include src="zmiana_hasla.xhtml"/>
     </h:body>
 
 

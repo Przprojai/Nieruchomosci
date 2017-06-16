@@ -299,7 +299,7 @@ public class Stawki implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Stawki[ id=" + id + " ]";
+        return idBudynku.getAdres();
     }
     
 }

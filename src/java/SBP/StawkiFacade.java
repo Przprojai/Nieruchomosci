@@ -9,6 +9,7 @@ import Entity.Stawki;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +29,13 @@ public class StawkiFacade extends AbstractFacade<Stawki> {
     public StawkiFacade() {
         super(Stawki.class);
     }
-    
+    public Integer id(){
+        Query q = em.createQuery ("SELECT MAX(X.id) FROM Stawki X");
+Integer result = (Integer) q.getSingleResult ();
+if(result==null)result=1;
+else
+      result+=1;
+      
+        return result;
+    } 
 }

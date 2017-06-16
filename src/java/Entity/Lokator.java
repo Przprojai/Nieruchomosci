@@ -48,12 +48,12 @@ public class Lokator implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 25)
+    @Size(min = 6, max = 25)
     @Column(name = "login")
     private String login;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 512)
+    @Size(min = 6, max = 512)
     @Column(name = "haslo")
     private String haslo;
     @Basic(optional = false)
@@ -177,7 +177,7 @@ public class Lokator implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Lokator[ id=" + id + " ]";
+        return imie+" "+nazwisko;
     }
     
 }

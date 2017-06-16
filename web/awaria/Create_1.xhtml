@@ -16,7 +16,7 @@
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_data}" for="dataZgloszenia" />
                         <p:outputLabel id="dataZgloszenia" value="#{awariaController.data().date}/#{awariaController.data().month+1}/#{awariaController.data().year+1900}"/>
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_opis}" for="opis" />
-                        <p:inputText id="opis" value="#{awariaController.selected.opis}" title="#{bundle.CreateAwariaTitle_opis}" required="true" requiredMessage="#{bundle.CreateAwariaRequiredMessage_opis}"/>
+                        <p:inputTextarea id="opis" value="#{awariaController.selected.opis}" title="#{bundle.CreateAwariaTitle_opis}" required="true" rows="10" cols="50" requiredMessage="#{bundle.CreateAwariaRequiredMessage_opis}"/>
                         
                         <p:outputLabel value="Lokator" for="lokatorId" />
                         <p:outputLabel id="lokatorId" value="#{lokatorController.selected.imie} #{lokatorController.selected.nazwisko}" />

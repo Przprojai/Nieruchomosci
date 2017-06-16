@@ -21,7 +21,7 @@
                         <p:outputLabel value="#{bundle.EditDodatkoweOplatyLabel_idBudynku}" for="idBudynku" />
                         <p:selectOneMenu id="idBudynku" value="#{dodatkoweOplatyController.selected.idBudynku}" required="true" requiredMessage="#{bundle.EditDodatkoweOplatyRequiredMessage_idBudynku}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{oplatyController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
                                            var="idBudynkuItem"
                                            itemValue="#{idBudynkuItem}"/>
                         </p:selectOneMenu>

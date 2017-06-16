@@ -17,7 +17,7 @@
             <h:form id="InformacjaListForm">
                 <p:panel header="#{bundle.ListInformacjaTitle}">
                     <p:dataTable id="datalist" value="#{informacjaController.informacje_lokatora(lokatorController.przekaz())}" var="item"
-                                 selectionMode="single" selection="#{informacjaController.selected}"
+                                 selectionMode="single" selection="#{informacjaController.selected}" widgetVar="Informacje"
                                  paginator="true"
                                  rowKey="#{item.id}"
                                  rows="10"
@@ -49,18 +49,27 @@
                             </f:facet>
                             <h:outputText value="#{item.opis}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.potwierdzenie}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInformacjaTitle_potwierdzenie}"/>
+                                
                             </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.potwierdzenie}" disabled="true"/>
+                            <p:selectBooleanCheckbox value="#{item.potwierdzenie}"  disabled="true"/>
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('Informacje').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="Wszystkie" itemValue="" />
+                                    <f:selectItem itemLabel="Przeczytane" itemValue="true" />
+                                    <f:selectItem itemLabel="Nieprzeczytane" itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
                         </p:column>
 
 
                         <f:facet name="footer">
                           
                            
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InformacjaEditForm" oncomplete="PF('InformacjaEditDialog').show()" disabled="#{empty informacjaController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Wyświetl" update=":InformacjaEditForm" oncomplete="PF('InformacjaEditDialog').show()" disabled="#{empty informacjaController.selected}"/>
                            
                         </f:facet>
                     </p:dataTable>

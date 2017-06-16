@@ -12,8 +12,13 @@
             <h:form id="StawkiCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{stawkiController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateStawkiLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{stawkiController.selected.id}" title="#{bundle.CreateStawkiTitle_id}" required="true" requiredMessage="#{bundle.CreateStawkiRequiredMessage_id}"/>
+                        <p:outputLabel value="Budynek:" for="idBudynku" />
+                        <p:selectOneMenu id="idBudynku" value="#{stawkiController.selected.idBudynku}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_idBudynku}">
+                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
+                                           var="idBudynkuItem"
+                                           itemValue="#{idBudynkuItem}"/>
+                            <p:ajax  event="change" update="ryczalt_gaz ryczalt_co co gaz"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateStawkiLabel_eksploatacjaPodstawowa}" for="eksploatacjaPodstawowa" />
                         <p:inputText id="eksploatacjaPodstawowa" value="#{stawkiController.selected.eksploatacjaPodstawowa}" title="#{bundle.CreateStawkiTitle_eksploatacjaPodstawowa}" required="true" requiredMessage="#{bundle.CreateStawkiRequiredMessage_eksploatacjaPodstawowa}"/>
                         <p:outputLabel value="#{bundle.CreateStawkiLabel_funduszRemontowy}" for="funduszRemontowy" />
@@ -42,13 +47,7 @@
                         <p:inputText id="ryczalt_co" value="#{stawkiController.selected.ryczalt_co}" title="#{bundle.CreateStawkiTitle_ryczalt_co}" required="true" requiredMessage="#{bundle.CreateStawkiRequiredMessage_ryczalt_co}" disabled="#{!stawkiController.selected.idBudynku.wspolnyLicznik}"/>
                         <p:outputLabel value="#{bundle.CreateStawkiLabel_ryczalt_gaz}" for="ryczalt_gaz" />
                         <p:inputText id="ryczalt_gaz" value="#{stawkiController.selected.ryczalt_gaz}" title="#{bundle.CreateStawkiTitle_ryczalt_gaz}" required="true" requiredMessage="#{bundle.CreateStawkiRequiredMessage_ryczalt_gaz}" disabled="#{!stawkiController.selected.idBudynku.wspolnyLicznikGazu}"/>
-                        <p:outputLabel value="#{bundle.CreateStawkiLabel_idBudynku}" for="idBudynku" />
-                        <p:selectOneMenu id="idBudynku" value="#{stawkiController.selected.idBudynku}" required="true" requiredMessage="#{bundle.EditStawkiRequiredMessage_idBudynku}">
-                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
-                                           var="idBudynkuItem"
-                                           itemValue="#{idBudynkuItem}"/>
-                            <p:ajax  event="change" update="ryczalt_gaz ryczalt_co co gaz"/>
-                        </p:selectOneMenu>
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{stawkiController.create}" value="#{bundle.Save}" update="display,:StawkiListForm:datalist,:growl" oncomplete="handleSubmit(args,'StawkiCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="StawkiCreateDialog.hide()"/>

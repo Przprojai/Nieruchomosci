@@ -5,8 +5,10 @@
  */
 package SBP;
 
+import Entity.Budynek;
 import Entity.Informacja;
 import Entity.Lokator;
+import Entity.Mieszkanie;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -80,6 +82,18 @@ List<Informacja> wynik=new ArrayList<Informacja>();
 try{
     EntityManager em = getEntityManager();
             TypedQuery<Informacja> query = em.createQuery("SELECT X FROM Informacja X WHERE X.idMieszkania=:idMieszkania",Informacja.class).setParameter("idMieszkania", lokator.getIdMieszkania());
+            if(!query.getResultList().isEmpty()) wynik=query.getResultList();
+}
+catch(NullPointerException e){
+    wynik=null;
+}
+return wynik;
+}
+public List<Mieszkanie> mieszkania(Budynek budynek){
+   List<Mieszkanie> wynik=new ArrayList<Mieszkanie>(); 
+   try{
+    EntityManager em = getEntityManager();
+            TypedQuery<Mieszkanie> query = em.createQuery("SELECT X FROM Mieszkanie X WHERE X.idBudynku=:budynek",Mieszkanie.class).setParameter("budynek", budynek);
             if(!query.getResultList().isEmpty()) wynik=query.getResultList();
 }
 catch(NullPointerException e){

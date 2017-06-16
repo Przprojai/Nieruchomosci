@@ -12,9 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body style="background: url(resources/icon/background.jpg); background-size: 100%; background-repeat:no-repeat;">
-       <%= JCP.LicznikiController.setCsvFileLicznik(request.getAttribute("Name").toString()) %>
-        
-       <jsp:forward page="/liczniki/List_1.xhtml?faces-redirect=true"></jsp:forward>
+       
 
     </body>
 </html>

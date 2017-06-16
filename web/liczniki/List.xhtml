@@ -74,6 +74,9 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LicznikiViewForm" oncomplete="PF('LicznikiViewDialog').show()" disabled="#{empty licznikiController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LicznikiEditForm" oncomplete="PF('LicznikiEditDialog').show()" disabled="#{empty licznikiController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{licznikiController.destroy}" update=":growl,datalist" disabled="#{empty licznikiController.selected}"/>
+                            <p:commandButton value="Wczytaj" oncomplete="PF('LicznikiUploadDialog').show()"/>
+                            <p:commandButton value="Aktualizuj" action="#{licznikiController.liczniki()}" disabled="#{licznikiController.wyswietlsciezke2()==null}" update=":growl,datalist"/>
+                        
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
@@ -82,6 +85,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="Liczniki_1.xhtml"/>
         </ui:define>
     </ui:composition>
 

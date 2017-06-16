@@ -24,6 +24,8 @@
                         <p:inputText id="kontakt" value="#{budynekController.selected.kontakt}" title="#{bundle.EditBudynekTitle_kontakt}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_kontakt}"/>
                         <p:outputLabel value="#{bundle.EditBudynekLabel_wspolnyLicznik}" for="wspolnyLicznik" />
                         <p:selectBooleanCheckbox id="wspolnyLicznik" value="#{budynekController.selected.wspolnyLicznik}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_wspolnyLicznik}"/>
+                        <p:outputLabel value="#{bundle.EditBudynekLabel_wspolnyLicznik}" for="wspolnyLicznikgazu" />
+                        <p:selectBooleanCheckbox id="wspolnyLicznikgazu" value="#{budynekController.selected.wspolnyLicznikGazu}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_wspolnyLicznikGazu}"/>
                         <p:outputLabel value="#{bundle.EditBudynekLabel_idWspolnota}" for="idWspolnota" />
                         <p:selectOneMenu id="idWspolnota" value="#{budynekController.selected.idWspolnota}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_idWspolnota}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

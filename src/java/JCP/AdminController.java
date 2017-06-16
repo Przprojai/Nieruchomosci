@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -27,6 +28,7 @@ public class AdminController implements Serializable {
     private SBP.AdminFacade ejbFacade;
     private List<Admin> items = null;
     private Admin selected;
+    Boolean zalogowany=false;
 
     public AdminController() {
     }
@@ -54,7 +56,24 @@ public class AdminController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    public String wylogujAdmin() {
+        
+        selected = null;
+        items = null;
+        zalogowany = false;
+        return "/index.xhtml?faces-redirect=true";
+    }
+        public String logowanie(String login, String haslo) {
+        
+        if (getFacade().login(login, haslo)!=null) {
+            selected=getFacade().login(login, haslo);
+            zalogowany = true;
+            return "/zalogowany_admin.xhtml?faces-redirect=true";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędny login lub hasło", "Błędny login lub hasło"));
+           selected=getFacade().login(login, haslo);
+           return "Login_2.xhtml";
+        }}
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AdminCreated"));
         if (!JsfUtil.isValidationFailed()) {

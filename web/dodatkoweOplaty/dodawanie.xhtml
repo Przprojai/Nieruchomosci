@@ -9,13 +9,13 @@
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
-    <h:body>
+    <h:body style="background: url(../resources/icon/background.jpg) !important; background-size: 100%; background-repeat:no-repeat; ">
 
         <h:form id="rejestracja">
             <p:growl id="growl" sticky="true" showDetail="true"/>
             <p:wizard id="wizard" flowListener="#{dodatkoweOplatyController.onFlowProcess}" style="width: 40%;margin-left: 35%;" backLabel="Cofnij" nextLabel="Dalej"  widgetVar="wiz" >
                 <p:tab id="budynek" title="Budynek" >
-                    <p:panel header="Dane logowania" style="background: silver">
+                    <p:panel header="Budynek" style="background: silver">
                         <p:messages />
                         <p:dataTable id="datalist" value="#{budynekController.items}" var="item"
                                      selectionMode="single" selection="#{dodatkoweOplatyController.budynek}"
@@ -121,7 +121,7 @@
                     </p:panel>
                 </p:tab>
             </p:wizard>
-            <p:commandButton value="Powrót"  action="/Login.xhtml" immediate="true" style="margin-left: 35%"/>
+            <p:commandButton value="Powrót"  action="/dodatkoweOplaty/List.xhtml" immediate="true" style="margin-left: 35%"/>
         </h:form>
 
 

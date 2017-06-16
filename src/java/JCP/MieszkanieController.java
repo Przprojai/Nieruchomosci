@@ -251,7 +251,7 @@ public class MieszkanieController implements Serializable {
                 wynik = wynik.add(pomoc);
                 wynik = wynik.subtract(cocalk);
                 selected.setNadplata(wynik);
-                update();
+                persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MieszkanieUpdated"));
                 wynik = new BigDecimal(0);
             }
 

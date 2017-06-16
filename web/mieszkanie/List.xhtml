@@ -29,25 +29,25 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column sortBy="#{item.id}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMieszkanieTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.nrMieszkania}" filterBy="#{item.nrMieszkania}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMieszkanieTitle_nrMieszkania}"/>
                             </f:facet>
                             <h:outputText value="#{item.nrMieszkania}"/>
                         </p:column>
-                        <p:column>
+                        <p:column  filterBy="#{item.ulica}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMieszkanieTitle_ulica}"/>
                             </f:facet>
                             <h:outputText value="#{item.ulica}"/>
                         </p:column>
-                        <p:column>
+                        <p:column >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMieszkanieTitle_nrBloku}"/>
                             </f:facet>
@@ -71,7 +71,7 @@
                             </f:facet>
                             <h:outputText value="#{item.powierzchnia}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.pietro}" filterBy="#{item.pietro}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMieszkanieTitle_pietro}"/>
                             </f:facet>

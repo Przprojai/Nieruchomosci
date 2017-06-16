@@ -12,11 +12,19 @@
             <h:form id="InformacjaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{informacjaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{informacjaController.selected.id}" title="#{bundle.CreateInformacjaTitle_id}" required="true" requiredMessage="#{bundle.CreateInformacjaRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_data}" for="data" />
+                        <p:calendar id="data" pattern="MM/dd/yyyy" value="#{informacjaController.selected.data}" title="#{bundle.EditInformacjaTitle_data}" required="true" requiredMessage="#{bundle.EditInformacjaRequiredMessage_data}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateInformacjaLabel_tytul}" for="tytul" />
                         <p:inputText id="tytul" value="#{informacjaController.selected.tytul}" title="#{bundle.CreateInformacjaTitle_tytul}" required="true" requiredMessage="#{bundle.CreateInformacjaRequiredMessage_tytul}"/>
                         <p:outputLabel value="#{bundle.CreateInformacjaLabel_opis}" for="opis" />
                         <p:inputText id="opis" value="#{informacjaController.selected.opis}" title="#{bundle.CreateInformacjaTitle_opis}" required="true" requiredMessage="#{bundle.CreateInformacjaRequiredMessage_opis}"/>
-                        <p:outputLabel value="Mieszkanie:" for="idMieszkania" />
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_numer}" for="numer" />
+                        <p:inputText id="numer" value="#{informacjaController.selected.numer}" title="#{bundle.CreateInformacjaTitle_numer}" required="true" requiredMessage="#{bundle.CreateInformacjaRequiredMessage_numer}"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_potwierdzenie}" for="potwierdzenie" />
+                        <p:selectBooleanCheckbox id="potwierdzenie" value="#{informacjaController.selected.potwierdzenie}" required="true" requiredMessage="#{bundle.EditInformacjaRequiredMessage_potwierdzenie}"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjaLabel_idMieszkania}" for="idMieszkania" />
                         <p:selectOneMenu id="idMieszkania" value="#{informacjaController.selected.idMieszkania}" required="true" requiredMessage="#{bundle.EditInformacjaRequiredMessage_idMieszkania}">
                             <f:selectItems value="#{mieszkanieController.itemsAvailableSelectOne}"
                                            var="idMieszkaniaItem"

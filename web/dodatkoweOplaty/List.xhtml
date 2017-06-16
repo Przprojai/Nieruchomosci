@@ -36,6 +36,18 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="Miesiąc"/>
+                            </f:facet>
+                            <h:outputText value="#{item.miesiac}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rok"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rok}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDodatkoweOplatyTitle_rodzaj}"/>
                             </f:facet>
                             <h:outputText value="#{item.rodzaj}"/>
@@ -48,12 +60,18 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDodatkoweOplatyTitle_idOplaty}"/>
+                                <h:outputText value="#{bundle.ListDodatkoweOplatyTitle_idBudynku}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idBudynku}"/>
+                            <h:outputText value="#{item.idBudynku.adres}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Klatka"/>
+                            </f:facet>
+                            <h:outputText value="#{item.klatka}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{dodatkoweOplatyController.prepareCreate}" update=":DodatkoweOplatyCreateForm" oncomplete="PF('DodatkoweOplatyCreateDialog').show()"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{dodatkoweOplatyController.prepareCreate}" action="dodawanie.xhtml?faces-redirect=true"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DodatkoweOplatyViewForm" oncomplete="PF('DodatkoweOplatyViewDialog').show()" disabled="#{empty dodatkoweOplatyController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DodatkoweOplatyEditForm" oncomplete="PF('DodatkoweOplatyEditDialog').show()" disabled="#{empty dodatkoweOplatyController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{dodatkoweOplatyController.destroy}" update=":growl,datalist" disabled="#{empty dodatkoweOplatyController.selected}"/>

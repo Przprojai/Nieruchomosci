@@ -56,6 +56,7 @@ public class StawkiController implements Serializable {
     }
 
     public void create() {
+        selected.setId(getFacade().id());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("StawkiCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

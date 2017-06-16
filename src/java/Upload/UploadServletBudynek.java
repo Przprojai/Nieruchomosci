@@ -104,6 +104,7 @@ public class UploadServletBudynek extends HttpServlet {
       out.println("</html>");
    }catch(Exception ex) {
        System.out.println(ex);
+     request.getRequestDispatcher("/ErrorPage.jsp").forward(request, response);  
    }
    }
 

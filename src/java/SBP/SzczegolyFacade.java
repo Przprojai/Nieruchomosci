@@ -5,6 +5,8 @@
  */
 package SBP;
 
+import Entity.Lokator;
+import Entity.Mieszkanie;
 import Entity.Oplaty;
 import Entity.Szczegoly;
 import javax.ejb.Stateless;
@@ -46,4 +48,19 @@ public class SzczegolyFacade extends AbstractFacade<Szczegoly> {
     }
         return wynik;
 }
+       public Lokator lokator(Mieszkanie mieszkanie){
+        Lokator wynik = null;
+        try {
+       // TypedQuery<Stawki> q2 = em.createNamedQuery("Stawki.findByBudynek",Stawki.class).setParameter("budynek", budynek);
+       TypedQuery<Lokator> q2
+                = em.createQuery("SELECT c FROM Lokator c WHERE c.idMieszkania=:mieszkanie", Lokator.class).setParameter("mieszkanie", mieszkanie);
+        if (!q2.getResultList().isEmpty()) {
+                wynik =  q2.getSingleResult();
+            }
+        } catch (NoResultException e) {
+
+            wynik =null;
+    }
+        return wynik;
+} 
 }

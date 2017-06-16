@@ -8,21 +8,28 @@
 
     <ui:composition>
 
-        <p:dialog id="LokatorEditDlg2" widgetVar="LokatorEditDialog2" modal="true" resizable="false" appendTo="@(body)" header="Edycja danych osobowych" closable="true">
-            <h:form id="LokatorEditForm2">
+        <p:dialog id="LokatorEditDlg4" widgetVar="LokatorEditDialog4" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLokatorTitle}">
+            <h:form id="LokatorEditForm4">
                 <h:panelGroup id="display">
-                     <p:messages id="messages"  autoUpdate="true"  closable="true"  />
                     <p:panelGrid columns="2" rendered="#{lokatorController.selected != null}">
                         <p:outputLabel value="#{bundle.EditLokatorLabel_login}" for="login" />
-                        <p:inputText id="login" value="#{lokatorController.selected.login}" title="#{bundle.EditLokatorTitle_login}" required="true" requiredMessage="#{bundle.EditLokatorRequiredMessage_login}" validatorMessage="Długość musi być co najmniej 6 znaków"/>
+                        <p:inputText id="login" value="#{lokatorController.selected.login}" title="#{bundle.EditLokatorTitle_login}" required="true" requiredMessage="#{bundle.EditLokatorRequiredMessage_login}"/>
                         <p:outputLabel value="#{bundle.EditLokatorLabel_imie}" for="imie" />
                         <p:inputText id="imie" value="#{lokatorController.selected.imie}" title="#{bundle.EditLokatorTitle_imie}" required="true" requiredMessage="#{bundle.EditLokatorRequiredMessage_imie}"/>
                         <p:outputLabel value="#{bundle.EditLokatorLabel_nazwisko}" for="nazwisko" />
                         <p:inputText id="nazwisko" value="#{lokatorController.selected.nazwisko}" title="#{bundle.EditLokatorTitle_nazwisko}" required="true" requiredMessage="#{bundle.EditLokatorRequiredMessage_nazwisko}"/>
                         <p:outputLabel value="#{bundle.EditLokatorLabel_kontakt}" for="kontakt" />
                         <p:inputText id="kontakt" value="#{lokatorController.selected.kontakt}" title="#{bundle.EditLokatorTitle_kontakt}" />
+                        <p:outputLabel value="#{bundle.EditLokatorLabel_idMieszkania}" for="idMieszkania" />
+                        <p:selectOneMenu id="idMieszkania" value="#{lokatorController.selected.idMieszkania}" required="true" requiredMessage="#{bundle.EditLokatorRequiredMessage_idMieszkania}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{mieszkanieController.itemsAvailableSelectOne}"
+                                           var="idMieszkaniaItem"
+                                           itemValue="#{idMieszkaniaItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{lokatorController.update2}" value="#{bundle.Save}" update=":Zalogowany_lokator" />
+                    <p:commandButton actionListener="#{lokatorController.update}" value="#{bundle.Save}" update="display,:LokatorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LokatorEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LokatorEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

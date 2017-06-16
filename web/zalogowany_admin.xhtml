@@ -7,27 +7,43 @@
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
-    <h:body>
+    <h:body style="background: url(../resources/icon/background.jpg) !important; background-size: 100%; background-repeat:no-repeat; " >
         <h:form> 
-            <p:fieldset legend="Witaj #{lokatorController.selected.imie} #{lokatorController.selected.nazwisko}!" style="width:50%;margin-left: 25%;background: silver" >
+            <p:fieldset legend="Witaj #{adminController.selected.login}!" style="width:50%;margin-left: 25%;background: silver" >
         <br />
-        <h:commandButton action="/awaria/List" value="Awarie" style="width: 20%;height: 150px;"/>
+        <div style="margin-left:6%; margin-right: 0.5% "> 
+        <p:commandButton action="/awaria/List" value="Awarie" style="width: 22%;height: 150px;"/>
        
-        <h:commandButton action="/informacje/List" value="Informacje" style="width: 20%;height: 150px;"/>
+        <p:commandButton action="/informacja/List" value="Informacje" style="width: 22%;height: 150px;"/>
          
-        <h:commandButton action="/oplaty/List" value="Oplaty" style="width: 20%;height: 150px;"/>
+        <p:commandButton action="/budynek/List" value="Budynki" style="width: 22%;height: 150px;"/>
+        
+        <p:commandButton action="/stawki/List" value="Stawki" style="width: 22%;height: 150px;"/>
+        
+        <p:commandButton action="/oplaty/List" value="Oplaty" style="width: 22%;height: 150px;"/>
+        
+        <p:commandButton action="/dodatkoweOplaty/List" value="Dodatkowe opłaty" style="width: 22%;height: 150px;"/>
       
-        <h:commandButton action="/wlasciciel/List" value="Wlasciciele" style="width: 20%;height: 150px;"/>
+        <p:commandButton action="/ksiegowosc/List" value="Księgowość" style="width: 22%;height: 150px;"/>
+        
+        <p:commandButton action="/liczniki/List" value="Liczniki mieszkań" style="width: 22%;height: 150px;"/>
      
-        <h:commandButton action="/budynek/List" value="Budynki" style="width: 20%;height: 150px;"/>
+        <p:commandButton action="/licznikiBudynku/List_1" value="Liczniki budynku" style="width: 22%;height: 150px;"/>
+     
+        <p:commandButton action="/budynek/List" value="Budynki" style="width: 22%;height: 150px;"/>
       
-        <h:commandButton action="/lokator/List" value="Lokatorzy" style="width: 20%;height: 150px;"/>   
+        <p:commandButton action="/lokator/List" value="Lokatorzy" style="width: 22%;height: 150px;"/>   
        
-        <h:commandButton action="/mieszkanie/List" value="Mieszkania" style="width: 20%;height: 150px;"/>
+        <p:commandButton action="/mieszkanie/List" value="Mieszkania" style="width: 22%;height: 150px;"/>
      
-        <h:commandButton value="Administratorzy" action="/admin/List.xhtml" style="width: 20%;height: 150px;"/>
-        <br/>
-        <h:commandButton value="wyloguj" action="#{adminController.wylogujAdmin()}" style="margin-left: 40%;width: 20%;height: 20px"/>
+        <p:commandButton action="/podsumowanieBudynku/List" value="Podsumowanie budynków" style="width: 22%;height: 150px;"/>
+        
+        <p:commandButton action="/wspolnota/List" value="Wspólnoty" style="width: 22%;height: 150px;"/>
+     
+     
+        <p:commandButton value="Administratorzy" action="/admin/List.xhtml" style="width: 22%;height: 150px;"/>
+        <p:commandButton value="wyloguj" action="#{adminController.wylogujAdmin()}" style="width: 22%;height: 150px"/>
+        </div>
         </p:fieldset>
         </h:form>
         

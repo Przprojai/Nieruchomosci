@@ -123,7 +123,7 @@
                            
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MieszkanieViewForm" oncomplete="PF('MieszkanieViewDialog').show()" disabled="#{empty mieszkanieController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MieszkanieEditForm" oncomplete="PF('MieszkanieEditDialog').show()" disabled="#{empty mieszkanieController.selected}"/>
-                            <p:commandButton id="rozlicz"      value="Rozlicz" update=":MieszkanieViewForm" action="#{mieszkanieController.rozlicz()}" />
+                            <p:commandButton id="rozlicz"      value="Rozlicz" update=":growl,datalist" action="#{mieszkanieController.rozlicz()}" />
                             
                         </f:facet>
                     </p:dataTable>
@@ -131,7 +131,7 @@
             </h:form>
 
             <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
+            <ui:include src="Edit_1.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>

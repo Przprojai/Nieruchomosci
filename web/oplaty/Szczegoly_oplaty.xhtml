@@ -13,7 +13,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="1" >
                         
-                        <h:outputText value="#{szczegolyController.selected.id}" title="#{bundle.ViewSzczegolyTitle_id}"/>
                         
                         <h:outputText value="#{szczegolyController.selected.eksploatacjaPodstawowa}" title="#{bundle.ViewSzczegolyTitle_eksploatacjaPodstawowa}"/>
                   
@@ -44,7 +43,7 @@
 
                         <h:outputText value="Dodatkowe opłaty: #{szczegolyController.selected.dodatkowe_oplaty}" title="Dodatkowe opłaty"/>
                         
-                        <h:outputText value="Do zapłaty: #{szczegolyController.selected.pods}" />
+                        <h:outputText value="Do zapłaty: #{szczegolyController.selected.pods} zł" />
 
                     </p:panelGrid>
                     <p:commandButton value="PDF" actionListener="#{szczegolyController.PDF(szczegolyController.selected)}" ajax="false"/>

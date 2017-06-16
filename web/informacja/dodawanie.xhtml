@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body style="background: url(../resources/icon/background.jpg) !important; background-size: 100%; background-repeat:no-repeat; ">
+
+        <h:form id="rejestracja">
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+            <p:wizard id="wizard" flowListener="#{informacjaController.onFlowProcess}" style="width: 40%;margin-left: 35%;" backLabel="Cofnij" nextLabel="Dalej"  widgetVar="wiz" >
+                <p:tab id="budynek" title="Budynek" >
+                    <p:panel header="Dane logowania" style="background: silver">
+                        <p:messages />
+                        <p:dataTable id="datalist" value="#{budynekController.items}" var="item"
+                                     selectionMode="single" selection="#{informacjaController.budynek}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudynekTitle_adres}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.adres}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudynekTitle_liczbaMieszkan}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.liczbaMieszkan}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudynekTitle_liczbaKlatek}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.liczbaKlatek}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudynekTitle_idWspolnota}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idWspolnota}"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:panel>
+                </p:tab>
+
+
+                <p:tab id="dane" title="Dane" >
+                    <p:panel header="Dane osobiste" style="background: silver">
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value" style="margin-left: 20%;background: silver">
+                            <h:outputLabel value="Tytuł:"/> 
+                            <h:inputText value="#{informacjaController.selected.tytul}" required="true" style="width: 326px" /> 
+                            <h:outputLabel value="Opis:"/>    
+                            <p:inputTextarea value="#{informacjaController.selected.opis}" rows="10" cols="50" completeMethod="#{inputTextareaView.completeArea}"  counter="display" maxlength="100" counterTemplate="Pozostało znaków: {0}" />
+                            <h:outputText value="" />
+                            <h:outputText id="display" />
+                            
+                        </h:panelGrid>
+                        
+
+                    </p:panel>
+                </p:tab>
+
+
+
+                <p:tab id="confirm" title="Potwierdzenie">
+
+                    <p:panel header="Potwierdzenie" style="background: silver">
+                        <h:panelGrid id="confirmation" columns="2" columnClasses="grid,grid" style="margin-left: 20%;background: silver">
+                            <h:outputLabel value="Budynek:"/>
+                            <h:outputLabel value="#{informacjaController.budynek.adres}"/>
+                            <h:outputLabel value="Tytuł:"/>
+                            <h:outputLabel value="#{informacjaController.selected.tytul}"/>
+                            <h:outputLabel value="Opis:"/> 
+                            <h:outputLabel value="#{informacjaController.selected.opis}" />
+                            
+                        </h:panelGrid>
+
+                        <p:commandButton value="Dodaj" action="#{informacjaController.create2()}"  process="@this" style="margin-left: 40%"/>
+                    </p:panel>
+                </p:tab>
+            </p:wizard>
+            <p:commandButton value="Powrót"  action="/zalogowany_ksiegowy.xhtml" immediate="true" style="margin-left: 35%"/>
+        </h:form>
+
+
+
+    </h:body>
+
+
+</html>

@@ -19,6 +19,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.context.RequestContext;
+import szyfrowanie.CryptWithSHA256;
 
 @Named("ksiegowoscController")
 @SessionScoped
@@ -29,6 +31,7 @@ public class KsiegowoscController implements Serializable {
     private List<Ksiegowosc> items = null;
     private Ksiegowosc selected;
     private Boolean zalogowany=false;
+    String login="";
 
     public KsiegowoscController() {
     }
@@ -40,7 +43,9 @@ public class KsiegowoscController implements Serializable {
     public void setSelected(Ksiegowosc selected) {
         this.selected = selected;
     }
-
+    public void stary_login(){
+        login=selected.getLogin();
+    }
     protected void setEmbeddableKeys() {
     }
 
@@ -84,7 +89,47 @@ public class KsiegowoscController implements Serializable {
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("KsiegowoscUpdated"));
     }
-
+    public void update2() {
+        if(login.equals(selected.getLogin())){
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("KsiegowoscUpdated"));
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('KsiegowoscEditDialog2').hide();");
+        }
+        else
+            if(getFacade().sprawdzLogin(selected.getLogin()))
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login zajęty", "Login zajęty"));
+        else
+            {
+           persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("KsiegowoscUpdated"));  
+           RequestContext context = RequestContext.getCurrentInstance();
+           context.execute("PF('KsiegowoscEditDialog2').hide();");
+            }
+    }
+        public void zmiana_hasla2(String stare_haslo,Ksiegowosc ksiegowy, String haslo, String haslo2) {
+        if(selected.getHaslo().equals(CryptWithSHA256.sha256(stare_haslo))){
+        if (haslo.length() >= 6) {
+            if (!ksiegowy.getLogin().equals(haslo)) {
+                if (haslo.equals(haslo2)) {
+                    selected = ksiegowy;
+                    selected.setHaslo(CryptWithSHA256.sha256(haslo));
+                    persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("KsiegowoscUpdated"));                    
+                    RequestContext context = RequestContext.getCurrentInstance();
+                    context.execute("PF('KsiegowoscEditDialog3').hide();");
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hasła muszą się zgadzać", "Hasła muszą się zgadzać"));
+                    
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hasło musi być różne od loginu", "Hasło musi być różne od loginu"));
+            }            
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Długość hasła musi być nie mniejsza niż 6 znaków", "Długość hasła musi być nie mniejsza niż 6 znaków"));
+        }
+        }else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Złe stare hasło", "Złe stare hasło"));
+                    
+                }
+    }
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("KsiegowoscDeleted"));
         if (!JsfUtil.isValidationFailed()) {

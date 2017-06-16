@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="KsiegowoscEditDlg3" widgetVar="KsiegowoscEditDialog3" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditKsiegowoscTitle}">
+            <h:form id="KsiegowoscEditForm3">
+                <h:panelGroup id="display">
+                     <p:messages id="messages"  autoUpdate="true"  closable="true"  />
+                    <p:panelGrid columns="2" rendered="#{ksiegowoscController.selected != null}">
+                         <p:outputLabel value="Stare hasło: "  />
+                        <h:inputSecret id="haslo" value="#{String1}" title="#{bundle.EditKsiegowoscTitle_haslo}" required="true" requiredMessage="Pole stare hasło wymagane!"/>
+                        <p:outputLabel value="Nowe hasło: "  />
+                        <h:inputSecret id="haslo1" value="#{String2}" title="#{bundle.EditKsiegowoscTitle_haslo}" required="true" requiredMessage="Pole hasło wymagane!"/>
+                        <p:outputLabel value="Powtórz hasło: "  />
+                        <h:inputSecret id="haslo2" value="#{String3}" title="#{bundle.EditKsiegowoscTitle_haslo}" required="true" requiredMessage="Pole powtórz hasło wymagane!"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ksiegowoscController.zmiana_hasla2(String1,ksiegowoscController.selected, String2, String3)}" value="#{bundle.Save}" update="display,:index" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="KsiegowoscEditDialog3.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

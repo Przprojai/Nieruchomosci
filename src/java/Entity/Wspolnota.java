@@ -107,7 +107,7 @@ public class Wspolnota implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Wspolnota[ id=" + id + " ]";
+        return nazwa;
     }
     
 }

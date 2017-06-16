@@ -95,10 +95,6 @@
                             <p:commandButton icon="ui-icon-plus"   value="Aktualizuj"   action="#{podsumowanieBudynkuController.podsumowanie(oplatyController.zaplacono())}" update=":growl,datalist"/>
                             <p:commandButton id="szczegolyButton" icon="ui-icon-plus"   value="Szczegoly" action="#{szczegolyController.pokaz_szczegoly(oplatyController.selected)}"  oncomplete="PF('SzczegolyViewDialog').show()" update=":SzczegolyViewForm"/>
                             <p:commandButton id="upomnienie"   value="Upomnienie" actionListener="#{informacjaController.prepareCreate}" action="#{informacjaController.upomnienie(oplatyController.upomnienie())}" update=":growl,datalist"/>
-            <h:commandLink>
-                <p:graphicImage name="icon/pdf.png" height="20" width="24"/>
-                <p:dataExporter type="pdf" target="datalist" fileName="#{oplatyController.items.get(oplatyController.items.size()-1).id.toString()}"/>
-            </h:commandLink>
 
                         </f:facet>
                     </p:dataTable>

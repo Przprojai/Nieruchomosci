@@ -1,7 +1,9 @@
 package JCP;
 
+import Entity.Budynek;
 import Entity.Informacja;
 import Entity.Lokator;
+import Entity.Mieszkanie;
 import Entity.Oplaty;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
@@ -9,6 +11,7 @@ import SBP.InformacjaFacade;
 import java.awt.event.ActionEvent;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,6 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.FlowEvent;
 
 @Named("informacjaController")
 @SessionScoped
@@ -31,6 +35,7 @@ public class InformacjaController implements Serializable {
     private SBP.InformacjaFacade ejbFacade;
     private List<Informacja> items = null;
     private Informacja selected;
+    Budynek budynek = null;
 
     public InformacjaController() {
     }
@@ -41,6 +46,14 @@ public class InformacjaController implements Serializable {
 
     public void setSelected(Informacja selected) {
         this.selected = selected;
+    }
+
+    public Budynek getBudynek() {
+        return budynek;
+    }
+
+    public void setBudynek(Budynek budynek) {
+        this.budynek = budynek;
     }
 
     protected void setEmbeddableKeys() {
@@ -87,11 +100,43 @@ public class InformacjaController implements Serializable {
         }
         items=null;
     }
+        public String onFlowProcess(FlowEvent event) {
+        if(budynek!=null)
+        return event.getNewStep();
+        else
+            return "budynek";
+    }
     public void create() {
+        selected.setId(getFacade().id());
+        selected.setNumer(getFacade().numer());
+        Date data = new Date();
+        selected.setData(data);
+        selected.setPotwierdzenie(false);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("InformacjaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+    public String create2() {
+        List<Mieszkanie> wynik=getFacade().mieszkania(budynek);
+        int id=getFacade().id();
+        int numer = getFacade().numer();
+        Date data = new Date();
+        for(int i=0;i<wynik.size();i++){
+            Informacja pomoc = new Informacja();
+            pomoc.setId(id);
+            pomoc.setOpis(selected.getOpis());
+            pomoc.setNumer(numer);
+            pomoc.setPotwierdzenie(false);
+            pomoc.setTytul(selected.getTytul());
+            pomoc.setData(data);
+            pomoc.setIdMieszkania(wynik.get(i));
+            selected=pomoc;
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("InformacjaCreated"));
+            id+=1;
+        }
+            items = null;    // Invalidate list of items to trigger re-query.
+        return "/informacja/List_2.xhtml";
     }
 
     public void update() {
