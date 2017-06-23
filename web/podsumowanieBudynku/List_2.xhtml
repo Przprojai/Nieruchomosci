@@ -25,8 +25,8 @@
                                  tableStyle="width:auto"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="editButton"/>
+                        <p:ajax event="rowUnselect" update="editButton"/>
 
                         <p:column>
                             <f:facet name="header">
@@ -155,10 +155,9 @@
                             <h:outputText value="#{item.idBudynku.adres}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{podsumowanieBudynkuController.prepareCreate}" update=":PodsumowanieBudynkuCreateForm" oncomplete="PF('PodsumowanieBudynkuCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PodsumowanieBudynkuViewForm" oncomplete="PF('PodsumowanieBudynkuViewDialog').show()" disabled="#{empty podsumowanieBudynkuController.selected}"/>
+                           
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PodsumowanieBudynkuEditForm" oncomplete="PF('PodsumowanieBudynkuEditDialog').show()" disabled="#{empty podsumowanieBudynkuController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{podsumowanieBudynkuController.destroy}" update=":growl,datalist" disabled="#{empty podsumowanieBudynkuController.selected}"/>
+                           
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

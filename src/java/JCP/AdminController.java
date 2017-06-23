@@ -19,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import szyfrowanie.CryptWithSHA256;
 
 @Named("adminController")
 @SessionScoped
@@ -75,6 +76,7 @@ public class AdminController implements Serializable {
            return "Login_2.xhtml";
         }}
     public void create() {
+        selected.setHaslo(CryptWithSHA256.sha256(selected.getHaslo()));
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AdminCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

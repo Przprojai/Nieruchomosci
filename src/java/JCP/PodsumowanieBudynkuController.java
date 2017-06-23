@@ -160,7 +160,7 @@ public class PodsumowanieBudynkuController implements Serializable {
        selected.setSuma(nowy.getSuma());
        selected.setZaplacono(nowy.getZaplacono());
        selected.setWynik(nowy.getZaplacono().subtract(nowy.getSuma()));
-       persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle2").getString("PodsumowanieBudynkuUpdated"));
+       persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PodsumowanieBudynkuUpdated"));
        }
        else
        {
@@ -168,25 +168,25 @@ public class PodsumowanieBudynkuController implements Serializable {
        nowy.setMiesiac(miesiac);
        nowy.setRok(rok);
        selected=nowy;
-       persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle2").getString("PodsumowanieBudynkuCreated"));
+       persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PodsumowanieBudynkuCreated"));
        }
        
       }
         
     }
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle2").getString("PodsumowanieBudynkuCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PodsumowanieBudynkuCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle2").getString("PodsumowanieBudynkuUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PodsumowanieBudynkuUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle2").getString("PodsumowanieBudynkuDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("PodsumowanieBudynkuDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -219,11 +219,11 @@ public class PodsumowanieBudynkuController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle2").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle2").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
     }
